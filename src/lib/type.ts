@@ -3,7 +3,7 @@ export type Backgrounds = Background[];
 export interface Background {
   name: string;
     background: string;
-    theme?: string;
+    gradient?: boolean;
 }
 
 export type RoundedOption = Rounded[];

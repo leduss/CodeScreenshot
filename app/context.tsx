@@ -12,7 +12,8 @@ type MyContextType = {
   padding: number;
   updatePadding: (value: number) => void;
   rounded: Rounded | undefined;
-  updateRounded: (value: string) => void;
+  indexRounded: number;
+  updateRounded: (value: number) => void;
   fontSize: FontSize | undefined;
   indexFontSize: number;
   updateFontSize: (value: number) => void;
@@ -20,6 +21,8 @@ type MyContextType = {
   updateOs: (value: string) => void;
   fontStyle: FontStyle | undefined;
   updateFontStyle: (value: string) => void;
+  darkMode: boolean;
+  toggleDarkMode: () => void;
 };
 
 export const Context = createContext<MyContextType | undefined>(undefined);
@@ -31,7 +34,10 @@ export const ContextProvider: React.FC<{ children: React.ReactNode }> = ({
     backgroundOption[0]
   );
   const [padding, setPadding] = useState<number>(16);
-  const [rounded, setRounded] = useState<Rounded | undefined>(roundedOption[1]);
+  const [indexRounded, setIndexRounded] = useState(1);
+  const [rounded, setRounded] = useState<Rounded | undefined>(
+    roundedOption[indexRounded]
+  );
   const [indexFontSize, setIndexFontSize] = useState(2);
   const [fontSize, setFontSize] = useState<FontSize | undefined>(
     fontSizeOptions[indexFontSize]
@@ -40,33 +46,24 @@ export const ContextProvider: React.FC<{ children: React.ReactNode }> = ({
   const [fontStyle, setFontStyle] = useState<FontStyle | undefined>(
     fontStyleOptions[5]
   );
+  const [darkMode, setDarkMode] = useState(false);
 
   const updateTheme = (value: string) => {
     const foundTheme = backgroundOption.find(
       (background) => background.name === value
     );
     if (foundTheme) {
-      setTheme(foundTheme);
+      setTheme(() => foundTheme);
     }
   };
 
   const updatePadding = (value: number) => {
     setPadding(() => value);
-    if (value === 0) {
-      setRounded(() => roundedOption[0]);
-    } 
-    if (value === 8) {
-      setRounded(() => roundedOption[1]);
-    } 
   };
 
-  const updateRounded = (value: string) => {
-    const foundRounded = roundedOption.find(
-      (rounded) => rounded.value === value
-    );
-    if (foundRounded) {
-      setRounded(() => foundRounded);
-    }
+  const updateRounded = (value: number) => {
+    setIndexRounded(() => value);
+    setRounded(() => roundedOption[value]);
   };
 
   const updateOs = (value: string) => {
@@ -87,6 +84,9 @@ export const ContextProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
+  const toggleDarkMode = () => {
+    setDarkMode((prev) => !prev);
+  };
   return (
     <Context.Provider
       value={{
@@ -103,6 +103,9 @@ export const ContextProvider: React.FC<{ children: React.ReactNode }> = ({
         fontStyle,
         updateFontStyle,
         indexFontSize,
+        indexRounded,
+        darkMode,
+        toggleDarkMode,
       }}
     >
       {children}

@@ -1,4 +1,4 @@
-import { FontSizeOption } from "./type";
+import { FontSizeOption } from './type';
 
 export const fontSizeOptions: FontSizeOption = [
   { value: 'text-xs', name: 'XS', px: 12 },

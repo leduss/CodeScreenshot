@@ -15,7 +15,7 @@ const CodeEditor = () => {
     setLanguage(language);
   }, [code]);
   return (
-    <div>
+    <>
       <Editor
         className="transition-all duration-500"
         value={code}
@@ -29,7 +29,7 @@ const CodeEditor = () => {
           fontSize: fontSize?.px,
         }}
       />
-    </div>
+    </>
   );
 };
 

@@ -1,8 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
- 
-
 
 @layer base {
   :root {
@@ -35,7 +33,7 @@
     --card-foreground: 0 0% 95%;
     --popover: 0 0% 9%;
     --popover-foreground: 0 0% 95%;
---primary: 263.4 70% 50.4%;
+    --primary: 263.4 70% 50.4%;
     --primary-foreground: 210 20% 98%;
     --secondary: 240 3.7% 15.9%;
     --secondary-foreground: 0 0% 98%;
@@ -51,8 +49,6 @@
   }
 }
 
-
- 
 @layer base {
   * {
     @apply border-border;
@@ -61,3 +57,4 @@
     @apply bg-background text-foreground;
   }
 }
+

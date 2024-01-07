@@ -9,6 +9,7 @@ import { Card, CardContent } from '../ui/card';
 import OsSelect from '../print/OsSelect';
 import { ThemeToggle } from '../theme/ThemeToggle';
 import FontStyleSelect from '../print/FontStyleSelect';
+import DarkMode from '../print/DarkMode';
 
 const SideBar = () => {
   return (
@@ -21,6 +22,7 @@ const SideBar = () => {
           <FontSizeSelect />
           <FontStyleSelect />
           <OsSelect />
+          <DarkMode />
           <ThemeToggle />
         </CardContent>
       </Card>
