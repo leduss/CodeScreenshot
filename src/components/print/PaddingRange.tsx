@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import { Label } from '../ui/label';
 import { Slider } from '../ui/slider';
 import { useMyContext } from 'app/context';
 

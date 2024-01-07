@@ -6,6 +6,7 @@ import { type PropsWithChildren } from 'react';
 import './globals.css';
 import { Providers } from './provider';
 import SideBar from '@/components/layout/SideBar';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const fontSans = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -26,6 +27,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
           )}
         >
           <Providers>
+            <SpeedInsights />
             <SideBar />
             <div className="flex min-h-full w-full">{children}</div>
           </Providers>
