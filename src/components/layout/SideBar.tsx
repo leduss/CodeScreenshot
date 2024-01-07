@@ -3,7 +3,6 @@
 import React from 'react';
 import ThemeSelect from '../print/ThemeSelect';
 import PaddingRange from '../print/PaddingRange';
-import { Separator } from '../ui/separator';
 import RoundedSelect from '../print/RoundedSelect';
 import FontSizeSelect from '../print/FontsizeSelect';
 import { Card, CardContent } from '../ui/card';
