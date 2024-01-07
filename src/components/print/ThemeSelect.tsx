@@ -13,7 +13,7 @@ const ThemeSelect = () => {
   return (
     <div className="flex w-full h-10 items-center">
       <p className="w-[40%] text-sm">Background</p>
-      <Popover className="p-0">
+      <Popover>
         <PopoverTrigger asChild>
           <Button variant="secondary" className="w-[60%] m-0 p-1">
             <div
