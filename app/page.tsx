@@ -6,8 +6,6 @@ import CodeEditor from '@/components/print/Editor';
 import { OsEnum } from '@/lib/enum';
 import '../dracula.css';
 import { useState } from 'react';
-import { Icons } from '@/lib/svg';
-import { Languages } from '@/lib/dataOption';
 
 export default function Home() {
   const { theme, padding, rounded, os, fontStyle, darkMode } = useMyContext();

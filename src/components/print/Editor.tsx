@@ -1,5 +1,6 @@
 'use client';
 
+import { cn } from '@/lib/utils';
 import { useMyContext } from 'app/context';
 import flourite from 'flourite';
 import hljs from 'highlight.js';
@@ -7,7 +8,7 @@ import React, { useEffect, useState } from 'react';
 import Editor from 'react-simple-code-editor';
 
 const CodeEditor = () => {
-  const { fontSize } = useMyContext();
+  const { fontSize, darkMode } = useMyContext();
   const [code, setCode] = useState<string>('const a = 100;');
   const [language, setLanguage] = useState<string>('');
   useEffect(() => {
@@ -15,9 +16,9 @@ const CodeEditor = () => {
     setLanguage(language);
   }, [code]);
   return (
-    <>
+    <div className={cn('h-full', darkMode ? 'bg-black/40' : 'bg-white/40')}>
       <Editor
-        className="transition-all duration-500"
+        className="transition-all duration-500 "
         value={code}
         onValueChange={(value) => setCode(value)}
         highlight={(value) =>
@@ -29,7 +30,7 @@ const CodeEditor = () => {
           fontSize: fontSize?.px,
         }}
       />
-    </>
+    </div>
   );
 };
 

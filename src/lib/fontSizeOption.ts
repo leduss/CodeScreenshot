@@ -1,6 +1,7 @@
 import { FontSizeOption } from './type';
 
 export const fontSizeOptions: FontSizeOption = [
+  { value: 'text-xxs', name: 'XXS', px: 10 },
   { value: 'text-xs', name: 'XS', px: 12 },
   { value: 'text-sm', name: 'SM', px: 14 },
   { value: 'text-base', name: 'DEFAULT', px: 16 },
