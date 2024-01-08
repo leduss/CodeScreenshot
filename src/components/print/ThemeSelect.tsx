@@ -11,14 +11,14 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';
 const ThemeSelect = () => {
   const { theme, updateTheme } = useMyContext();
   return (
-    <div className="flex w-full h-10 items-center">
+    <div className="flex h-10 w-full items-center">
       <p className="w-[40%] text-sm">Background</p>
       <Popover>
         <PopoverTrigger asChild>
-          <Button variant="secondary" className="w-[60%] m-0 p-1">
+          <Button variant="secondary" className="m-0 w-[60%] p-1">
             <div
               style={{ background: theme?.background }}
-              className="w-full h-full rounded flex items-center justify-center text-lg"
+              className="flex h-full w-full items-center justify-center rounded text-lg"
             />
           </Button>
         </PopoverTrigger>
@@ -33,7 +33,7 @@ const ThemeSelect = () => {
               </TabsTrigger>
             </TabsList>
             <TabsContent value="gradient">
-              <div className="flex flex-wrap gap-4 justify-center">
+              <div className="flex flex-wrap justify-center gap-4">
                 {backgroundOption
                   .filter((theme) => theme.gradient)
                   .map((theme, i) => (
@@ -47,7 +47,7 @@ const ThemeSelect = () => {
               </div>
             </TabsContent>
             <TabsContent value="color">
-              <div className="flex flex-wrap gap-4 justify-center">
+              <div className="flex flex-wrap justify-center gap-4">
                 {backgroundOption
                   .filter((theme) => !theme.gradient)
                   .map((theme, i) => (

@@ -1,5 +1,9 @@
 export const fontStyleOptions = [
   {
+    name: 'Dracula',
+    link: 'http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/highlight.min.js',
+  },
+  {
     name: 'Atome one dark',
     link: 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark-reasonable.min.css',
   },
@@ -10,10 +14,6 @@ export const fontStyleOptions = [
   {
     name: 'Github dark',
     link: 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css',
-    },
-    {
-        name: 'Dracula',
-        link: 'http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/highlight.min.js',
   },
   {
     name: 'Github',

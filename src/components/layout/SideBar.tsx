@@ -2,24 +2,48 @@
 
 import React from 'react';
 import ThemeSelect from '../print/ThemeSelect';
-import PaddingRange from '../print/PaddingRange';
-import RoundedSelect from '../print/RoundedSelect';
-import FontSizeSelect from '../print/FontsizeSelect';
 import { Card, CardContent } from '../ui/card';
 import OsSelect from '../print/OsSelect';
 import { ThemeToggle } from '../theme/ThemeToggle';
 import FontStyleSelect from '../print/FontStyleSelect';
 import DarkMode from '../print/DarkMode';
+import { useMyContext } from 'app/context';
+import Range from '../print/Range';
+import { fontSizeOptions } from '@/lib/fontSizeOption';
+import { roundedOption } from '@/lib/roundedOption';
 
 const SideBar = () => {
+  const {
+    indexFontSize,
+    updateFontSize,
+    padding,
+    updatePadding,
+    indexRounded,
+    updateRounded,
+  } = useMyContext();
   return (
-    <div className="w-[20%] h-full">
-      <Card className="w-full h-full p-1">
+    <div className="h-full w-[20%]">
+      <Card className="h-full w-full p-1">
         <CardContent className=" flex flex-col items-center gap-2 p-0">
           <ThemeSelect />
-          <PaddingRange />
-          <RoundedSelect />
-          <FontSizeSelect />
+          <Range
+            index={padding}
+            function={updatePadding}
+            arrayLength={64}
+            title="Padding"
+          />
+          <Range
+            index={indexRounded}
+            function={updateRounded}
+            arrayLength={roundedOption.length}
+            title="Rounded"
+          />
+          <Range
+            index={indexFontSize}
+            function={updateFontSize}
+            arrayLength={fontSizeOptions.length}
+            title="Font size"
+          />
           <FontStyleSelect />
           <OsSelect />
           <DarkMode />

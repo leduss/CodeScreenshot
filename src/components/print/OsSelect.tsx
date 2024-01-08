@@ -4,28 +4,35 @@ import React from 'react';
 import { RadioGroup, RadioGroupItem } from '../ui/radio-group';
 import { Label } from '@radix-ui/react-label';
 import { useMyContext } from 'app/context';
+import { Button } from '../ui/button';
+import { OsEnum } from '@/lib/enum';
 
 const OsSelect = () => {
   const { os, updateOs } = useMyContext();
 
   return (
-    <div className="flex w-full h-10 items-center">
+    <div className="flex h-10 w-full items-center">
       <p className="w-[40%] text-sm">Windows</p>
-      <RadioGroup
-        defaultValue="mac"
-        className="w-[60%] text-sm flex gap-6 h-10"
-        value={os}
-        onValueChange={(value) => updateOs(value)}
-      >
-        <div className="flex items-center space-x-2">
-          <RadioGroupItem value="mac" id="r2" />
-          <Label htmlFor="r2">Mac</Label>
-        </div>
-        <div className="flex items-center space-x-2">
-          <RadioGroupItem value="none" id="r1" />
-          <Label htmlFor="r1">None</Label>
-        </div>
-      </RadioGroup>
+      <div className="flex items-center gap-2">
+        <Button
+          className={os === OsEnum.mac ? 'ring-2 ring-inset ring-primary' : ''}
+          value={OsEnum.mac}
+          variant="secondary"
+          size="sm"
+          onClick={() => updateOs(OsEnum.mac)}
+        >
+          Mac
+        </Button>
+        <Button
+          className={os === OsEnum.none ? 'ring-2 ring-inset ring-primary' : ''}
+          value={OsEnum.none}
+          variant="secondary"
+          size="sm"
+          onClick={() => updateOs(OsEnum.none)}
+        >
+          None
+        </Button>
+      </div>
     </div>
   );
 };

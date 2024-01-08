@@ -44,7 +44,7 @@ export const ContextProvider: React.FC<{ children: React.ReactNode }> = ({
   );
   const [os, setOs] = useState<OsEnum.mac | OsEnum.none>(OsEnum.mac);
   const [fontStyle, setFontStyle] = useState<FontStyle | undefined>(
-    fontStyleOptions[5]
+    fontStyleOptions[0]
   );
   const [darkMode, setDarkMode] = useState(false);
 

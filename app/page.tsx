@@ -20,14 +20,14 @@ export default function Home() {
       <link rel="stylesheet" href={fontStyle?.link} crossOrigin="anonymous" />
       <div
         className={cn(
-          'h-full w-full border border-gray-600/40',
+          'h-full w-full border border-gray-600/40 text-white',
           rounded?.value,
-          darkMode ? 'bg-black/70 text-white' : 'bg-white/70 text-gray-950'
+          darkMode ? 'bg-black/70 ' : 'bg-white/70 text-gray-950'
         )}
       >
-        <div className="h-6 flex items-center relative">
+        <div className="relative flex h-6 items-center">
           {os === OsEnum.mac ? (
-            <div className="flex items-center gap-2 absolute top-1 left-1">
+            <div className="absolute left-1 top-1 flex items-center gap-2">
               <div className="h-3 w-3 rounded-full bg-red-500"></div>
               <div className="h-3 w-3 rounded-full bg-yellow-500"></div>
               <div className="h-3 w-3 rounded-full bg-green-500"></div>
