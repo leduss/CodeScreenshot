@@ -7,6 +7,7 @@ import flourite from 'flourite';
 import hljs from 'highlight.js';
 import React, { useEffect, useState } from 'react';
 import Editor from 'react-simple-code-editor';
+import { codeString } from '@/lib/codeString';
 
 const CodeEditor = () => {
   const { fontSize, darkMode, rounded, os } = useMyContext();
@@ -14,7 +15,7 @@ const CodeEditor = () => {
   const [inputValue, setInputValue] = useState('');
   const inputWidth = `${(inputValue.length + 1) * 8 - 4}px`;
 
-  const [code, setCode] = useState<string>('const a = 100;');
+  const [code, setCode] = useState<string>(codeString);
   const [language, setLanguage] = useState<string>('');
 
   useEffect(() => {

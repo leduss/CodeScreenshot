@@ -2,7 +2,6 @@
 
 import { cn } from '@/lib/utils';
 import CodeEditor from '@/components/print/Editor';
-import '../dracula.css';
 import { useEffect, useRef, useState } from 'react';
 import { useMyContext } from '@/context/context';
 import Footer from '@/components/print/footer';
@@ -18,16 +17,15 @@ export default function Home() {
 
   useEffect(() => {
     const mainWidth = mainRef.current?.clientWidth;
-    const calcul = mainWidth ? mainWidth - padding * 2 : 0;
-    setMaxWidth(calcul);
-  }, [padding]);
-  
+    const calculMaxWidth = mainWidth ? mainWidth : 0;
+    setMaxWidth(calculMaxWidth);
+  }, []);
 
   return (
     <main ref={mainRef} className="m-auto flex h-full w-5/6 flex-col ">
       <link rel="stylesheet" href={fontStyle?.link} crossOrigin="anonymous" />
 
-      <div className="h-5/6 overflow-auto">
+      <div className="h-5/6 overflow-y-auto overflow-x-hidden">
         <Resizable
           enable={{ left: true, right: true }}
           minWidth={padding * 2 + 400}
