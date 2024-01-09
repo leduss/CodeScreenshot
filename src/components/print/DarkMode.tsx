@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch } from '../ui/switch';
-import { useMyContext } from 'app/context';
+import { useMyContext } from '@/context/context';
 
 const DarkMode = () => {
   const { darkMode, toggleDarkMode } = useMyContext();

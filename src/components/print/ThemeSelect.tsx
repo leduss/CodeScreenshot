@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { cn } from '@/lib/utils';
-import { useMyContext } from 'app/context';
+import { useMyContext } from '@/context/context';
 import { backgroundOption } from '@/lib/backgroundOption';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import { Button } from '../ui/button';

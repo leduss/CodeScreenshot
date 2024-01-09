@@ -4,10 +4,9 @@ import React from 'react';
 import ThemeSelect from '../print/ThemeSelect';
 import { Card, CardContent } from '../ui/card';
 import OsSelect from '../print/OsSelect';
-import { ThemeToggle } from '../theme/ThemeToggle';
 import FontStyleSelect from '../print/FontStyleSelect';
 import DarkMode from '../print/DarkMode';
-import { useMyContext } from 'app/context';
+import { useMyContext } from '@/context/context';
 import Range from '../print/Range';
 import { fontSizeOptions } from '@/lib/fontSizeOption';
 import { roundedOption } from '@/lib/roundedOption';
@@ -47,7 +46,6 @@ const SideBar = () => {
           <FontStyleSelect />
           <OsSelect />
           <DarkMode />
-          <ThemeToggle />
         </CardContent>
       </Card>
     </div>

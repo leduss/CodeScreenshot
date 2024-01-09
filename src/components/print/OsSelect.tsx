@@ -1,9 +1,7 @@
 'use client';
 
 import React from 'react';
-import { RadioGroup, RadioGroupItem } from '../ui/radio-group';
-import { Label } from '@radix-ui/react-label';
-import { useMyContext } from 'app/context';
+import { useMyContext } from '@/context/context';
 import { Button } from '../ui/button';
 import { OsEnum } from '@/lib/enum';
 

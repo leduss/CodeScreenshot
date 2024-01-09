@@ -8,7 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '../ui/select';
-import { useMyContext } from 'app/context';
+import { useMyContext } from '@/context/context';
 import { fontStyleOptions } from '@/lib/fontStyleOption';
 
 const FontStyleSelect = () => {
