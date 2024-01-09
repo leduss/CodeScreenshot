@@ -4,10 +4,11 @@ import { toPng, toSvg } from 'html-to-image';
 
 interface FooterProps {
   editorRef: React.RefObject<HTMLDivElement>;
+  title: string;
 }
 
 const Footer = (props: FooterProps) => {
-  const { editorRef } = props;
+  const { editorRef, title } = props;
   const handleClick = async (name: string, format: string) => {
     let imgUrl, filename;
 
@@ -36,10 +37,10 @@ const Footer = (props: FooterProps) => {
   };
   return (
     <div className="m-auto mt-2 flex w-3/6 justify-center gap-2">
-      <Button variant="default" onClick={() => handleClick('untitled', 'PNG')}>
+      <Button variant="default" onClick={() => handleClick(title, 'PNG')}>
         PNG
       </Button>
-      <Button variant="default" onClick={() => handleClick('untitled', 'SVG')}>
+      <Button variant="default" onClick={() => handleClick(title, 'SVG')}>
         SVG
       </Button>
     </div>

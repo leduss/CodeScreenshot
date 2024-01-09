@@ -9,6 +9,7 @@ import { Resizable } from 're-resizable';
 
 export default function Home() {
   const { theme, padding, fontStyle } = useMyContext();
+  const [title, setTitle] = useState<string>('');
 
   const editorRef = useRef<HTMLDivElement>(null);
   const mainRef = useRef<HTMLElement>(null);
@@ -36,11 +37,11 @@ export default function Home() {
             style={{ padding: `${padding}px`, background: theme?.background }}
             ref={editorRef}
           >
-            <CodeEditor />
+            <CodeEditor title={title} setTitle={setTitle} />
           </div>
         </Resizable>
       </div>
-      <Footer editorRef={editorRef} />
+      <Footer editorRef={editorRef} title={title} />
     </main>
   );
 }

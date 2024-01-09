@@ -9,11 +9,16 @@ import React, { useEffect, useState } from 'react';
 import Editor from 'react-simple-code-editor';
 import { codeString } from '@/lib/codeString';
 
-const CodeEditor = () => {
+interface CodeEditorProps {
+  title: string;
+  setTitle: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const CodeEditor = (props: CodeEditorProps) => {
+  const { title, setTitle } = props;
   const { fontSize, darkMode, rounded, os } = useMyContext();
 
-  const [inputValue, setInputValue] = useState('');
-  const inputWidth = `${(inputValue.length + 1) * 8 - 4}px`;
+  const inputWidth = `${(title.length + 1) * 8 - 4}px`;
 
   const [code, setCode] = useState<string>(codeString);
   const [language, setLanguage] = useState<string>('');
@@ -46,8 +51,8 @@ const CodeEditor = () => {
           <input
             className="transition-width z-10 flex h-full w-full items-center border-none  bg-transparent pl-2 text-xs  text-gray-700 outline-none duration-300 placeholder:text-gray-700"
             placeholder="untitled"
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
           />
         </div>
       </header>
