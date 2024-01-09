@@ -16,7 +16,7 @@ interface CodeEditorProps {
 
 const CodeEditor = (props: CodeEditorProps) => {
   const { title, setTitle } = props;
-  const { fontSize, darkMode, rounded, os } = useMyContext();
+  const { fontSize, darkMode, rounded, os, theme } = useMyContext();
 
   const inputWidth = `${(title.length + 1) * 8 - 4}px`;
 
@@ -31,12 +31,30 @@ const CodeEditor = (props: CodeEditorProps) => {
   return (
     <div
       className={cn(
-        'flex flex-col border border-gray-600/40 text-white ',
+        'flex flex-col border border-gray-600/40 text-white',
         rounded?.value,
-        darkMode ? 'bg-black/70 ' : 'bg-white/70 text-gray-950'
+        darkMode
+          ? theme?.name === 'transparent'
+            ? 'bg-stone-900'
+            : 'bg-black/70'
+          : theme?.name === 'transparent'
+            ? 'bg-amber-50'
+            : 'bg-white/70'
       )}
     >
-      <header className="flex h-12 items-center px-2">
+      <header
+        className={cn(
+          'flex h-12 items-center px-2',
+          darkMode
+            ? theme?.name === 'transparent'
+              ? ''
+              : 'bg-black/40'
+            : theme?.name === 'transparent'
+              ? ''
+              : 'bg-white/40',
+          rounded?.value
+        )}
+      >
         {os === OsEnum.mac ? (
           <div className="flex items-center gap-2">
             <div className="h-3 w-3 rounded-full bg-red-500"></div>
@@ -49,7 +67,12 @@ const CodeEditor = (props: CodeEditorProps) => {
           style={{ width: inputWidth }}
         >
           <input
-            className="transition-width z-10 flex h-full w-full items-center border-none  bg-transparent pl-2 text-xs  text-gray-700 outline-none duration-300 placeholder:text-gray-700"
+            className={cn(
+              'transition-width z-10 flex h-full w-full items-center border-none  bg-transparent pl-2 text-xs  text-gray-700 outline-none duration-300 ',
+              darkMode
+                ? 'text-white placeholder:text-white'
+                : 'text-black placeholder:text-gray-700'
+            )}
             placeholder="untitled"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
@@ -60,8 +83,8 @@ const CodeEditor = (props: CodeEditorProps) => {
         className={cn(
           'h-full',
           darkMode
-            ? 'brightness-110 bg-black/30'
-            : ' text-gray-800 brightness-50 saturate-200 contrast-200 bg-white/10'
+            ? 'brightness-110 '
+            : ' text-gray-800 brightness-50 saturate-200 contrast-200 '
         )}
       >
         <Editor

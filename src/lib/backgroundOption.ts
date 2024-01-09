@@ -326,4 +326,9 @@ export const backgroundOption: Backgrounds = [
     background: 'linear-gradient(0deg, #F28500, #F28500, #F28500)',
     gradient: false,
   },
+  {
+    name: 'transparent',
+    background: 'transparent',
+    gradient: false,
+  }
 ];

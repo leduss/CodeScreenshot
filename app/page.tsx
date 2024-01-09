@@ -26,7 +26,7 @@ export default function Home() {
     <main ref={mainRef} className="m-auto flex h-full w-5/6 flex-col ">
       <link rel="stylesheet" href={fontStyle?.link} crossOrigin="anonymous" />
 
-      <div className="h-5/6 overflow-y-auto overflow-x-hidden">
+      <div className="h-[75%] overflow-y-auto overflow-x-hidden">
         <Resizable
           enable={{ left: true, right: true }}
           minWidth={padding * 2 + 400}
