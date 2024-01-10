@@ -5,42 +5,43 @@ import CodeEditor from '@/components/print/Editor';
 import { useEffect, useRef, useState } from 'react';
 import { useMyContext } from '@/context/context';
 import Footer from '@/components/print/footer';
-import { Resizable } from 're-resizable';
+import Resizable from '@/components/resizable/resizable';
 
 export default function Home() {
   const { theme, padding, fontStyle } = useMyContext();
   const [title, setTitle] = useState<string>('');
 
   const editorRef = useRef<HTMLDivElement>(null);
-  const mainRef = useRef<HTMLElement>(null);
+  const mainRef = useRef<HTMLDivElement>(null);
 
-  const [maxWidth, setMaxWidth] = useState<number>();
+  const [mainWidth, setMainWidht] = useState<number>(0);
 
   useEffect(() => {
-    const mainWidth = mainRef.current?.clientWidth;
-    const calculMaxWidth = mainWidth ? mainWidth : 0;
-    setMaxWidth(calculMaxWidth);
-  }, []);
+    if (mainRef.current) {
+      setMainWidht(mainRef.current.clientWidth);
+    }
+  }, [mainRef]);
 
   return (
-    <main ref={mainRef} className="m-auto flex h-full w-5/6 flex-col ">
+    <main
+      className="m-auto flex h-full w-5/6 flex-col items-center gap-4 "
+      ref={mainRef}
+    >
       <link rel="stylesheet" href={fontStyle?.link} crossOrigin="anonymous" />
-
-      <div className="h-[75%] overflow-y-auto overflow-x-hidden">
-        <Resizable
-          enable={{ left: true, right: true }}
-          minWidth={padding * 2 + 400}
-          maxWidth={maxWidth}
+      <Resizable
+        className="relative h-[75%] w-full overflow-y-auto overflow-x-hidden "
+        minWidth={300}
+        maxWidth={mainWidth}
+      >
+        <div
+          className={cn(' overflow-hidden', `bg-${theme?.background} `)}
+          style={{ padding: `${padding}px`, background: theme?.background }}
+          ref={editorRef}
         >
-          <div
-            className={cn(' overflow-hidden', `bg-${theme?.background} `)}
-            style={{ padding: `${padding}px`, background: theme?.background }}
-            ref={editorRef}
-          >
-            <CodeEditor title={title} setTitle={setTitle} />
-          </div>
-        </Resizable>
-      </div>
+          <CodeEditor title={title} setTitle={setTitle} />
+        </div>
+      </Resizable>
+
       <Footer editorRef={editorRef} title={title} />
     </main>
   );

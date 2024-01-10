@@ -13,7 +13,7 @@ const OsSelect = () => {
       <p className="w-[40%] text-sm">Windows</p>
       <div className="flex items-center gap-2">
         <Button
-          className={os === OsEnum.mac ? 'ring-2 ring-inset ring-primary' : ''}
+          className={os === OsEnum.mac ? ' border-primary' : ''}
           value={OsEnum.mac}
           variant="secondary"
           size="sm"
@@ -22,7 +22,7 @@ const OsSelect = () => {
           Mac
         </Button>
         <Button
-          className={os === OsEnum.none ? 'ring-2 ring-inset ring-primary' : ''}
+          className={os === OsEnum.none ? 'border-primary' : ''}
           value={OsEnum.none}
           variant="secondary"
           size="sm"

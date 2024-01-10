@@ -33,7 +33,7 @@ export const ContextProvider: React.FC<{ children: React.ReactNode }> = ({
   const [theme, setTheme] = useState<Background | undefined>(
     backgroundOption[0]
   );
-  const [padding, setPadding] = useState<number>(16);
+  const [padding, setPadding] = useState<number>(32);
   const [indexRounded, setIndexRounded] = useState(1);
   const [rounded, setRounded] = useState<Rounded | undefined>(
     roundedOption[indexRounded]

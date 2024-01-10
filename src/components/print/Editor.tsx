@@ -31,14 +31,14 @@ const CodeEditor = (props: CodeEditorProps) => {
   return (
     <div
       className={cn(
-        'flex flex-col border border-gray-600/40 text-white',
+        'flex flex-col border text-white',
         rounded?.value,
         darkMode
           ? theme?.name === 'transparent'
             ? 'bg-stone-900'
             : 'bg-black/70'
           : theme?.name === 'transparent'
-            ? 'bg-amber-50'
+            ? 'bg-white'
             : 'bg-white/70'
       )}
     >

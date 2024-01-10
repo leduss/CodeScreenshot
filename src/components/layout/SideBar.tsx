@@ -21,14 +21,14 @@ const SideBar = () => {
     updateRounded,
   } = useMyContext();
   return (
-    <div className="h-full w-[20%]">
+    <div className="h-full w-[20%] font-semibold">
       <Card className="h-full w-full p-1">
         <CardContent className=" flex flex-col items-center gap-2 p-0">
           <ThemeSelect />
           <Range
             index={padding}
             function={updatePadding}
-            arrayLength={64}
+            arrayLength={128}
             title="Padding"
           />
           <Range

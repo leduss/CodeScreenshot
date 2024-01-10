@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button } from '../ui/button';
 import { toPng, toSvg } from 'html-to-image';
+import { Card } from '../ui/card';
 
 interface FooterProps {
   editorRef: React.RefObject<HTMLDivElement>;
@@ -36,14 +37,14 @@ const Footer = (props: FooterProps) => {
     a.click();
   };
   return (
-    <div className="m-auto mt-2 flex w-3/6 justify-center gap-2">
+    <Card className="m-y-auto flex h-[13%] w-4/6 justify-center gap-2 bg-[#191919] p-2">
       <Button variant="default" onClick={() => handleClick(title, 'PNG')}>
         PNG
       </Button>
       <Button variant="default" onClick={() => handleClick(title, 'SVG')}>
         SVG
       </Button>
-    </div>
+    </Card>
   );
 };
 
