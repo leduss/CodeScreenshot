@@ -16,7 +16,7 @@ interface CodeEditorProps {
 
 const CodeEditor = (props: CodeEditorProps) => {
   const { title, setTitle } = props;
-  const { fontSize, darkMode, rounded, os, theme } = useMyContext();
+  const { state } = useMyContext();
 
   const inputWidth = `${(title.length + 1) * 8 - 4}px`;
 
@@ -32,12 +32,12 @@ const CodeEditor = (props: CodeEditorProps) => {
     <div
       className={cn(
         'flex flex-col border text-white',
-        rounded?.value,
-        darkMode
-          ? theme?.name === 'transparent'
+        state.rounded?.value,
+        state.darkMode
+          ? state.theme?.name === 'transparent'
             ? 'bg-stone-900'
             : 'bg-black/70'
-          : theme?.name === 'transparent'
+          : state.theme?.name === 'transparent'
             ? 'bg-white'
             : 'bg-white/70'
       )}
@@ -45,17 +45,17 @@ const CodeEditor = (props: CodeEditorProps) => {
       <header
         className={cn(
           'flex h-12 items-center px-2',
-          darkMode
-            ? theme?.name === 'transparent'
+          state.darkMode
+            ? state.theme?.name === 'transparent'
               ? ''
               : 'bg-black/40'
-            : theme?.name === 'transparent'
+            : state.theme?.name === 'transparent'
               ? ''
               : 'bg-white/40',
-          rounded?.value
+          state.rounded?.value
         )}
       >
-        {os === OsEnum.mac ? (
+        {state.os === OsEnum.mac ? (
           <div className="flex items-center gap-2">
             <div className="h-3 w-3 rounded-full bg-red-500"></div>
             <div className="h-3 w-3 rounded-full bg-yellow-500"></div>
@@ -69,7 +69,7 @@ const CodeEditor = (props: CodeEditorProps) => {
           <input
             className={cn(
               'transition-width z-10 flex h-full w-full items-center border-none  bg-transparent pl-2 text-xs  text-gray-700 outline-none duration-300 ',
-              darkMode
+              state.darkMode
                 ? 'text-white placeholder:text-white'
                 : 'text-black placeholder:text-gray-700'
             )}
@@ -82,7 +82,7 @@ const CodeEditor = (props: CodeEditorProps) => {
       <div
         className={cn(
           'h-full',
-          darkMode
+          state.darkMode
             ? 'brightness-110 '
             : ' text-gray-800 brightness-50 saturate-200 contrast-200 '
         )}
@@ -98,7 +98,7 @@ const CodeEditor = (props: CodeEditorProps) => {
           padding={10}
           style={{
             fontFamily: '"Fira code", "Fira Mono", monospace',
-            fontSize: fontSize?.px,
+            fontSize: state.fontSize?.px,
           }}
         />
       </div>

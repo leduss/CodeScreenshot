@@ -12,15 +12,17 @@ import { useMyContext } from '@/context/context';
 import { fontStyleOptions } from '@/lib/fontStyleOption';
 
 const FontStyleSelect = () => {
-  const { fontStyle, updateFontStyle } = useMyContext();
+  const { state, dispatch } = useMyContext();
   return (
     <div className="flex h-10 w-full items-center">
       <p className="w-[40%] text-sm">Font color</p>
       <Select
-        value={fontStyle ? fontStyle.name : 'Selectionner un thème'}
-        onValueChange={(value) => updateFontStyle(value)}
+        value={state.fontStyle ? state.fontStyle.name : 'Selectionner un thème'}
+        onValueChange={(value) =>
+          dispatch({ type: 'SET_FONT_STYLE', payload: value })
+        }
       >
-        <SelectTrigger className="w-[60%] text-sm">
+        <SelectTrigger className="w-[60%] text-xs">
           <SelectValue placeholder="Selectionner un thème" />
         </SelectTrigger>
         <SelectContent className="dark">

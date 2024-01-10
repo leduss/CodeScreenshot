@@ -12,36 +12,29 @@ import { fontSizeOptions } from '@/lib/fontSizeOption';
 import { roundedOption } from '@/lib/roundedOption';
 
 const SideBar = () => {
-  const {
-    indexFontSize,
-    updateFontSize,
-    padding,
-    updatePadding,
-    indexRounded,
-    updateRounded,
-  } = useMyContext();
+  const { state } = useMyContext();
   return (
-    <div className="h-full w-[20%] font-semibold">
+    <div className="h-full w-full font-semibold">
       <Card className="h-full w-full p-1">
         <CardContent className=" flex flex-col items-center gap-2 p-0">
           <ThemeSelect />
           <Range
-            index={padding}
-            function={updatePadding}
+            index={state.padding}
             arrayLength={128}
             title="Padding"
+            type="SET_PADDING"
           />
           <Range
-            index={indexRounded}
-            function={updateRounded}
+            index={state.indexRounded}
             arrayLength={roundedOption.length}
             title="Rounded"
+            type="SET_ROUNDED"
           />
           <Range
-            index={indexFontSize}
-            function={updateFontSize}
+            index={state.indexFontSize}
             arrayLength={fontSizeOptions.length}
             title="Font size"
+            type="SET_FONT_SIZE"
           />
           <FontStyleSelect />
           <OsSelect />

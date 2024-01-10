@@ -5,9 +5,11 @@ import CodeEditor from '@/components/print/Editor';
 import { useEffect, useRef, useState } from 'react';
 import { useMyContext } from '@/context/context';
 import Footer from '@/components/print/footer';
+import SideBar from '@/components/layout/SideBar';
+import { SiteConfig } from '@/lib/site-config';
 
 export default function Home() {
-  const { theme, padding, fontStyle } = useMyContext();
+  const { state } = useMyContext();
   const [title, setTitle] = useState<string>('');
 
   const editorRef = useRef<HTMLDivElement>(null);
@@ -22,11 +24,13 @@ export default function Home() {
   useEffect(() => {
     if (mainRef.current) {
       setWidth(mainRef.current.clientWidth);
-      setIsLoading(false);
+      setTimeout(() => setIsLoading(false), 2000);
     }
   }, []);
 
-  const handleMouseDown = (event: React.MouseEvent<HTMLDivElement>): void => {
+  const handleMouseDown = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ): void => {
     setIsResizing(true);
     setStartX(event.clientX);
     setOffsetX(width);
@@ -57,31 +61,49 @@ export default function Home() {
   }, [isResizing, offsetX, startX]);
 
   return (
-    <main
-      className="m-auto flex h-full w-5/6 flex-col items-center gap-4 "
-      ref={mainRef}
-    >
-      <link rel="stylesheet" href={fontStyle?.link} crossOrigin="anonymous" />
-      {isLoading ? (
-        <div className="flex h-[75%] items-center justify-center">
-          <div className="h-16 w-16 animate-spin rounded-full border-y-4 border-gray-400"></div>
-        </div>
-      ) : (
-        <div
-          className="relative h-[75%] overflow-y-auto overflow-x-hidden "
-          style={{ width: `${width}px` }}
-          onMouseDown={handleMouseDown}
-        >
-          <div
-            className={cn(' overflow-hidden', `bg-${theme?.background} `)}
-            style={{ padding: `${padding}px`, background: theme?.background }}
-            ref={editorRef}
-          >
-            <CodeEditor title={title} setTitle={setTitle} />
+    <div className="relative flex h-full w-full">
+      <div className="w-[20%]">
+        <SideBar />
+      </div>
+      <main
+        className="m-auto flex h-full w-4/6 flex-col items-center gap-4 "
+        ref={mainRef}
+      >
+        <link
+          rel="stylesheet"
+          href={state.fontStyle?.link}
+          crossOrigin="anonymous"
+        />
+        {isLoading ? (
+          <div className="absolute left-1/2 top-1/2 flex h-screen w-screen -translate-x-1/2 -translate-y-1/2 items-center justify-center bg-background">
+            <div className="relative h-60 w-60 animate-spin rounded-full border-y-8 border-primary"></div>
+            <p className="absolute left-1/2 top-1/2 w-full -translate-x-1/2 -translate-y-1/2 text-center text-3xl text-primary">
+              {SiteConfig.title}
+            </p>
           </div>
-        </div>
-      )}
-      <Footer editorRef={editorRef} title={title} />
-    </main>
+        ) : (
+          <div
+            className="relative h-[75%] w-5/6 overflow-y-auto overflow-x-hidden  "
+            style={{ width: `${width}px` }}
+          >
+            <div
+              className={cn(' overflow-hidden', `bg-${state.theme?.name} `)}
+              style={{
+                padding: `${state.padding}px`,
+                background: state.theme?.background,
+              }}
+              ref={editorRef}
+            >
+              <button
+                className="absolute right-0 top-0 h-full w-2 cursor-col-resize"
+                onMouseDown={handleMouseDown}
+              ></button>
+              <CodeEditor title={title} setTitle={setTitle} />
+            </div>
+          </div>
+        )}
+        <Footer editorRef={editorRef} title={title} />
+      </main>
+    </div>
   );
 }

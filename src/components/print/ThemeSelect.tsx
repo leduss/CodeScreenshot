@@ -9,7 +9,7 @@ import { Button } from '../ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';
 
 const ThemeSelect = () => {
-  const { theme, updateTheme } = useMyContext();
+  const { state, dispatch } = useMyContext();
   return (
     <div className="flex h-10 w-full items-center">
       <p className="w-[40%] text-sm">Background</p>
@@ -17,7 +17,7 @@ const ThemeSelect = () => {
         <PopoverTrigger asChild>
           <Button variant="secondary" className="m-0 w-[60%] p-1">
             <div
-              style={{ background: theme?.background }}
+              style={{ background: state.theme?.background }}
               className="flex h-full w-full items-center justify-center rounded text-lg"
             />
           </Button>
@@ -41,7 +41,12 @@ const ThemeSelect = () => {
                       key={i}
                       className={cn('h-6 w-6 rounded-full cursor-pointer')}
                       style={{ background: theme.background }}
-                      onClick={() => updateTheme(theme.name)}
+                      onClick={() =>
+                        dispatch({
+                          type: 'SET_THEME',
+                          payload: theme.name,
+                        })
+                      }
                     />
                   ))}
               </div>
@@ -55,7 +60,12 @@ const ThemeSelect = () => {
                       key={i}
                       className={cn('h-6 w-6 rounded-full cursor-pointer')}
                       style={{ background: theme.background }}
-                      onClick={() => updateTheme(theme.name)}
+                      onClick={() =>
+                        dispatch({
+                          type: 'SET_THEME',
+                          payload: theme.name,
+                        })
+                      }
                     />
                   ))}
               </div>

@@ -1,7 +1,7 @@
 export const SiteConfig = {
-  title: 'Print my code',
-  description: 'print my code',
+  title: 'Screenshot code',
+  description: 'Screenshot code',
   Image: '',
-  siteName: 'Print my code',
+  siteName: 'Screenshot code',
   siteUrl: '',
 } as const;

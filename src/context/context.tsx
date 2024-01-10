@@ -1,120 +1,100 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useReducer } from 'react';
 import { backgroundOption } from '@/lib/backgroundOption';
-import { Background, FontSize, FontStyle, Rounded } from '@/lib/type';
 import { roundedOption } from '@/lib/roundedOption';
 import { fontSizeOptions } from '@/lib/fontSizeOption';
 import { OsEnum } from '@/lib/enum';
 import { fontStyleOptions } from '@/lib/fontStyleOption';
+import { Background, FontSize, FontStyle, Rounded } from '@/lib/type';
 
-type MyContextType = {
+type State = {
   theme: Background | undefined;
-  updateTheme: (name: string) => void;
   padding: number;
-  updatePadding: (value: number) => void;
   rounded: Rounded | undefined;
   indexRounded: number;
-  updateRounded: (value: number) => void;
   fontSize: FontSize | undefined;
   indexFontSize: number;
-  updateFontSize: (value: number) => void;
   os: OsEnum.mac | OsEnum.none;
-  updateOs: (value: string) => void;
   fontStyle: FontStyle | undefined;
-  updateFontStyle: (value: string) => void;
   darkMode: boolean;
-  toggleDarkMode: () => void;
 };
 
-export const Context = createContext<MyContextType | undefined>(undefined);
+type Action =
+  | { type: 'SET_THEME'; payload: string }
+  | { type: 'SET_PADDING'; payload: number }
+  | { type: 'SET_ROUNDED'; payload: number }
+  | { type: 'SET_OS'; payload: string }
+  | { type: 'SET_FONT_SIZE'; payload: number }
+  | { type: 'SET_FONT_STYLE'; payload: string }
+  | { type: 'TOGGLE_DARK_MODE' };
+
+const initialState: State = {
+  theme: backgroundOption[0],
+  padding: 32,
+  rounded: roundedOption[1],
+  indexRounded: 1,
+  fontSize: fontSizeOptions[2],
+  indexFontSize: 2,
+  os: OsEnum.mac,
+  fontStyle: fontStyleOptions[0],
+  darkMode: false,
+};
+
+const reducer = (state: State, action: Action): State => {
+  switch (action.type) {
+    case 'SET_THEME':
+      const foundTheme = backgroundOption.find(
+        (bg) => bg.name === action.payload
+      );
+      return { ...state, theme: foundTheme };
+    case 'SET_PADDING':
+      return { ...state, padding: action.payload };
+    case 'SET_ROUNDED':
+      return {
+        ...state,
+        indexRounded: action.payload,
+        rounded: roundedOption[action.payload],
+      };
+    case 'SET_OS':
+      return { ...state, os: action.payload as OsEnum.mac | OsEnum.none };
+    case 'SET_FONT_SIZE':
+      return {
+        ...state,
+        indexFontSize: action.payload,
+        fontSize: fontSizeOptions[action.payload],
+      };
+    case 'SET_FONT_STYLE':
+      const foundFontStyle = fontStyleOptions.find(
+        (style) => style.name === action.payload
+      );
+      return { ...state, fontStyle: foundFontStyle };
+    case 'TOGGLE_DARK_MODE':
+      return { ...state, darkMode: !state.darkMode };
+    default:
+      return state;
+  }
+};
+
+type ContextType = {
+  state: State;
+  dispatch: React.Dispatch<Action>;
+};
+
+export const MyContext = createContext<ContextType | undefined>(undefined);
 
 export const ContextProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [theme, setTheme] = useState<Background | undefined>(
-    backgroundOption[0]
-  );
-  const [padding, setPadding] = useState<number>(32);
-  const [indexRounded, setIndexRounded] = useState(1);
-  const [rounded, setRounded] = useState<Rounded | undefined>(
-    roundedOption[indexRounded]
-  );
-  const [indexFontSize, setIndexFontSize] = useState(2);
-  const [fontSize, setFontSize] = useState<FontSize | undefined>(
-    fontSizeOptions[indexFontSize]
-  );
-  const [os, setOs] = useState<OsEnum.mac | OsEnum.none>(OsEnum.mac);
-  const [fontStyle, setFontStyle] = useState<FontStyle | undefined>(
-    fontStyleOptions[0]
-  );
-  const [darkMode, setDarkMode] = useState(false);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
-  const updateTheme = (value: string) => {
-    const foundTheme = backgroundOption.find(
-      (background) => background.name === value
-    );
-    if (foundTheme) {
-      setTheme(() => foundTheme);
-    }
-  };
-
-  const updatePadding = (value: number) => {
-    setPadding(() => value);
-  };
-
-  const updateRounded = (value: number) => {
-    setIndexRounded(() => value);
-    setRounded(() => roundedOption[value]);
-  };
-
-  const updateOs = (value: string) => {
-    setOs(() => value as OsEnum.mac | OsEnum.none);
-  };
-
-  const updateFontSize = (value: number) => {
-    setFontSize(() => fontSizeOptions[value]);
-    setIndexFontSize(() => value);
-  };
-
-  const updateFontStyle = (value: string) => {
-    const foundFontStyle = fontStyleOptions.find(
-      (fontStyle) => fontStyle.name === value
-    );
-    if (foundFontStyle) {
-      setFontStyle(foundFontStyle);
-    }
-  };
-
-  const toggleDarkMode = () => {
-    setDarkMode((prev) => !prev);
-  };
   return (
-    <Context.Provider
-      value={{
-        theme,
-        updateTheme,
-        padding,
-        updatePadding,
-        rounded,
-        updateRounded,
-        fontSize,
-        updateFontSize,
-        os,
-        updateOs,
-        fontStyle,
-        updateFontStyle,
-        indexFontSize,
-        indexRounded,
-        darkMode,
-        toggleDarkMode,
-      }}
-    >
+    <MyContext.Provider value={{ state, dispatch }}>
       {children}
-    </Context.Provider>
+    </MyContext.Provider>
   );
 };
 
-export const useMyContext = () => {
-  const context = useContext(Context);
+export const useMyContext = (): ContextType => {
+  const context = useContext(MyContext);
   if (!context) {
     throw new Error(
       'useMyContext doit être utilisé dans un composant enveloppé avec MyContextProvider'

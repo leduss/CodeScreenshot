@@ -26,10 +26,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
           )}
         >
           <Providers>
-            <div className="flex h-full w-full">
-              <SideBar />
-              <div className="h-full w-[80%] ">{children}</div>
-            </div>
+            <div className="h-full w-full ">{children}</div>
           </Providers>
         </body>
       </html>
