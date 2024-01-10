@@ -1,17 +1,19 @@
-import { SiteConfig } from '@/lib/site-config';
 import { cn } from '@/lib/utils';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { type PropsWithChildren } from 'react';
 import './globals.css';
 import { Providers } from './provider';
-import SideBar from '@/components/layout/SideBar';
+import { SiteConfig } from '@/lib/site-config';
 
 const fontSans = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
 export const metadata: Metadata = {
   title: SiteConfig.title,
   description: SiteConfig.description,
+  icons: {
+    icon: SiteConfig.Image,
+  },
 };
 
 export default function RootLayout({ children }: PropsWithChildren) {
