@@ -5,7 +5,6 @@ import CodeEditor from '@/components/print/Editor';
 import { useEffect, useRef, useState } from 'react';
 import { useMyContext } from '@/context/context';
 import Footer from '@/components/print/footer';
-import Resizable from '@/components/resizable/resizable';
 
 export default function Home() {
   const { theme, padding, fontStyle } = useMyContext();
@@ -14,13 +13,48 @@ export default function Home() {
   const editorRef = useRef<HTMLDivElement>(null);
   const mainRef = useRef<HTMLDivElement>(null);
 
-  const [mainWidth, setMainWidht] = useState<number>(0);
+  const [isResizing, setIsResizing] = useState<boolean>(false);
+  const [width, setWidth] = useState<number>(0);
+  const [offsetX, setOffsetX] = useState<number>(0);
+  const [startX, setStartX] = useState<number>(0);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     if (mainRef.current) {
-      setMainWidht(mainRef.current.clientWidth);
+      setWidth(mainRef.current.clientWidth);
+      setIsLoading(false);
     }
-  }, [mainRef]);
+  }, []);
+
+  const handleMouseDown = (event: React.MouseEvent<HTMLDivElement>): void => {
+    setIsResizing(true);
+    setStartX(event.clientX);
+    setOffsetX(width);
+  };
+
+  useEffect(() => {
+    const handleMouseMove = (event: MouseEvent): void => {
+      if (isResizing) {
+        const newWidth = offsetX + (event.clientX - startX);
+        const maxWidth = mainRef.current?.clientWidth || 0;
+        if (newWidth >= 400 && newWidth <= maxWidth) {
+          setWidth(newWidth);
+        }
+      }
+    };
+
+    const handleMouseUp = (): void => {
+      setIsResizing(false);
+    };
+
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [isResizing, offsetX, startX]);
 
   return (
     <main
@@ -28,20 +62,25 @@ export default function Home() {
       ref={mainRef}
     >
       <link rel="stylesheet" href={fontStyle?.link} crossOrigin="anonymous" />
-      <Resizable
-        className="relative h-[75%] w-full overflow-y-auto overflow-x-hidden "
-        minWidth={300}
-        maxWidth={mainWidth}
-      >
-        <div
-          className={cn(' overflow-hidden', `bg-${theme?.background} `)}
-          style={{ padding: `${padding}px`, background: theme?.background }}
-          ref={editorRef}
-        >
-          <CodeEditor title={title} setTitle={setTitle} />
+      {isLoading ? (
+        <div className="flex h-[75%] items-center justify-center">
+          <div className="h-16 w-16 animate-spin rounded-full border-y-4 border-gray-400"></div>
         </div>
-      </Resizable>
-
+      ) : (
+        <div
+          className="relative h-[75%] overflow-y-auto overflow-x-hidden "
+          style={{ width: `${width}px` }}
+          onMouseDown={handleMouseDown}
+        >
+          <div
+            className={cn(' overflow-hidden', `bg-${theme?.background} `)}
+            style={{ padding: `${padding}px`, background: theme?.background }}
+            ref={editorRef}
+          >
+            <CodeEditor title={title} setTitle={setTitle} />
+          </div>
+        </div>
+      )}
       <Footer editorRef={editorRef} title={title} />
     </main>
   );
