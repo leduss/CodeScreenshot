@@ -10,17 +10,21 @@ const fontSans = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
 export const metadata: Metadata = {
   title: SiteConfig.title,
-  description: SiteConfig.description,
-  icons: {
-    icon: SiteConfig.Image,
-  },
+  description: SiteConfig.description
 };
 
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <>
       <html lang="en" className="h-screen w-screen" suppressHydrationWarning>
-        <head />
+        <head>
+          <link
+            rel="icon"
+            href={SiteConfig.iconHeader}
+            sizes="16x16"
+            type="image/png"
+          />
+        </head>
         <body
           className={cn(
             'h-full w-full bg-background font-sans antialiased flex p-2',

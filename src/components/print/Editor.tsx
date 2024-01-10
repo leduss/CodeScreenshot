@@ -88,7 +88,7 @@ const CodeEditor = (props: CodeEditorProps) => {
         )}
       >
         <Editor
-          className=""
+          className="transition-all duration-500 ease-in-out"
           textareaClassName="focus:outline-none"
           value={code}
           onValueChange={(value) => setCode(value)}
