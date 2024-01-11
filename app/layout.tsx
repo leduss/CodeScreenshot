@@ -27,7 +27,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
         </head>
         <body
           className={cn(
-            'h-full w-full bg-background font-sans antialiased flex p-2',
+            'h-full w-full bg-background font-sans antialiased flex',
             fontSans.variable
           )}
         >

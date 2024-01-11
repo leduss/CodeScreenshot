@@ -4,14 +4,13 @@ import { useMyContext } from '@/context/context';
 
 interface RangeProps extends React.PropsWithChildren<{}> {
   index: number;
-  function?: (value: number) => void;
   arrayLength?: number;
   title: string;
   type: 'SET_PADDING' | 'SET_ROUNDED' | 'SET_FONT_SIZE';
 }
 
 const Range = (props: RangeProps) => {
-  const { index, function: setRange, arrayLength, title, type } = props;
+  const { index, arrayLength, title, type } = props;
   const { dispatch } = useMyContext();
   return (
     <div className="flex h-10 w-full items-center">

@@ -7,26 +7,35 @@ import flourite from 'flourite';
 import hljs from 'highlight.js';
 import React, { useEffect, useState } from 'react';
 import Editor from 'react-simple-code-editor';
-import { codeString } from '@/lib/codeString';
 
 interface CodeEditorProps {
   title: string;
   setTitle: React.Dispatch<React.SetStateAction<string>>;
+  code: string;
+  setCode: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const CodeEditor = (props: CodeEditorProps) => {
-  const { title, setTitle } = props;
+  const { title, setTitle, code, setCode } = props;
   const { state } = useMyContext();
 
   const inputWidth = `${(title.length + 1) * 8 - 4}px`;
 
-  const [code, setCode] = useState<string>(codeString);
   const [language, setLanguage] = useState<string>('');
 
   useEffect(() => {
     const { language } = flourite(code, { noUnknown: true });
     setLanguage(language);
   }, [code]);
+  
+
+  const handleChange = (value: string) => {
+    setCode(value);
+    const queryParams = new URLSearchParams({
+      code: value,
+    });
+    history.replaceState(null, '', `?${queryParams}`);
+  };
 
   return (
     <div
@@ -91,7 +100,7 @@ const CodeEditor = (props: CodeEditorProps) => {
           className="transition-all duration-500 ease-in-out"
           textareaClassName="focus:outline-none"
           value={code}
-          onValueChange={(value) => setCode(value)}
+          onValueChange={(value) => handleChange(value)}
           highlight={(value) =>
             hljs.highlight(value, { language: language || 'typescript' }).value
           }

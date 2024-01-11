@@ -7,10 +7,12 @@ import { useMyContext } from '@/context/context';
 import Footer from '@/components/print/footer';
 import SideBar from '@/components/layout/SideBar';
 import { SiteConfig } from '@/lib/site-config';
+import { codeString } from '@/lib/codeString';
 
 export default function Home() {
   const { state } = useMyContext();
   const [title, setTitle] = useState<string>('');
+  const [code, setCode] = useState<string>(codeString);
 
   const editorRef = useRef<HTMLDivElement>(null);
   const mainRef = useRef<HTMLDivElement>(null);
@@ -20,6 +22,14 @@ export default function Home() {
   const [offsetX, setOffsetX] = useState<number>(0);
   const [startX, setStartX] = useState<number>(0);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const code = queryParams.get('code');
+    if (code) {
+      setCode(code);
+    }
+  }, []);
 
   useEffect(() => {
     if (mainRef.current) {
@@ -61,8 +71,8 @@ export default function Home() {
   }, [isResizing, offsetX, startX]);
 
   return (
-    <div className="relative flex h-full w-full">
-      <div className="w-[20%]">
+    <div className="relative flex h-full w-full overflow-hidden">
+      <div className="w-[20%] p-2">
         <SideBar />
       </div>
       <main
@@ -98,11 +108,16 @@ export default function Home() {
                 className="absolute right-0 top-0 h-full w-2 cursor-col-resize"
                 onMouseDown={handleMouseDown}
               ></button>
-              <CodeEditor title={title} setTitle={setTitle} />
+              <CodeEditor
+                title={title}
+                setTitle={setTitle}
+                code={code}
+                setCode={setCode}
+              />
             </div>
           </div>
         )}
-        <Footer editorRef={editorRef} title={title} />
+        <Footer editorRef={editorRef} title={title} loading={isLoading} />
       </main>
     </div>
   );

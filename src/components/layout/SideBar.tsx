@@ -14,7 +14,6 @@ import { roundedOption } from '@/lib/roundedOption';
 const SideBar = () => {
   const { state } = useMyContext();
   return (
-    <div className="h-full w-full font-semibold">
       <Card className="h-full w-full p-1">
         <CardContent className=" flex flex-col items-center gap-2 p-0">
           <ThemeSelect />
@@ -41,7 +40,6 @@ const SideBar = () => {
           <DarkMode />
         </CardContent>
       </Card>
-    </div>
   );
 };
 
