@@ -10,11 +10,13 @@ import { useMyContext } from '@/context/context';
 import Range from '../print/Range';
 import { fontSizeOptions } from '@/lib/fontSizeOption';
 import { roundedOption } from '@/lib/roundedOption';
+import { SiteConfig } from '@/lib/site-config';
 
 const SideBar = () => {
   const { state } = useMyContext();
   return (
-      <Card className="h-full w-full p-1">
+    <Card className="h-full w-full p-1">
+      <p className='text-center pb-4 font-mono text-lg font-bold text-primary '>{SiteConfig.title}</p>
         <CardContent className=" flex flex-col items-center gap-2 p-0">
           <ThemeSelect />
           <Range

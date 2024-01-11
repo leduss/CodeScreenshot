@@ -1,7 +1,7 @@
 export const SiteConfig = {
-  title: 'Screenshot code',
-  description: 'Screenshot code',
+  title: 'CodeScreenshot',
+  description: 'CodeScreenshot',
   iconHeader: '/Capture-2024-01-10-180602.png',
-  siteName: 'Screenshot code',
+  siteName: 'CodeScreenshot',
   siteUrl: '',
 } as const;

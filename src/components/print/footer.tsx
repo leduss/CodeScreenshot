@@ -9,6 +9,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 
+
 interface FooterProps {
   editorRef: React.RefObject<HTMLDivElement>;
   title: string;
