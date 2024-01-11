@@ -157,64 +157,48 @@ export const Languages = [
   { name: 'YAML', icon: 'yaml' },
 ];
 
-export const fonts = {
-  jetBrainsMono: {
-    name: 'JetBrains Mono',
-    src: 'https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap',
-  },
-  inconsolata: {
-    name: 'Inconsolata',
-    src: 'https://fonts.googleapis.com/css2?family=Inconsolata&display=swap',
-  },
-  firaCode: {
+export const fonts = [
+  {
     name: 'Fira Code',
     src: 'https://fonts.googleapis.com/css2?family=Fira+Code&display=swap',
   },
-  cascadiaCode: {
-    name: 'Cascadia Code',
-    src: 'https://cdn.jsdelivr.net/npm/@fontsource/cascadia-code@4.2.1/index.min.css',
+  {
+    name: 'JetBrains Mono',
+    src: 'https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap',
   },
-  victorMono: {
-    name: 'Victor Mono',
-    src: 'https://fonts.googleapis.com/css2?family=Victor+Mono&display=swap',
-  },
-  sourceCodePro: {
+  {
     name: 'Source Code Pro',
     src: 'https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap',
   },
-  ibmPlexMono: {
-    name: 'IBM Plex Mono',
-    src: 'https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap',
+  {
+    name: 'Montserrat',
+    src: 'https://fonts.googleapis.com/css2?family=Montserrat&display=swap',
   },
-  robotoMono: {
-    name: 'Roboto Mono',
-    src: 'https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap',
+  {
+    name: 'Dina',
+    src: 'https://db.onlinewebfonts.com/c/d840ce5e8674412a9c947d52eb04b768?family=Dina+W01+Regular',
   },
-  ubuntuMono: {
-    name: 'Ubuntu Mono',
-    src: 'https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap',
+  {
+    name: 'ProggySquareTT',
+    src: 'https://db.onlinewebfonts.com/c/5423e3f6b569eee8bb7179f1319240ea?family=ProggySquareTT',
   },
-  spaceMono: {
-    name: 'Space Mono',
-    src: 'https://fonts.googleapis.com/css2?family=Space+Mono&display=swap',
+  {
+    name: 'Input',
+    src: 'https://db.onlinewebfonts.com/c/203eabac5dc6b58ce623b91fc47f34cc?family=Input',
   },
-  courierPrime: {
-    name: 'Courier Prime',
-    src: 'https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap',
+  {
+    name: 'Hack',
+    src: 'https://db.onlinewebfonts.com/c/4fea277591543c1fd64a9cf06ec5803a?family=Hack',
   },
-  anonymousPro: {
-    name: 'Anonymous Pro',
-    src: 'https://fonts.googleapis.com/css2?family=Anonymous+Pro&display=swap',
+  {
+    name: 'Monalisa',
+    src: 'https://db.onlinewebfonts.com/c/a63fa0b95ad9e647cfe695afd9390749?family=Monalisa',
   },
-  oxygenMono: {
-    name: 'Oxygen Mono',
-    src: 'https://fonts.googleapis.com/css2?family=Oxygen+Mono&display=swap',
+  {
+    name: 'Consolas W99 Regular',
+    src: 'https://db.onlinewebfonts.com/c/771d2a89fb0fc4c6f7942f46f6790e09?family=Consolas+W99+Regular',
   },
-  redHatMono: {
-    name: 'Red Hat Mono',
-    src: 'https://fonts.googleapis.com/css2?family=Red+Hat+Mono&display=swap',
-  },
-};
+];
 
 export const codeSnippets = [
   {

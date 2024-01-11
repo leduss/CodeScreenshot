@@ -28,3 +28,10 @@ export interface FontStyle {
   link: string;
 }
 
+export type Fonts = Font[];
+
+export interface Font {
+  name: string;
+  src: string;
+}
+

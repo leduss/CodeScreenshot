@@ -27,7 +27,6 @@ const CodeEditor = (props: CodeEditorProps) => {
     const { language } = flourite(code, { noUnknown: true });
     setLanguage(language);
   }, [code]);
-  
 
   const handleChange = (value: string) => {
     setCode(value);
@@ -106,8 +105,9 @@ const CodeEditor = (props: CodeEditorProps) => {
           }
           padding={10}
           style={{
-            fontFamily: '"Fira code", "Fira Mono", monospace',
+            fontFamily: state.font?.name,
             fontSize: state.fontSize?.px,
+            fontWeight: 800,
           }}
         />
       </div>

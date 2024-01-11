@@ -72,6 +72,16 @@ export default function Home() {
 
   return (
     <div className="relative flex h-full w-full overflow-hidden">
+      <link
+        rel="stylesheet"
+        href={state.fontStyle?.link}
+        crossOrigin="anonymous"
+      />
+      <link
+        rel="stylesheet"
+        href={state.font?.src}
+        crossOrigin="anonymous"
+      />
       <div className="w-[20%] p-2">
         <SideBar />
       </div>
@@ -79,11 +89,6 @@ export default function Home() {
         className="m-auto flex h-full w-4/6 flex-col items-center gap-4 "
         ref={mainRef}
       >
-        <link
-          rel="stylesheet"
-          href={state.fontStyle?.link}
-          crossOrigin="anonymous"
-        />
         {isLoading ? (
           <div className="absolute left-1/2 top-1/2 flex h-screen w-screen -translate-x-1/2 -translate-y-1/2 items-center justify-center bg-background">
             <div className="relative h-60 w-60 animate-spin rounded-full border-y-8 border-primary"></div>

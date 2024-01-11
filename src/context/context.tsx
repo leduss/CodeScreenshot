@@ -4,7 +4,8 @@ import { roundedOption } from '@/lib/roundedOption';
 import { fontSizeOptions } from '@/lib/fontSizeOption';
 import { OsEnum } from '@/lib/enum';
 import { fontStyleOptions } from '@/lib/fontStyleOption';
-import { Background, FontSize, FontStyle, Rounded } from '@/lib/type';
+import { Background, Font, FontSize, FontStyle, Rounded } from '@/lib/type';
+import { fonts } from '@/lib/dataOption';
 
 type State = {
   theme: Background | undefined;
@@ -16,6 +17,7 @@ type State = {
   os: OsEnum.mac | OsEnum.none;
   fontStyle: FontStyle | undefined;
   darkMode: boolean;
+  font: Font | undefined;
 };
 
 type Action =
@@ -25,7 +27,8 @@ type Action =
   | { type: 'SET_OS'; payload: string }
   | { type: 'SET_FONT_SIZE'; payload: number }
   | { type: 'SET_FONT_STYLE'; payload: string }
-  | { type: 'TOGGLE_DARK_MODE' };
+  | { type: 'TOGGLE_DARK_MODE' }
+  | { type: 'SET_FONT'; payload: string };
 
 const initialState: State = {
   theme: backgroundOption[0],
@@ -37,6 +40,7 @@ const initialState: State = {
   os: OsEnum.mac,
   fontStyle: fontStyleOptions[0],
   darkMode: false,
+  font: fonts[0],
 };
 
 const reducer = (state: State, action: Action): State => {
@@ -69,6 +73,9 @@ const reducer = (state: State, action: Action): State => {
       return { ...state, fontStyle: foundFontStyle };
     case 'TOGGLE_DARK_MODE':
       return { ...state, darkMode: !state.darkMode };
+    case 'SET_FONT':
+      const foundFont = fonts.find((font) => font.name === action.payload);
+      return { ...state, font: foundFont };
     default:
       return state;
   }

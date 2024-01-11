@@ -11,6 +11,7 @@ import Range from '../print/Range';
 import { fontSizeOptions } from '@/lib/fontSizeOption';
 import { roundedOption } from '@/lib/roundedOption';
 import { SiteConfig } from '@/lib/site-config';
+import FontSelect from '../print/FontSelect';
 
 const SideBar = () => {
   const { state } = useMyContext();
@@ -36,7 +37,8 @@ const SideBar = () => {
             arrayLength={fontSizeOptions.length}
             title="Font size"
             type="SET_FONT_SIZE"
-          />
+        />
+        <FontSelect />
           <FontStyleSelect />
           <OsSelect />
           <DarkMode />
