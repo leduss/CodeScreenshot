@@ -9,7 +9,6 @@ import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 
-
 interface FooterProps {
   editorRef: React.RefObject<HTMLDivElement>;
   title: string;
@@ -93,7 +92,9 @@ const Footer = (props: FooterProps) => {
           <div className="flex gap-2 p-0">
             <Popover>
               <PopoverTrigger asChild>
-                <Button variant="default" disabled={loading}>Export</Button>
+                <Button variant="default" disabled={loading}>
+                  Export
+                </Button>
               </PopoverTrigger>
               <PopoverContent className="flex w-40 flex-col gap-3">
                 <Button
@@ -120,18 +121,10 @@ const Footer = (props: FooterProps) => {
               </PopoverContent>
             </Popover>
 
-            <Button
-              variant="default"
-              onClick={copyLink}
-              disabled={loading}
-            >
+            <Button variant="default" onClick={copyLink} disabled={loading}>
               Copy Link
             </Button>
-            <Button
-              variant="default"
-              onClick={copyImage}
-              disabled={loading}
-            >
+            <Button variant="default" onClick={copyImage} disabled={loading}>
               Copy image
             </Button>
           </div>
@@ -139,23 +132,29 @@ const Footer = (props: FooterProps) => {
           <ThemeToggle />
         </CardContent>
       </Card>
-      <div className="flex w-full flex-col items-center pb-1 text-white">
+      <div className="flex w-full flex-col items-center pb-1 dark:text-white">
         <div className="flex gap-4">
           <Link
-            className="cursor-pointer p-0 text-base text-white"
+            className="cursor-pointer p-0 text-base "
             href="https://github.com/leduss/scrennshot-code"
             target="_blank"
           >
             Github
           </Link>
-          <Link className="p-0 text-base text-white" href="">
+          <Link className="p-0 text-base " href="">
             Terms
           </Link>
         </div>
-        <div className="flex items-center gap-2 text-base">
+        <div className="flex items-center gap-2 text-base dark:text-white">
           <p>© {new Date().getFullYear()}</p>
           <p>Created by</p>
-          <Link className="p-0 text-base font-bold text-primary" href="https://juliendussart.fr" target="_blank">@Julien</Link>
+          <Link
+            className="p-0 text-base font-bold text-primary"
+            href="https://juliendussart.fr"
+            target="_blank"
+          >
+            @Julien
+          </Link>
           <p>v 1.0.0</p>
         </div>
         <div className="boxShadow absolute bottom-[-43rem] left-1/2 -z-10 h-[40rem] w-[40rem] translate-x-[-27%] rounded-full" />
