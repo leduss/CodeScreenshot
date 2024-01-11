@@ -1,10 +1,13 @@
 CodeScreenshot
-Description:
+
+
+Description: 
 CodeScreenshot est une application qui permet aux développeurs de convertir des fragments de code en captures d'écran. Cette application est utile pour partager des portions de code de manière visuelle ou pour sauvegarder des extraits importants pour référence future.
 
-Fonctionnalités
-Personnalisation : Choisissez parmi différents thèmes et styles pour personnaliser votre capture d'écran.
-Partage Facile : Partagez vos captures d'écran via des liens intégrés ou téléchargez-les directement.
+Fonctionnalités:
+- Personnalisation : Choisissez parmi différents thèmes et styles pour personnaliser votre capture d'écran.
+- Partage Facile : Partagez vos captures d'écran via des liens intégrés ou téléchargez-les directement.
+
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
