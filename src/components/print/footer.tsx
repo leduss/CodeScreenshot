@@ -12,15 +12,13 @@ import Link from 'next/link';
 interface FooterProps {
   editorRef: React.RefObject<HTMLDivElement>;
   title: string;
-  loading: boolean;
 }
 
 const Footer = (props: FooterProps) => {
-  const { editorRef, title, loading } = props;
-  const [loadingSave, setLoadingSave] = useState<boolean>(false);
-  const [loadingCopy, setLoadingCopy] = useState<boolean>(false);
+  const { editorRef, title } = props;
+  const [loading, setLoading] = useState<boolean>(false);
   const handleClick = async (name: string, format: string) => {
-    setLoadingSave(true);
+    setLoading(true);
     try {
       let image;
       let filename;
@@ -55,23 +53,24 @@ const Footer = (props: FooterProps) => {
     } catch (error) {
       toast.error(`An error has occurred, please try again!`);
     } finally {
-      setLoadingSave(false);
+      setLoading(false);
     }
   };
 
   const copyLink = async () => {
-    setLoadingCopy(true);
+    setLoading(true);
     try {
       await navigator.clipboard.writeText(`${location.href}`);
       toast.success('Link copied to clipboard!');
     } catch (error) {
       toast.error(`An error has occurred, please try again!`);
     } finally {
-      setLoadingCopy(false);
+      setLoading(false);
     }
   };
 
   const copyImage = async () => {
+    setLoading(true);
     try {
       const imgBlob = await toBlob(editorRef.current!, {
         pixelRatio: 2,
@@ -81,6 +80,8 @@ const Footer = (props: FooterProps) => {
       toast.success('Image copied to clipboard!');
     } catch (error) {
       toast.error('Something went wrong!');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -91,27 +92,27 @@ const Footer = (props: FooterProps) => {
           <div className="flex gap-2 p-0">
             <Popover>
               <PopoverTrigger asChild>
-                <Button variant="default">Export</Button>
+                <Button variant="default" disabled={loading}>Export</Button>
               </PopoverTrigger>
               <PopoverContent className="flex w-40 flex-col gap-3">
                 <Button
                   variant="default"
                   onClick={() => handleClick(title, 'PNG')}
-                  disabled={loadingCopy || loadingSave}
+                  disabled={loading}
                 >
                   PNG
                 </Button>
                 <Button
                   variant="default"
                   onClick={() => handleClick(title, 'SVG')}
-                  disabled={loadingCopy || loadingSave}
+                  disabled={loading}
                 >
                   SVG
                 </Button>
                 <Button
                   variant="default"
                   onClick={() => handleClick(title, 'JPG')}
-                  disabled={loadingCopy || loadingSave}
+                  disabled={loading}
                 >
                   JPG
                 </Button>
@@ -121,14 +122,14 @@ const Footer = (props: FooterProps) => {
             <Button
               variant="default"
               onClick={copyLink}
-              disabled={loadingCopy || loadingSave}
+              disabled={loading}
             >
               Copy Link
             </Button>
             <Button
               variant="default"
               onClick={copyImage}
-              disabled={loadingCopy || loadingSave}
+              disabled={loading}
             >
               Copy image
             </Button>

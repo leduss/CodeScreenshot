@@ -117,7 +117,7 @@ export default function Home() {
             </div>
           </div>
         )}
-        <Footer editorRef={editorRef} title={title} loading={isLoading} />
+        <Footer editorRef={editorRef} title={title} />
       </main>
     </div>
   );
