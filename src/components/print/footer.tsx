@@ -145,16 +145,19 @@ const Footer = (props: FooterProps) => {
             Terms
           </Link>
         </div>
-        <div className="flex items-center gap-2 text-base dark:text-white">
+        <div className="flex items-center gap-6 text-base dark:text-white">
           <p>© {new Date().getFullYear()}</p>
-          <p>Created by</p>
-          <Link
-            className="p-0 text-base font-bold text-primary"
-            href="https://juliendussart.fr"
-            target="_blank"
-          >
-            @Julien
-          </Link>
+          <p>
+            Created by{' '}
+            <Link
+              className="p-0 text-base font-bold text-primary"
+              href="https://juliendussart.fr"
+              target="_blank"
+            >
+              @Julien
+            </Link>
+          </p>
+
           <p>v 1.0.0</p>
         </div>
         <div className="boxShadow absolute bottom-[-43rem] left-1/2 -z-10 h-[40rem] w-[40rem] translate-x-[-27%] rounded-full" />
