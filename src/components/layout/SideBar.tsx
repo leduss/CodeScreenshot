@@ -16,7 +16,7 @@ const SideBar = () => {
   const { state } = useMyContext();
   return (
     <Card className="h-full w-full p-1">
-      <p className='text-center pb-4 font-mono text-lg font-bold text-primary '>{SiteConfig.title}</p>
+      <p className='pb-4 text-center font-mono text-lg font-bold text-primary '>{SiteConfig.title}</p>
         <CardContent className=" flex flex-col items-center gap-2 p-0">
           <ThemeSelect />
           <Range
