@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { Button } from '../ui/button';
 import { toPng, toSvg, toBlob, toJpeg } from 'html-to-image';
-import { Card, CardContent, CardDescription } from '../ui/card';
+import { Card, CardContent } from '../ui/card';
 import { toast } from 'sonner';
 import { Separator } from '../ui/separator';
 import { ThemeToggle } from '../theme/ThemeToggle';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
+import { useMyContext } from '@/context/context';
 
 interface FooterProps {
   editorRef: React.RefObject<HTMLDivElement>;
@@ -17,6 +18,8 @@ interface FooterProps {
 const Footer = (props: FooterProps) => {
   const { editorRef, title } = props;
   const [loading, setLoading] = useState<boolean>(false);
+    const { state, dispatch } = useMyContext();
+
   const handleClick = async (name: string, format: string) => {
     setLoading(true);
     try {
@@ -141,7 +144,7 @@ const Footer = (props: FooterProps) => {
           >
             Github
           </Link>
-          <Link className="p-0 text-base " href="">
+          <Link className="p-0 text-base " href="/terms" onClick={() => dispatch({ type: 'SET_IS_LOADER', payload: true })}>
             Terms
           </Link>
         </div>

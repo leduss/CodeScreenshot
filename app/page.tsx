@@ -2,7 +2,7 @@
 
 import { cn } from '@/lib/utils';
 import CodeEditor from '@/components/print/Editor';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useMyContext } from '@/context/context';
 import Footer from '@/components/print/footer';
 import SideBar from '@/components/layout/SideBar';
@@ -46,7 +46,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="relative flex h-full w-full overflow-hidden">
+    <div className="relative flex h-screen w-full overflow-hidden">
       <link
         rel="stylesheet"
         href={state.fontStyle?.link}
@@ -60,7 +60,7 @@ export default function Home() {
         className="m-auto flex h-full w-4/6 flex-col items-center gap-4 pt-2"
         ref={mainRef}
       >
-        {isLoading ? (
+        {isLoading && state.isLoader === false ? (
           <div
             ref={loaderRef}
             className="absolute left-0 top-0  z-20 flex h-screen  w-screen items-center justify-center bg-background"

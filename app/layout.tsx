@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <>
-      <html lang="en" className="h-screen w-screen" suppressHydrationWarning>
+      <html lang="en" className="min-h-screen" suppressHydrationWarning>
         <head>
           <link
             rel="icon"
@@ -32,7 +32,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
           )}
         >
           <Providers>
-            <div className="h-full w-full ">{children}</div>
+            <div className="h-full w-full p-0">{children}</div>
           </Providers>
         </body>
       </html>

@@ -19,6 +19,7 @@ type State = {
   darkMode: boolean;
   font: Font | undefined;
   fontWeight: number;
+  isLoader: boolean;
 };
 
 type Action =
@@ -30,7 +31,8 @@ type Action =
   | { type: 'SET_FONT_STYLE'; payload: string }
   | { type: 'TOGGLE_DARK_MODE' }
   | { type: 'SET_FONT'; payload: string }
-  | { type: 'SET_FONT_WEIGHT'; payload: number };
+  | { type: 'SET_FONT_WEIGHT'; payload: number }
+  | { type: 'SET_IS_LOADER'; payload: boolean };
 
 const initialState: State = {
   theme: backgroundOption[0],
@@ -44,6 +46,7 @@ const initialState: State = {
   darkMode: false,
   font: fonts[0],
   fontWeight: 400,
+  isLoader: false,
 };
 
 const reducer = (state: State, action: Action): State => {
@@ -81,6 +84,8 @@ const reducer = (state: State, action: Action): State => {
       return { ...state, font: foundFont };
     case 'SET_FONT_WEIGHT':
       return { ...state, fontWeight: action.payload };
+    case 'SET_IS_LOADER':
+      return { ...state, isLoader: action.payload };
     default:
       return state;
   }
