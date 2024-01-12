@@ -24,7 +24,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "flourite": "1.2.4",
-    "framer-motion": "^10.18.0",
+    "gsap": "^3.12.4",
     "highlight.js": "11.9.0",
     "html-to-image": "1.11.11",
     "lucide-react": "^0.294.0",

@@ -10,6 +10,7 @@ import { SiteConfig } from '@/lib/site-config';
 import { codeString } from '@/lib/codeString';
 import { motion } from 'framer-motion';
 import { Resizable } from 're-resizable';
+import gsap from 'gsap';
 
 export default function Home() {
   const { state } = useMyContext();
@@ -18,6 +19,7 @@ export default function Home() {
 
   const editorRef = useRef<HTMLDivElement>(null);
   const mainRef = useRef<HTMLDivElement>(null);
+  const loaderRef = useRef<HTMLDivElement>(null);
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -30,11 +32,19 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
+    const tl = gsap.timeline({
+      onComplete: () => {
+        setIsLoading(false);
+      },
+    });
 
-    return () => clearTimeout(timer);
+    tl.to(loaderRef.current, {
+      scale: 2,
+      duration: 1.5,
+    }).to(loaderRef.current, {
+      translateY: 2000,
+      duration: 1.5,
+    });
   }, []);
 
   return (
@@ -52,21 +62,26 @@ export default function Home() {
         className="m-auto flex h-full w-4/6 flex-col items-center gap-4 pt-2"
         ref={mainRef}
       >
-        {isLoading && (
-          <motion.div
+        {isLoading ? (
+          <div
+            ref={loaderRef}
             className="absolute left-0 top-0  z-20 flex h-screen  w-screen items-center justify-center bg-background"
-            initial={{ y: 0 }}
-            animate={{ y: 2000 }}
-            transition={{ duration: 3, delay: 2 }}
           >
-            <div className="relative h-60 w-60 animate-spin rounded-full border-y-8 border-primary"></div>
-            <p className="absolute left-1/2 top-1/2 w-full -translate-x-1/2 -translate-y-1/2 text-center text-3xl text-primary">
+            <div className="relative h-60 w-60 animate-spin rounded-full border-y-8 border-primary " />
+            <p
+              id="line"
+              className="absolute left-1/2 top-1/2 w-full -translate-x-1/2 -translate-y-1/2 text-center text-3xl text-primary"
+            >
               {SiteConfig.title}
             </p>
-          </motion.div>
-        )}
+          </div>
+        ) : null}
         <div className="h-[75%] overflow-y-auto overflow-x-hidden">
-          <Resizable enable={{ left: true, right: true }} minWidth={300} maxWidth={mainRef.current?.offsetWidth}>
+          <Resizable
+            enable={{ left: true, right: true }}
+            minWidth={300}
+            maxWidth={mainRef.current?.offsetWidth}
+          >
             <div
               className={cn('overflow-hidden', `bg-${state.theme?.name} `)}
               style={{
