@@ -18,7 +18,7 @@ interface FooterProps {
 const Footer = (props: FooterProps) => {
   const { editorRef, title } = props;
   const [loading, setLoading] = useState<boolean>(false);
-    const { state, dispatch } = useMyContext();
+  const { dispatch } = useMyContext();
 
   const handleClick = async (name: string, format: string) => {
     setLoading(true);
@@ -144,7 +144,11 @@ const Footer = (props: FooterProps) => {
           >
             Github
           </Link>
-          <Link className="p-0 text-base " href="/terms" onClick={() => dispatch({ type: 'SET_IS_LOADER', payload: true })}>
+          <Link
+            className="p-0 text-base "
+            href="/terms"
+            onClick={() => dispatch({ type: 'SET_IS_LOADER', payload: true })}
+          >
             Terms
           </Link>
         </div>
