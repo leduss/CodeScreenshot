@@ -9,6 +9,7 @@ import SideBar from '@/components/layout/SideBar';
 import { SiteConfig } from '@/lib/site-config';
 import { codeString } from '@/lib/codeString';
 import { motion } from 'framer-motion';
+import { Resizable } from 're-resizable';
 
 export default function Home() {
   const { state } = useMyContext();
@@ -17,12 +18,7 @@ export default function Home() {
 
   const editorRef = useRef<HTMLDivElement>(null);
   const mainRef = useRef<HTMLDivElement>(null);
-  const loaderRef = useRef<HTMLDivElement>(null);
 
-  const [isResizing, setIsResizing] = useState<boolean>(false);
-  const [width, setWidth] = useState<number>(0);
-  const [offsetX, setOffsetX] = useState<number>(0);
-  const [startX, setStartX] = useState<number>(0);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -34,47 +30,12 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    if (mainRef.current) {
-      setWidth(mainRef.current.clientWidth);
-      const timer = setTimeout(() => {
-        setIsLoading(false);
-      }, 3000);
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
 
-      return () => clearTimeout(timer);
-    }
+    return () => clearTimeout(timer);
   }, []);
-
-  const handleMouseDown = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ): void => {
-    setIsResizing(true);
-    setStartX(event.clientX);
-    setOffsetX(width);
-  };
-
-  useEffect(() => {
-    const handleMouseMove = (event: MouseEvent): void => {
-      if (isResizing) {
-        const newWidth = offsetX + (event.clientX - startX);
-        const maxWidth = mainRef.current?.clientWidth || 0;
-        if (newWidth >= 400 && newWidth <= maxWidth) {
-          setWidth(newWidth);
-        }
-      }
-    };
-
-    const handleMouseUp = (): void => {
-      setIsResizing(false);
-    };
-
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', handleMouseUp);
-
-    return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
-    };
-  }, [isResizing, offsetX, startX]);
 
   return (
     <div className="relative flex h-full w-full overflow-hidden">
@@ -93,8 +54,7 @@ export default function Home() {
       >
         {isLoading && (
           <motion.div
-            ref={loaderRef}
-            className="absolute left-0 top-0  flex h-screen w-screen  items-center justify-center bg-background"
+            className="absolute left-0 top-0  z-20 flex h-screen  w-screen items-center justify-center bg-background"
             initial={{ y: 0 }}
             animate={{ y: 2000 }}
             transition={{ duration: 3, delay: 2 }}
@@ -105,31 +65,25 @@ export default function Home() {
             </p>
           </motion.div>
         )}
-        <div
-          className="relative -z-10 h-[75%] w-5/6 overflow-y-auto overflow-x-hidden"
-          style={{ width: `${width}px` }}
-        >
-          <div
-            className={cn('overflow-hidden', `bg-${state.theme?.name} `)}
-            style={{
-              padding: `${state.padding}px`,
-              background: state.theme?.background,
-            }}
-            ref={editorRef}
-          >
-            <button
-              className="absolute right-0 top-0 h-full w-2 cursor-col-resize"
-              onMouseDown={handleMouseDown}
-            ></button>
-            <CodeEditor
-              title={title}
-              setTitle={setTitle}
-              code={code}
-              setCode={setCode}
-            />
-          </div>
+        <div className="h-[75%] overflow-y-auto overflow-x-hidden">
+          <Resizable enable={{ left: true, right: true }} minWidth={300} maxWidth={mainRef.current?.offsetWidth}>
+            <div
+              className={cn('overflow-hidden', `bg-${state.theme?.name} `)}
+              style={{
+                padding: `${state.padding}px`,
+                background: state.theme?.background,
+              }}
+              ref={editorRef}
+            >
+              <CodeEditor
+                title={title}
+                setTitle={setTitle}
+                code={code}
+                setCode={setCode}
+              />
+            </div>
+          </Resizable>
         </div>
-
         <Footer editorRef={editorRef} title={title} />
       </main>
     </div>
