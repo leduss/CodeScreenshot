@@ -11,7 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';
 const ThemeSelect = () => {
   const { state, dispatch } = useMyContext();
   return (
-    <div className="flex h-10 w-full items-center">
+    <div className="flex h-9 w-full items-center">
       <p className="w-[40%] text-sm">Background</p>
       <Popover>
         <PopoverTrigger asChild>

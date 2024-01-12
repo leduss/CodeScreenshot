@@ -15,7 +15,7 @@ import { fonts } from '@/lib/dataOption';
 const FontSelect = () => {
   const { state, dispatch } = useMyContext();
   return (
-    <div className="flex h-10 w-full items-center">
+    <div className="flex h-9 w-full items-center">
       <p className="w-[40%] text-sm">Font</p>
       <Select
         value={state.font ? state.font.name : 'Selectionner un thème'}

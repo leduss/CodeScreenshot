@@ -14,7 +14,7 @@ import { fontStyleOptions } from '@/lib/fontStyleOption';
 const FontStyleSelect = () => {
   const { state, dispatch } = useMyContext();
   return (
-    <div className="flex h-10 w-full items-center">
+    <div className="flex h-9 w-full items-center">
       <p className="w-[40%] text-sm">Font color</p>
       <Select
         value={state.fontStyle ? state.fontStyle.name : 'Selectionner un thème'}

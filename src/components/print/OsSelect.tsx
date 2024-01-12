@@ -9,7 +9,7 @@ const OsSelect = () => {
   const { state, dispatch } = useMyContext();
 
   return (
-    <div className="flex h-10 w-full items-center">
+    <div className="flex h-9 w-full items-center">
       <p className="w-[40%] text-sm">Windows</p>
       <div className="flex items-center gap-2">
         <Button

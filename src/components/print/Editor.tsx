@@ -107,7 +107,7 @@ const CodeEditor = (props: CodeEditorProps) => {
           style={{
             fontFamily: state.font?.name,
             fontSize: state.fontSize?.px,
-            fontWeight: 800,
+            fontWeight: state.fontWeight,
           }}
         />
       </div>

@@ -18,6 +18,7 @@ type State = {
   fontStyle: FontStyle | undefined;
   darkMode: boolean;
   font: Font | undefined;
+  fontWeight: number;
 };
 
 type Action =
@@ -28,7 +29,8 @@ type Action =
   | { type: 'SET_FONT_SIZE'; payload: number }
   | { type: 'SET_FONT_STYLE'; payload: string }
   | { type: 'TOGGLE_DARK_MODE' }
-  | { type: 'SET_FONT'; payload: string };
+  | { type: 'SET_FONT'; payload: string }
+  | { type: 'SET_FONT_WEIGHT'; payload: number };
 
 const initialState: State = {
   theme: backgroundOption[0],
@@ -41,6 +43,7 @@ const initialState: State = {
   fontStyle: fontStyleOptions[0],
   darkMode: false,
   font: fonts[0],
+  fontWeight: 400,
 };
 
 const reducer = (state: State, action: Action): State => {
@@ -76,6 +79,8 @@ const reducer = (state: State, action: Action): State => {
     case 'SET_FONT':
       const foundFont = fonts.find((font) => font.name === action.payload);
       return { ...state, font: foundFont };
+    case 'SET_FONT_WEIGHT':
+      return { ...state, fontWeight: action.payload };
     default:
       return state;
   }
