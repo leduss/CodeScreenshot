@@ -8,7 +8,6 @@ import Footer from '@/components/print/footer';
 import SideBar from '@/components/layout/SideBar';
 import { SiteConfig } from '@/lib/site-config';
 import { codeString } from '@/lib/codeString';
-import { motion } from 'framer-motion';
 import { Resizable } from 're-resizable';
 import gsap from 'gsap';
 
@@ -37,7 +36,6 @@ export default function Home() {
         setIsLoading(false);
       },
     });
-
     tl.to(loaderRef.current, {
       scale: 2,
       duration: 1.5,
