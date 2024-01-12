@@ -61,3 +61,21 @@
 .boxShadow{
   box-shadow: 0px -50px 50px 50px rgba(134,32,255,0.35);
 }
+
+.fadeOut {
+  animation-name: fadeOutAnimation;
+  animation-delay: 3s;
+  animation-duration: 3s;
+
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeOutAnimation {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
