@@ -11,6 +11,8 @@ const fontSans = Inter({ subsets: ['latin'], variable: '--font-sans' });
 export const metadata: Metadata = {
   title: SiteConfig.title,
   description: SiteConfig.description,
+  keywords: SiteConfig.keywords ? [...SiteConfig.keywords] : undefined,
+  authors: SiteConfig.author ? [SiteConfig.author] : undefined,
 };
 
 export default function RootLayout({ children }: PropsWithChildren) {
@@ -18,6 +20,10 @@ export default function RootLayout({ children }: PropsWithChildren) {
     <>
       <html lang="en" className="min-h-screen" suppressHydrationWarning>
         <head>
+          <meta name="description" content={SiteConfig.description} />
+            <meta name="keywords" content={Array.isArray(metadata.keywords) ? metadata.keywords.join(', ') : metadata.keywords ?? ''} />
+          <meta name="author" content={metadata.authors?.toString()} />
+          <title>{String(metadata.title) || ''}</title>
           <link
             rel="icon"
             href={SiteConfig.iconHeader}

@@ -49,7 +49,11 @@ export default function Home() {
           <Resizable
             enable={{ left: true, right: true }}
             minWidth={300}
-            maxWidth={mainRef.current?.offsetWidth}
+            maxWidth={1000}
+            defaultSize={{
+              width: Number(mainRef.current?.offsetWidth),
+              height: '100%',
+            }}
           >
             <div
               className={cn('overflow-hidden', `bg-${state.theme?.name} `)}
