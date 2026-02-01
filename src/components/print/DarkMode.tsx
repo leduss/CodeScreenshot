@@ -1,14 +1,18 @@
 import React from 'react';
 import { Switch } from '../ui/switch';
-import { useMyContext } from '@/context/context';
+import { useStore } from '@/store/useStore';
 
 const DarkMode = () => {
-  const { state, dispatch } = useMyContext();
+  const { darkMode, toggleDarkMode } = useStore();
 
   return (
     <div className="flex h-9 w-full items-center">
       <p className="w-[40%] text-sm">Dark Mode</p>
-      <Switch defaultChecked={state.darkMode} onCheckedChange={() => dispatch({ type: 'TOGGLE_DARK_MODE' })} />
+      <Switch
+        defaultChecked={darkMode}
+        onCheckedChange={toggleDarkMode}
+        aria-label="Toggle dark mode"
+      />
     </div>
   );
 };

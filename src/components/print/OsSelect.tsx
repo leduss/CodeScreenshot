@@ -1,32 +1,34 @@
 'use client';
 
 import React from 'react';
-import { useMyContext } from '@/context/context';
+import { useStore } from '@/store/useStore';
 import { Button } from '../ui/button';
 import { OsEnum } from '@/lib/enum';
 
 const OsSelect = () => {
-  const { state, dispatch } = useMyContext();
+  const { os, setOs } = useStore();
 
   return (
     <div className="flex h-9 w-full items-center">
       <p className="w-[40%] text-sm">Windows</p>
       <div className="flex items-center gap-2">
         <Button
-          className={state.os === OsEnum.mac ? ' border-primary' : ''}
+          className={os === OsEnum.mac ? 'border-primary' : ''}
           value={OsEnum.mac}
           variant="secondary"
           size="sm"
-          onClick={() => dispatch({ type: 'SET_OS', payload: OsEnum.mac })}
+          onClick={() => setOs(OsEnum.mac)}
+          aria-pressed={os === OsEnum.mac}
         >
           Mac
         </Button>
         <Button
-          className={state.os === OsEnum.none ? 'border-primary' : ''}
+          className={os === OsEnum.none ? 'border-primary' : ''}
           value={OsEnum.none}
           variant="secondary"
           size="sm"
-          onClick={() => dispatch({ type: 'SET_OS', payload: OsEnum.none })}
+          onClick={() => setOs(OsEnum.none)}
+          aria-pressed={os === OsEnum.none}
         >
           None
         </Button>

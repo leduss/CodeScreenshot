@@ -1,18 +1,18 @@
 'use client';
 
-import { cn } from '@/lib/utils';
 import CodeEditor from '@/components/print/Editor';
 import { useEffect, useRef, useState } from 'react';
-import { useMyContext } from '@/context/context';
+import { useStore } from '@/store/useStore';
 import Footer from '@/components/print/footer';
 import SideBar from '@/components/layout/SideBar';
 import { codeString } from '@/lib/codeString';
 import { Resizable } from 're-resizable';
 import Loading from '@/components/ui/loading';
+import { cn } from '@/lib/utils';
 
 export default function Home() {
-  const { state } = useMyContext();
-  const [title, setTitle] = useState<string>('');
+  const { fontStyle, font, theme, padding, isLoader } = useStore();
+  const [title, setTitle] = useState<string>('counter');
   const [code, setCode] = useState<string>(codeString);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -21,31 +21,32 @@ export default function Home() {
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
-    const code = queryParams.get('code');
-    if (code) {
-      setCode(code);
+    const codeParam = queryParams.get('code');
+    if (codeParam) {
+      setCode(codeParam);
     }
   }, []);
 
   return (
-    <div className="relative flex h-screen w-full overflow-hidden">
-      <link
-        rel="stylesheet"
-        href={state.fontStyle?.link}
-        crossOrigin="anonymous"
-      />
-      <link rel="stylesheet" href={state.font?.src} crossOrigin="anonymous" />
-      <div className="w-[20%] p-2">
+    <div className="flex h-full w-full">
+      {fontStyle?.link && (
+        <link rel="stylesheet" href={fontStyle.link} crossOrigin="anonymous" />
+      )}
+      {font?.src && (
+        <link rel="stylesheet" href={font.src} crossOrigin="anonymous" />
+      )}
+      <aside className="w-[250px] shrink-0 h-full overflow-y-auto border-r">
         <SideBar />
-      </div>
+      </aside>
       <main
-        className="m-auto flex h-full w-4/6 flex-col items-center gap-4 pt-2"
+        className="m-auto flex h-full flex-col items-center w-full gap-4 pt-2"
         ref={mainRef}
       >
-        {isLoading && state.isLoader === false ? (
-          <Loading setLoading={setIsLoading} />
-        ) : null}
-        <div className="h-[75%] overflow-y-auto overflow-x-hidden">
+        {isLoading && !isLoader ? <Loading setLoading={setIsLoading} /> : null}
+        <div
+          className="h-[75%] overflow-y-auto overflow-x-auto"
+          id="resizable-container"
+        >
           <Resizable
             enable={{ left: true, right: true }}
             minWidth={300}
@@ -56,10 +57,10 @@ export default function Home() {
             }}
           >
             <div
-              className={cn('overflow-hidden', `bg-${state.theme?.name} `)}
+              className={cn('overflow-visible', `bg-${theme?.name} `)}
               style={{
-                padding: `${state.padding}px`,
-                background: state.theme?.background,
+                padding: `${padding}px`,
+                background: theme?.background,
               }}
               ref={editorRef}
             >
@@ -72,7 +73,9 @@ export default function Home() {
             </div>
           </Resizable>
         </div>
-        <Footer editorRef={editorRef} title={title} />
+        <div className="flex items-center justify-center pb-2 shrink-0">
+          <Footer editorRef={editorRef} title={title} />
+        </div>
       </main>
     </div>
   );

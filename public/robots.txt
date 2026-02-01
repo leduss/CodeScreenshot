@@ -1,0 +1,10 @@
+# robots.txt for CodeScreenshot
+User-agent: *
+Allow: /
+Disallow: /api/
+
+# Sitemap
+Sitemap: https://code-screenshot-five.vercel.app/sitemap.xml
+
+# Host
+Host: https://code-screenshot-five.vercel.app

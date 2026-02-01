@@ -18,10 +18,17 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <>
-      <html lang="en" className="min-h-screen" suppressHydrationWarning>
+      <html lang="en" className="h-full" suppressHydrationWarning>
         <head>
           <meta name="description" content={SiteConfig.description} />
-            <meta name="keywords" content={Array.isArray(metadata.keywords) ? metadata.keywords.join(', ') : metadata.keywords ?? ''} />
+          <meta
+            name="keywords"
+            content={
+              Array.isArray(metadata.keywords)
+                ? metadata.keywords.join(', ')
+                : metadata.keywords ?? ''
+            }
+          />
           <meta name="author" content={metadata.authors?.toString()} />
           <title>{String(metadata.title) || ''}</title>
           <link
@@ -33,12 +40,12 @@ export default function RootLayout({ children }: PropsWithChildren) {
         </head>
         <body
           className={cn(
-            'h-full w-full bg-background font-sans antialiased flex',
+            'h-screen w-full bg-background font-sans antialiased overflow-hidden',
             fontSans.variable
           )}
         >
           <Providers>
-            <div className="h-full w-full p-0">{children}</div>
+            <div className="h-full w-full p-4 overflow-hidden">{children}</div>
           </Providers>
         </body>
       </html>

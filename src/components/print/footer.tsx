@@ -8,7 +8,7 @@ import { ThemeToggle } from '../theme/ThemeToggle';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
-import { useMyContext } from '@/context/context';
+import { useStore } from '@/store/useStore';
 
 interface FooterProps {
   editorRef: React.RefObject<HTMLDivElement>;
@@ -18,7 +18,7 @@ interface FooterProps {
 const Footer = (props: FooterProps) => {
   const { editorRef, title } = props;
   const [loading, setLoading] = useState<boolean>(false);
-  const { dispatch } = useMyContext();
+  const { setIsLoader } = useStore();
 
   const handleClick = async (name: string, format: string) => {
     setLoading(true);
@@ -89,9 +89,9 @@ const Footer = (props: FooterProps) => {
   };
 
   return (
-    <div className={cn('flex flex-1 flex-col justify-between')}>
+    <div className="flex flex-col gap-4">
       <Card className="flex h-14 items-center justify-between p-3">
-        <CardContent className="flex  gap-4 p-0">
+        <CardContent className="flex gap-4 p-0">
           <div className="flex gap-2 p-0">
             <Popover>
               <PopoverTrigger asChild>
@@ -138,16 +138,17 @@ const Footer = (props: FooterProps) => {
       <div className="flex w-full flex-col items-center pb-1 dark:text-white">
         <div className="flex gap-4">
           <Link
-            className="cursor-pointer p-0 text-base "
+            className="cursor-pointer p-0 text-base"
             href="https://github.com/leduss/scrennshot-code"
             target="_blank"
+            rel="noopener noreferrer"
           >
             Github
           </Link>
           <Link
-            className="p-0 text-base "
+            className="p-0 text-base"
             href="/terms"
-            onClick={() => dispatch({ type: 'SET_IS_LOADER', payload: true })}
+            onClick={() => setIsLoader(true)}
           >
             Terms
           </Link>
@@ -160,14 +161,13 @@ const Footer = (props: FooterProps) => {
               className="p-0 text-base font-bold text-primary"
               href="https://juliendussart.fr"
               target="_blank"
+              rel="noopener noreferrer"
             >
               @Julien
             </Link>
           </p>
-
           <p>v 1.0.0</p>
         </div>
-        <div className="boxShadow absolute bottom-[-43rem] left-1/2 -z-10 h-[40rem] w-[40rem] translate-x-[-27%] rounded-full" />
       </div>
     </div>
   );
