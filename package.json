@@ -39,6 +39,7 @@
     "react-simple-code-editor": "^0.13.1",
     "sonner": "^1.7.4",
     "tailwind-merge": "^2.6.1",
+    "tailwindcss-animate": "^1.0.7",
     "zustand": "^4.5.7"
   },
   "devDependencies": {
