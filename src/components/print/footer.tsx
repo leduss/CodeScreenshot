@@ -13,7 +13,7 @@ import { useTranslation } from '@/hooks/useTranslation';
 import { Expand, Shrink } from 'lucide-react';
 
 interface FooterProps {
-  editorRef: React.RefObject<HTMLDivElement>;
+  editorRef: React.RefObject<HTMLDivElement | null>;
   title: string;
 }
 
