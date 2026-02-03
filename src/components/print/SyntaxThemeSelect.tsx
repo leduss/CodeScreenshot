@@ -9,19 +9,21 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { Button } from '@/components/ui/button';
+import { useTranslation } from '@/hooks/useTranslation';
 
 export default function SyntaxThemeSelect() {
   const { syntaxTheme, setSyntaxTheme } = useStore();
+  const { t: translations } = useTranslation();
 
   const currentTheme =
     syntaxThemes.find((t) => t.css === syntaxTheme) || syntaxThemes[0];
 
   return (
     <div className="flex h-9 w-full items-center">
-      <p className="w-[40%] text-sm">Syntax Theme</p>
+      <p className="w-2/5 text-sm">{translations.syntaxTheme}</p>
       <Popover>
         <PopoverTrigger asChild>
-          <Button variant="secondary" className="m-0 w-[60%] p-1 h-9">
+          <Button variant="secondary" className="m-0 h-9 w-3/5 p-1">
             <div
               className={cn(
                 'flex h-full w-full items-center justify-center rounded text-xs px-2',
@@ -37,7 +39,7 @@ export default function SyntaxThemeSelect() {
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-64 p-2">
-          <div className="flex flex-col gap-1 max-h-64 overflow-y-auto">
+          <div className="flex max-h-64 flex-col gap-1 overflow-y-auto">
             {syntaxThemes.map((theme) => (
               <button
                 key={theme.css}
@@ -50,7 +52,7 @@ export default function SyntaxThemeSelect() {
                 onClick={() => setSyntaxTheme(theme.css)}
               >
                 <div
-                  className="w-4 h-4 rounded shrink-0"
+                  className="size-4 shrink-0 rounded"
                   style={{
                     background: theme.dark ? '#1e1e1e' : '#f8f8f8',
                     border: '1px solid #ccc',

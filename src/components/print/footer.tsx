@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '../ui/button';
 import { toPng, toSvg, toBlob, toJpeg } from 'html-to-image';
 import { Card, CardContent } from '../ui/card';
@@ -6,9 +6,11 @@ import { toast } from 'sonner';
 import { Separator } from '../ui/separator';
 import { ThemeToggle } from '../theme/ThemeToggle';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
-import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { useStore } from '@/store/useStore';
+import { LanguageToggle } from './LanguageToggle';
+import { useTranslation } from '@/hooks/useTranslation';
+import { Expand, Shrink } from 'lucide-react';
 
 interface FooterProps {
   editorRef: React.RefObject<HTMLDivElement>;
@@ -18,7 +20,32 @@ interface FooterProps {
 const Footer = (props: FooterProps) => {
   const { editorRef, title } = props;
   const [loading, setLoading] = useState<boolean>(false);
-  const { setIsLoader } = useStore();
+  const { setIsLoader, isFullscreen, toggleFullscreen } = useStore();
+  const { t } = useTranslation();
+
+  // Toggle fullscreen with F key
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'f' || e.key === 'F') {
+        e.preventDefault();
+        toggleFullscreen();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [toggleFullscreen]);
+
+  // Apply fullscreen to document
+  useEffect(() => {
+    if (isFullscreen) {
+      document.documentElement.requestFullscreen?.();
+    } else {
+      if (document.fullscreenElement) {
+        document.exitFullscreen?.();
+      }
+    }
+  }, [isFullscreen]);
 
   const handleClick = async (name: string, format: string) => {
     setLoading(true);
@@ -52,9 +79,9 @@ const Footer = (props: FooterProps) => {
       a.href = image ?? '';
       a.download = filename;
       a.click();
-      toast.success(`Image downloaded with success!`);
+      toast.success(t.downloadSuccess);
     } catch (error) {
-      toast.error(`An error has occurred, please try again!`);
+      toast.error(t.error);
     } finally {
       setLoading(false);
     }
@@ -64,9 +91,9 @@ const Footer = (props: FooterProps) => {
     setLoading(true);
     try {
       await navigator.clipboard.writeText(`${location.href}`);
-      toast.success('Link copied to clipboard!');
+      toast.success(t.linkCopied);
     } catch (error) {
-      toast.error(`An error has occurred, please try again!`);
+      toast.error(t.error);
     } finally {
       setLoading(false);
     }
@@ -80,9 +107,9 @@ const Footer = (props: FooterProps) => {
       });
       const img = new ClipboardItem({ 'image/png': imgBlob as Blob });
       navigator.clipboard.write([img]);
-      toast.success('Image copied to clipboard!');
+      toast.success(t.imageCopied);
     } catch (error) {
-      toast.error('Something went wrong!');
+      toast.error(t.somethingWrong);
     } finally {
       setLoading(false);
     }
@@ -96,7 +123,7 @@ const Footer = (props: FooterProps) => {
             <Popover>
               <PopoverTrigger asChild>
                 <Button variant="default" disabled={loading}>
-                  Export
+                  {t.export}
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="flex w-40 flex-col gap-3">
@@ -105,33 +132,45 @@ const Footer = (props: FooterProps) => {
                   onClick={() => handleClick(title, 'PNG')}
                   disabled={loading}
                 >
-                  PNG
+                  {t.png}
                 </Button>
                 <Button
                   variant="default"
                   onClick={() => handleClick(title, 'SVG')}
                   disabled={loading}
                 >
-                  SVG
+                  {t.svg}
                 </Button>
                 <Button
                   variant="default"
                   onClick={() => handleClick(title, 'JPG')}
                   disabled={loading}
                 >
-                  JPG
+                  {t.jpg}
                 </Button>
               </PopoverContent>
             </Popover>
 
             <Button variant="default" onClick={copyLink} disabled={loading}>
-              Copy Link
+              {t.copyLink}
             </Button>
             <Button variant="default" onClick={copyImage} disabled={loading}>
-              Copy image
+              {t.copyImage}
+            </Button>
+            <Button
+              variant="default"
+              onClick={toggleFullscreen}
+              disabled={loading}
+            >
+              {isFullscreen ? (
+                <Shrink className="size-4" />
+              ) : (
+                <Expand className="size-4" />
+              )}
             </Button>
           </div>
           <Separator orientation="vertical" className="h-9" />
+          <LanguageToggle />
           <ThemeToggle />
         </CardContent>
       </Card>
@@ -143,20 +182,22 @@ const Footer = (props: FooterProps) => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Github
+            {t.github}
           </Link>
           <Link
             className="p-0 text-base"
             href="/terms"
             onClick={() => setIsLoader(true)}
           >
-            Terms
+            {t.terms}
           </Link>
         </div>
         <div className="flex items-center gap-6 text-base dark:text-white">
-          <p>© {new Date().getFullYear()}</p>
           <p>
-            Created by{' '}
+            {t.copyright} {new Date().getFullYear()}
+          </p>
+          <p>
+            {t.createdBy}{' '}
             <Link
               className="p-0 text-base font-bold text-primary"
               href="https://juliendussart.fr"
@@ -166,7 +207,7 @@ const Footer = (props: FooterProps) => {
               @Julien
             </Link>
           </p>
-          <p>v 1.0.0</p>
+          <p>{t.version}</p>
         </div>
       </div>
     </div>

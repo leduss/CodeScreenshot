@@ -2,9 +2,13 @@
 User-agent: *
 Allow: /
 Disallow: /api/
+Disallow: /_next/
 
 # Sitemap
-Sitemap: https://code-screenshot-five.vercel.app/sitemap.xml
+Sitemap: https://codescreenshot.vercel.app/sitemap.xml
 
 # Host
-Host: https://code-screenshot-five.vercel.app
+Host: https://codescreenshot.vercel.app
+
+# Crawl-delay (optional)
+Crawl-delay: 10

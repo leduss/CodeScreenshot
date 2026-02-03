@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Slider } from '../ui/slider';
 import { useStore } from '@/store/useStore';
 
@@ -13,8 +13,14 @@ interface RangeProps extends React.PropsWithChildren<{}> {
 const Range = (props: RangeProps) => {
   const { defaultValue, max, title, type, step } = props;
   const { setPadding, setRounded, setFontSize, setFontWeight } = useStore();
+  const [sliderValue, setSliderValue] = useState([defaultValue]);
+
+  useEffect(() => {
+    setSliderValue([defaultValue]);
+  }, [defaultValue]);
 
   const handleChange = (value: number[]) => {
+    setSliderValue(value);
     const val = value[0] || 0;
     switch (type) {
       case 'SET_PADDING':
@@ -34,10 +40,10 @@ const Range = (props: RangeProps) => {
 
   return (
     <div className="flex h-9 w-full items-center">
-      <p className="w-[40%] text-sm">{title}</p>
+      <p className="w-2/5 text-sm">{title}</p>
       <Slider
-        className="w-[60%]"
-        defaultValue={[defaultValue]}
+        className="w-3/5"
+        value={sliderValue}
         onValueChange={handleChange}
         min={0}
         max={max! - 1 || 0}

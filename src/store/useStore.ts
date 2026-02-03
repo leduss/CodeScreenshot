@@ -7,7 +7,16 @@ import { OsEnum } from '@/lib/enum';
 import { fontStyleOptions } from '@/lib/fontStyleOption';
 import { Background, Font, FontSize, FontStyle, Rounded } from '@/lib/type';
 import { fonts } from '@/lib/dataOption';
-import { syntaxThemes } from '@/lib/syntaxThemes';
+import { Locale } from '@/lib/translations';
+
+export interface CustomTheme {
+  id: string;
+  name: string;
+  background: string;
+  textColor: string;
+  lineNumbersColor: string;
+  highlightColor: string;
+}
 
 interface EditorState {
   theme: Background | undefined;
@@ -25,6 +34,11 @@ interface EditorState {
   isLoader: boolean;
   showLineNumbers: boolean;
   highlightedLines: number[];
+  locale: Locale;
+  isFullscreen: boolean;
+  customThemes: CustomTheme[];
+  activeCustomTheme: CustomTheme | null;
+  language: string;
 
   // Actions
   setTheme: (theme: string) => void;
@@ -41,6 +55,12 @@ interface EditorState {
   setShowLineNumbers: (show: boolean) => void;
   toggleLineHighlight: (line: number) => void;
   setHighlightedLines: (lines: number[]) => void;
+  setLocale: (locale: Locale) => void;
+  toggleFullscreen: () => void;
+  addCustomTheme: (theme: CustomTheme) => void;
+  removeCustomTheme: (id: string) => void;
+  setActiveCustomTheme: (theme: CustomTheme | null) => void;
+  setLanguage: (language: string) => void;
   reset: () => void;
 }
 
@@ -60,6 +80,11 @@ const initialState = {
   isLoader: false,
   showLineNumbers: true,
   highlightedLines: [],
+  locale: 'fr' as Locale,
+  isFullscreen: false,
+  customThemes: [],
+  activeCustomTheme: null,
+  language: 'typescript',
 };
 
 export const useStore = create<EditorState>()(
@@ -119,6 +144,26 @@ export const useStore = create<EditorState>()(
       setHighlightedLines: (lines: number[]) =>
         set({ highlightedLines: lines }),
 
+      setLocale: (locale: Locale) => set({ locale }),
+
+      toggleFullscreen: () =>
+        set((state) => ({ isFullscreen: !state.isFullscreen })),
+
+      addCustomTheme: (theme: CustomTheme) =>
+        set((state) => ({ customThemes: [...state.customThemes, theme] })),
+
+      removeCustomTheme: (id: string) =>
+        set((state) => ({
+          customThemes: state.customThemes.filter((t) => t.id !== id),
+          activeCustomTheme:
+            state.activeCustomTheme?.id === id ? null : state.activeCustomTheme,
+        })),
+
+      setActiveCustomTheme: (theme: CustomTheme | null) =>
+        set({ activeCustomTheme: theme }),
+
+      setLanguage: (language: string) => set({ language }),
+
       reset: () => set(initialState),
     }),
     {
@@ -138,6 +183,7 @@ export const useStore = create<EditorState>()(
         fontWeight: state.fontWeight,
         showLineNumbers: state.showLineNumbers,
         highlightedLines: state.highlightedLines,
+        locale: state.locale,
       }),
     }
   )

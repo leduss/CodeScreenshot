@@ -10,19 +10,21 @@ import {
 } from '../ui/select';
 import { useStore } from '@/store/useStore';
 import { fonts } from '@/lib/dataOption';
+import { useTranslation } from '@/hooks/useTranslation';
 
 const FontSelect = () => {
   const { font, setFont } = useStore();
+  const { t: translations } = useTranslation();
 
   return (
     <div className="flex h-9 w-full items-center">
-      <p className="w-[40%] text-sm">Font</p>
+      <p className="w-2/5 text-sm">{translations.font}</p>
       <Select
-        value={font?.name || 'Selectionner un thème'}
+        value={font?.name || translations.font}
         onValueChange={(value) => setFont(value)}
       >
-        <SelectTrigger className="w-[60%] text-xs">
-          <SelectValue placeholder="Selectionner un thème" />
+        <SelectTrigger className="w-3/5 text-xs">
+          <SelectValue placeholder={translations.font} />
         </SelectTrigger>
         <SelectContent className="dark">
           {fonts.map((f, i) => (

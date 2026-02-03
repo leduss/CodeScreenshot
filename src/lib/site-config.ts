@@ -1,14 +1,25 @@
 export const SiteConfig = {
-  title: 'CodeScreenshot',
+  title: "CodeScreenshot",
   description:
-    "Une application permettant de faire des captures d'ecran de code",
-  iconHeader: '/Capture-2024-01-10-180602.png',
+    "Créez de superbes captures d'écrans de code avec CodeScreenshot. Personnalisez les thèmes, polices, marges et plus encore. Exportez instantanément en PNG.",
+  iconHeader: '/icon.png',
   siteName: 'CodeScreenshot',
-  siteUrl: 'https://code-screenshot-five.vercel.app',
-  keywords: ['CodeScreenshot', 'code', 'screenshot', 'export', 'png'],
+  siteUrl: 'https://codescreenshot.vercel.app',
+  keywords: [
+    'code screenshot',
+    'code beautifier',
+    'syntax highlighting',
+    'code export',
+    'code image',
+    'code capture',
+    'highlight.js',
+    'share code',
+    'developer tools',
+  ],
   author: {
     name: 'CodeScreenshot',
-    url: 'https://code-screenshot-five.vercel.app',
+    url: 'https://codescreenshot.vercel.app',
   },
-  
+  ogImage: 'https://codescreenshot.vercel.app/og-image.png',
+  twitterHandle: '@codescreenshot',
 } as const;

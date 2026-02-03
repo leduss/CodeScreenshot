@@ -4,13 +4,15 @@ import React from 'react';
 import { useStore } from '@/store/useStore';
 import { Button } from '../ui/button';
 import { OsEnum } from '@/lib/enum';
+import { useTranslation } from '@/hooks/useTranslation';
 
 const OsSelect = () => {
   const { os, setOs } = useStore();
+  const { t: translations } = useTranslation();
 
   return (
     <div className="flex h-9 w-full items-center">
-      <p className="w-[40%] text-sm">Windows</p>
+      <p className="w-2/5 text-sm">{translations.windows}</p>
       <div className="flex items-center gap-2">
         <Button
           className={os === OsEnum.mac ? 'border-primary' : ''}
@@ -20,7 +22,7 @@ const OsSelect = () => {
           onClick={() => setOs(OsEnum.mac)}
           aria-pressed={os === OsEnum.mac}
         >
-          Mac
+          {translations.mac}
         </Button>
         <Button
           className={os === OsEnum.none ? 'border-primary' : ''}
@@ -30,7 +32,7 @@ const OsSelect = () => {
           onClick={() => setOs(OsEnum.none)}
           aria-pressed={os === OsEnum.none}
         >
-          None
+          {translations.none}
         </Button>
       </div>
     </div>

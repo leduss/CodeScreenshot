@@ -7,19 +7,21 @@ import { backgroundOption } from '@/lib/backgroundOption';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import { Button } from '../ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';
+import { useTranslation } from '@/hooks/useTranslation';
 
 const ThemeSelect = () => {
   const { theme, setTheme } = useStore();
+  const { t: translations } = useTranslation();
 
   return (
     <div className="flex h-9 w-full items-center">
-      <p className="w-[40%] text-sm">Background</p>
+      <p className="w-2/5 text-sm">{translations.background}</p>
       <Popover>
         <PopoverTrigger asChild>
-          <Button variant="secondary" className="m-0 w-[60%] p-1">
+          <Button variant="secondary" className="m-0 w-3/5 p-1">
             <div
               style={{ background: theme?.background }}
-              className="flex h-full w-full items-center justify-center rounded text-lg"
+              className="flex size-full items-center justify-center rounded text-lg"
             />
           </Button>
         </PopoverTrigger>
@@ -27,28 +29,28 @@ const ThemeSelect = () => {
           <Tabs defaultValue="account" className="w-full">
             <TabsList className="grid grid-cols-2">
               <TabsTrigger value="gradient" className="w-24">
-                Gradient
+                {translations.gradient}
               </TabsTrigger>
               <TabsTrigger value="color" className="w-24">
-                Color
+                {translations.color}
               </TabsTrigger>
             </TabsList>
             <TabsContent value="gradient">
               <div className="flex flex-wrap justify-center gap-4">
                 {backgroundOption
-                  .filter((t) => t.gradient)
-                  .map((t, i) => (
+                  .filter((bg) => bg.gradient)
+                  .map((bg, i) => (
                     <div
                       key={i}
                       className={cn('h-6 w-6 cursor-pointer rounded-full')}
-                      style={{ background: t.background }}
-                      onClick={() => setTheme(t.name)}
+                      style={{ background: bg.background }}
+                      onClick={() => setTheme(bg.name)}
                       role="button"
-                      aria-label={`Select gradient theme ${t.name}`}
+                      aria-label={`Select gradient theme ${bg.name}`}
                       tabIndex={0}
                       onKeyDown={(e) => {
                         if (e.key === 'Enter' || e.key === ' ') {
-                          setTheme(t.name);
+                          setTheme(bg.name);
                         }
                       }}
                     />
@@ -58,19 +60,19 @@ const ThemeSelect = () => {
             <TabsContent value="color">
               <div className="flex flex-wrap justify-center gap-4">
                 {backgroundOption
-                  .filter((t) => !t.gradient)
-                  .map((t, i) => (
+                  .filter((bg) => !bg.gradient)
+                  .map((bg, i) => (
                     <div
                       key={i}
                       className={cn('h-6 w-6 cursor-pointer rounded-full')}
-                      style={{ background: t.background }}
-                      onClick={() => setTheme(t.name)}
+                      style={{ background: bg.background }}
+                      onClick={() => setTheme(bg.name)}
                       role="button"
-                      aria-label={`Select color theme ${t.name}`}
+                      aria-label={`Select color theme ${bg.name}`}
                       tabIndex={0}
                       onKeyDown={(e) => {
                         if (e.key === 'Enter' || e.key === ' ') {
-                          setTheme(t.name);
+                          setTheme(bg.name);
                         }
                       }}
                     />

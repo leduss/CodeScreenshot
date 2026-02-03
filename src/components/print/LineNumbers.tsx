@@ -5,6 +5,7 @@ import { useStore } from '@/store/useStore';
 import { Button } from '../ui/button';
 import { Separator } from '../ui/separator';
 import { cn } from '@/lib/utils';
+import { useTranslation } from '@/hooks/useTranslation';
 
 const LineNumbers = () => {
   const {
@@ -14,6 +15,7 @@ const LineNumbers = () => {
     toggleLineHighlight,
     setHighlightedLines,
   } = useStore();
+  const { t: translations } = useTranslation();
 
   const [lineInput, setLineInput] = React.useState<string>('');
 
@@ -32,7 +34,7 @@ const LineNumbers = () => {
   return (
     <div className="flex flex-col gap-3">
       <div className="flex items-center justify-between">
-        <p className="text-sm dark:text-white">Line Numbers</p>
+        <p className="text-sm dark:text-white">{translations.lineNumbers}</p>
         <Button
           variant={showLineNumbers ? 'default' : 'outline'}
           size="sm"
@@ -45,11 +47,11 @@ const LineNumbers = () => {
       <Separator />
 
       <div className="flex flex-col gap-2">
-        <p className="text-sm dark:text-white">Highlight Lines</p>
+        <p className="text-sm dark:text-white">{translations.highlightLines}</p>
         <div className="flex gap-2">
           <input
             type="number"
-            placeholder="Line #"
+            placeholder={translations.linesHash}
             value={lineInput}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setLineInput(e.target.value)
@@ -60,7 +62,7 @@ const LineNumbers = () => {
             )}
           />
           <Button size="sm" onClick={addLineHighlight}>
-            Add
+            {translations.add}
           </Button>
         </div>
 
@@ -90,7 +92,7 @@ const LineNumbers = () => {
             onClick={() => setHighlightedLines([])}
             className="mt-1 text-xs"
           >
-            Clear All
+            {translations.clearAll}
           </Button>
         )}
       </div>

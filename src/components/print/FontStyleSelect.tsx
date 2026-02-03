@@ -16,12 +16,12 @@ const FontStyleSelect = () => {
 
   return (
     <div className="flex h-9 w-full items-center">
-      <p className="w-[40%] text-sm">Font color</p>
+      <p className="w-2/5 text-sm">Font color</p>
       <Select
         value={fontStyle?.name || 'Selectionner un thème'}
         onValueChange={(value) => setFontStyle(value)}
       >
-        <SelectTrigger className="w-[60%] text-xs">
+        <SelectTrigger className="w-3/5 text-xs">
           <SelectValue placeholder="Selectionner un thème" />
         </SelectTrigger>
         <SelectContent className="dark">
