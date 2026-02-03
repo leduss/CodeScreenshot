@@ -1,4 +1,4 @@
-import { Backgrounds } from './type';
+import { Backgrounds } from '@/types';
 
 export const backgroundOption: Backgrounds = [
   {

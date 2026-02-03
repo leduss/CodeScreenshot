@@ -1,4 +1,4 @@
-import { RoundedOption } from './type';
+import { RoundedOption } from '@/types';
 
 export const roundedOption: RoundedOption = [
   { value: 'rounded-none', name: 'NONE' },

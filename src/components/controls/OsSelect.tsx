@@ -3,7 +3,7 @@
 import React from 'react';
 import { useStore } from '@/store/useStore';
 import { Button } from '../ui/button';
-import { OsEnum } from '@/lib/enum';
+import { OsEnum } from '@/constants/os-enum';
 import { useTranslation } from '@/hooks/useTranslation';
 
 const OsSelect = () => {

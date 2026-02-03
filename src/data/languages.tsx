@@ -10,7 +10,7 @@ export const Languages = [
         x="0px"
         y="0px"
         viewBox="0 0 256 256"
-        enable-background="new 0 0 256 256"
+        enableBackground="new 0 0 256 256"
         {...props}
       >
         <metadata>
@@ -44,30 +44,30 @@ export const Languages = [
       >
         <path
           fill="#283593"
-          fill-rule="evenodd"
+          fillRule="evenodd"
           d="m 17.903,0.28628166 c 0.679,-0.381 1.515,-0.381 2.193,0 C 23.451,2.1692817 33.547,7.8372817 36.903,9.7202817 37.582,10.100282 38,10.804282 38,11.566282 c 0,3.766 0,15.101 0,18.867 0,0.762 -0.418,1.466 -1.097,1.847 -3.355,1.883 -13.451,7.551 -16.807,9.434 -0.679,0.381 -1.515,0.381 -2.193,0 -3.355,-1.883 -13.451,-7.551 -16.807,-9.434 -0.678,-0.381 -1.096,-1.084 -1.096,-1.846 0,-3.766 0,-15.101 0,-18.867 0,-0.762 0.418,-1.466 1.097,-1.8470003 3.354,-1.883 13.452,-7.551 16.806,-9.43400004 z"
-          clip-rule="evenodd"
+          clipRule="evenodd"
           id="path2"
         />
         <path
           fill="#5c6bc0"
-          fill-rule="evenodd"
+          fillRule="evenodd"
           d="m 0.304,31.404282 c -0.266,-0.356 -0.304,-0.694 -0.304,-1.149 0,-3.744 0,-15.014 0,-18.759 0,-0.758 0.417,-1.458 1.094,-1.8360003 3.343,-1.872 13.405,-7.507 16.748,-9.38000004 0.677,-0.379 1.594,-0.371 2.271,0.008 3.343,1.87200004 13.371,7.45900004 16.714,9.33100004 0.27,0.152 0.476,0.335 0.66,0.5760003 z"
-          clip-rule="evenodd"
+          clipRule="evenodd"
           id="path4"
         />
         <path
           fill="#ffffff"
-          fill-rule="evenodd"
+          fillRule="evenodd"
           d="m 19,7.0002817 c 7.727,0 14,6.2730003 14,14.0000003 0,7.727 -6.273,14 -14,14 -7.727,0 -14,-6.273 -14,-14 0,-7.727 6.273,-14.0000003 14,-14.0000003 z m 0,7.0000003 c 3.863,0 7,3.136 7,7 0,3.863 -3.137,7 -7,7 -3.863,0 -7,-3.137 -7,-7 0,-3.864 3.136,-7 7,-7 z"
-          clip-rule="evenodd"
+          clipRule="evenodd"
           id="path6"
         />
         <path
           fill="#3949ab"
-          fill-rule="evenodd"
+          fillRule="evenodd"
           d="m 37.485,10.205282 c 0.516,0.483 0.506,1.211 0.506,1.784 0,3.795 -0.032,14.589 0.009,18.384 0.004,0.396 -0.127,0.813 -0.323,1.127 l -19.084,-10.5 z"
-          clip-rule="evenodd"
+          clipRule="evenodd"
           id="path8"
         />
       </svg>
@@ -85,7 +85,7 @@ export const Languages = [
         width="306px"
         height="344.35px"
         viewBox="0 0 306 344.35"
-        enable-background="new 0 0 306 344.35"
+        enableBackground="new 0 0 306 344.35"
         {...props}
       >
         <path
@@ -114,14 +114,14 @@ export const Languages = [
         <g>
           <polygon
             fill="#FFFFFF"
-            points="255,166.508 243.666,166.508 243.666,155.175 232.334,155.175 232.334,166.508 221,166.508 
+            points="255,166.508 243.666,166.508 243.666,155.175 232.334,155.175 232.334,166.508 221,166.508
 		221,177.841 232.334,177.841 232.334,189.175 243.666,189.175 243.666,177.841 255,177.841 	"
           />
         </g>
         <g>
           <polygon
             fill="#FFFFFF"
-            points="297.5,166.508 286.166,166.508 286.166,155.175 274.834,155.175 274.834,166.508 263.5,166.508 
+            points="297.5,166.508 286.166,166.508 286.166,155.175 274.834,155.175 274.834,166.508 263.5,166.508
 		263.5,177.841 274.834,177.841 274.834,189.175 286.166,189.175 286.166,177.841 297.5,177.841 	"
           />
         </g>
@@ -155,90 +155,4 @@ export const Languages = [
   { name: 'TypeScript', icon: 'typescript' },
   { name: 'XML', icon: 'xml' },
   { name: 'YAML', icon: 'yaml' },
-];
-
-export const fonts = [
-  {
-    name: 'Fira Code',
-    src: 'https://fonts.googleapis.com/css2?family=Fira+Code&display=swap',
-  },
-  {
-    name: 'JetBrains Mono',
-    src: 'https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap',
-  },
-  {
-    name: 'Source Code Pro',
-    src: 'https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap',
-  },
-  {
-    name: 'Montserrat',
-    src: 'https://fonts.googleapis.com/css2?family=Montserrat&display=swap',
-  },
-  {
-    name: 'Dina',
-    src: 'https://db.onlinewebfonts.com/c/d840ce5e8674412a9c947d52eb04b768?family=Dina+W01+Regular',
-  },
-  {
-    name: 'ProggySquareTT',
-    src: 'https://db.onlinewebfonts.com/c/5423e3f6b569eee8bb7179f1319240ea?family=ProggySquareTT',
-  },
-  {
-    name: 'Input',
-    src: 'https://db.onlinewebfonts.com/c/203eabac5dc6b58ce623b91fc47f34cc?family=Input',
-  },
-  {
-    name: 'Hack',
-    src: 'https://db.onlinewebfonts.com/c/4fea277591543c1fd64a9cf06ec5803a?family=Hack',
-  },
-  {
-    name: 'Monalisa',
-    src: 'https://db.onlinewebfonts.com/c/a63fa0b95ad9e647cfe695afd9390749?family=Monalisa',
-  },
-  {
-    name: 'Consolas W99 Regular',
-    src: 'https://db.onlinewebfonts.com/c/771d2a89fb0fc4c6f7942f46f6790e09?family=Consolas+W99+Regular',
-  },
-];
-
-export const codeSnippets = [
-  {
-    language: 'python',
-    code: 'def is_prime(n):\n  if n <= 1:\n    return False\n  for i in range(2, int(n ** 0.5) + 1):\n    if n % i == 0:\n      return False\n  return True',
-  },
-  {
-    language: 'javascript',
-    code: 'const fibonacci = (n) => {\n  if (n <= 1) return n;\n  return fibonacci(n - 1) + fibonacci(n - 2);\n};\nconsole.log(fibonacci(10));',
-  },
-  {
-    language: 'java',
-    code: 'import java.util.stream.IntStream;\n\nclass StreamExample {\n  public static void main(String[] args) {\n    IntStream.rangeClosed(1, 5).forEach(System.out::println);\n  }\n}',
-  },
-  {
-    language: 'c',
-    code: '#include <stdio.h>\n\nint main() {\n  for (int i = 1; i <= 10; i++) {\n    if (i % 2 == 0) {\n      printf("%d\\n", i);\n    }\n  }\n  return 0;\n}',
-  },
-  {
-    language: 'ruby',
-    code: 'class Animal\n  attr_reader :name\n\n  def initialize(name)\n    @name = name\n  end\n\n  def speak\n    raise NotImplementedError, "Subclasses must implement this method"\n  end\nend',
-  },
-  {
-    language: 'swift',
-    code: 'enum Compass {\n  case north, south, east, west\n}\nlet currentDirection = Compass.east\nprint(currentDirection)',
-  },
-  {
-    language: 'c#',
-    code: 'using System;\nusing System.Linq;\n\nclass LINQExample {\n  static void Main() {\n    int[] numbers = { 3, 9, 2, 8, 6 };\n    var evenNumbers = numbers.Where(n => n % 2 == 0);\n    foreach (var num in evenNumbers) {\n      Console.WriteLine(num);\n    }\n  }\n}',
-  },
-  {
-    language: 'php',
-    code: "<?php\n$fruits = ['apple', 'banana', 'cherry'];\n$uppercased = array_map('strtoupper', $fruits);\nprint_r($uppercased);\n?>",
-  },
-  {
-    language: 'go',
-    code: 'package main\n\nimport (\n  "fmt"\n  "math"\n)\n\nfunc main() {\n  x := 4.0\n  y := math.Sqrt(x)\n  fmt.Printf("Square root of %.2f is %.2f\\n", x, y)\n}',
-  },
-  {
-    language: 'rust',
-    code: 'fn main() {\n  let mut count = 0;\n  loop {\n    println!("Count: {}", count);\n    count += 1;\n    if count > 5 {\n      break;\n    }\n  }\n}',
-  },
 ];

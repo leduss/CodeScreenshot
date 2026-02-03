@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Button } from '../ui/button';
+import { Button, Card, CardContent, Separator, Popover, PopoverContent, PopoverTrigger } from '@/components/ui';
 import { toPng, toSvg, toBlob, toJpeg } from 'html-to-image';
-import { Card, CardContent } from '../ui/card';
 import { toast } from 'sonner';
-import { Separator } from '../ui/separator';
-import { ThemeToggle } from '../theme/ThemeToggle';
-import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
+import { ThemeToggle } from '@/components/theme';
 import Link from 'next/link';
 import { useStore } from '@/store/useStore';
-import { LanguageToggle } from './LanguageToggle';
+import { LanguageToggle } from '@/components/controls';
 import { useTranslation } from '@/hooks/useTranslation';
 import { Expand, Shrink } from 'lucide-react';
 

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Button } from '../ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import { useStore } from '@/store/useStore';
-import { Locale } from '@/lib/translations';
+import { Locale } from '@/data/translations';
 
 const languages = [
   { code: 'fr' as Locale, name: 'Français', flag: '🇫🇷' },

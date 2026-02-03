@@ -4,7 +4,7 @@ import React from 'react';
 import { useStore } from '@/store/useStore';
 import { Button } from '../ui/button';
 import { Separator } from '../ui/separator';
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils';
 import { useTranslation } from '@/hooks/useTranslation';
 
 const LineNumbers = () => {

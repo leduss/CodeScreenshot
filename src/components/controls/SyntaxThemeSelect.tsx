@@ -1,8 +1,8 @@
 'use client';
 
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils';
 import { useStore } from '@/store/useStore';
-import { syntaxThemes } from '@/lib/syntaxThemes';
+import { syntaxThemes } from '@/constants/syntax-themes/themes';
 import {
   Popover,
   PopoverContent,

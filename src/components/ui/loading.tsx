@@ -1,5 +1,5 @@
 
-import { SiteConfig } from '@/lib/site-config';
+import { SiteConfig } from '@/config/site-config';
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 

@@ -1,7 +1,7 @@
 'use client';
 
 import { useStore } from '@/store/useStore';
-import { syntaxThemeColors } from '@/lib/syntaxThemeColors';
+import { syntaxThemeColors } from '@/constants/syntax-themes/colors';
 
 export default function SyntaxThemeColors() {
   const { syntaxTheme } = useStore();

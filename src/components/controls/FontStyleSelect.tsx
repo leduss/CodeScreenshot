@@ -9,7 +9,7 @@ import {
   SelectValue,
 } from '../ui/select';
 import { useStore } from '@/store/useStore';
-import { fontStyleOptions } from '@/lib/fontStyleOption';
+import { fontStyleOptions } from '@/constants/font-style-options';
 
 const FontStyleSelect = () => {
   const { fontStyle, setFontStyle } = useStore();

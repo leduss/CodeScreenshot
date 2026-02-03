@@ -1,10 +1,10 @@
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { type PropsWithChildren } from 'react';
 import './globals.css';
 import { Providers } from './provider';
-import { SiteConfig } from '@/lib/site-config';
+import { SiteConfig } from '@/config/site-config';
 import 'devicon/devicon.min.css';
 
 

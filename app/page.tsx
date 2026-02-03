@@ -1,14 +1,13 @@
 'use client';
 
-import CodeEditor from '@/components/print/Editor';
+import { CodeEditor } from '@/components/editor';
 import { useEffect, useRef, useState } from 'react';
 import { useStore } from '@/store/useStore';
-import Footer from '@/components/print/footer';
-import SideBar from '@/components/layout/SideBar';
-import { codeString } from '@/lib/codeString';
+import { Footer, SideBar } from '@/components/layout';
+import { codeString } from '@/data';
 import { Resizable } from 're-resizable';
-import Loading from '@/components/ui/loading';
-import { cn } from '@/lib/utils';
+import { Loading } from '@/components/ui';
+import { cn } from '@/utils';
 
 export default function Home() {
   const { fontStyle, font, theme, padding, isLoader } = useStore();

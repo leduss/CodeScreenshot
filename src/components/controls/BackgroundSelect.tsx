@@ -1,9 +1,9 @@
 'use client';
 
 import React from 'react';
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils';
 import { useStore } from '@/store/useStore';
-import { backgroundOption } from '@/lib/backgroundOption';
+import { backgroundOption } from '@/constants/background-options';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import { Button } from '../ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';

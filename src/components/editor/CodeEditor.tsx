@@ -1,7 +1,7 @@
 'use client';
 
-import { OsEnum } from '@/lib/enum';
-import { cn } from '@/lib/utils';
+import { OsEnum } from '@/constants';
+import { cn } from '@/utils';
 import { useStore } from '@/store/useStore';
 import flourite from 'flourite';
 import hljs from 'highlight.js';
@@ -9,8 +9,8 @@ import React, { useEffect, useState, useRef, useCallback } from 'react';
 import Editor from 'react-simple-code-editor';
 import SyntaxThemeLoader from './SyntaxThemeLoader';
 import SyntaxThemeColors from './SyntaxThemeColors';
-import { syntaxThemesData, SyntaxThemeData } from '@/lib/syntaxThemesData';
-import { getLanguageIcon, getLanguageExtension } from '@/lib/languageIcons';
+import { syntaxThemesData, type SyntaxThemeData } from '@/constants/syntax-themes/data';
+import { getLanguageIcon, getLanguageExtension } from '@/utils/language-icons';
 
 interface CodeEditorProps {
   title: string;

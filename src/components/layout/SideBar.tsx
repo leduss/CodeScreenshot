@@ -1,24 +1,14 @@
 'use client';
 
 import React from 'react';
-import ThemeSelect from '../print/ThemeSelect';
-import SyntaxThemeSelect from '../print/SyntaxThemeSelect';
-import { Card, CardContent, CardHeader } from '../ui/card';
-import OsSelect from '../print/OsSelect';
-import LineNumbers from '../print/LineNumbers';
+import { BackgroundSelect, SyntaxThemeSelect, OsSelect, LineNumbers, Range, FontSelect } from '@/components/controls';
+import { Card, CardContent, CardHeader, Separator, Popover, PopoverContent, PopoverTrigger, Button } from '@/components/ui';
 import { useStore } from '@/store/useStore';
-import Range from '../print/Range';
-import { fontSizeOptions } from '@/lib/fontSizeOption';
-import { roundedOption } from '@/lib/roundedOption';
-import { SiteConfig } from '@/lib/site-config';
-import FontSelect from '../print/FontSelect';
-import { Separator } from '../ui/separator';
+import { fontSizeOptions, roundedOption } from '@/constants';
+import { SiteConfig } from '@/config/site-config';
 import { useTranslation } from '@/hooks/useTranslation';
-import CustomThemeSelector from '../print/CustomThemeSelector';
-import CustomThemeCreator from '../print/CustomThemeCreator';
-import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
+import { CustomThemeSelector, CustomThemeCreator } from '@/components/theme';
 import { Plus } from 'lucide-react';
-import { Button } from '../ui/button';
 
 const SideBar = () => {
   const { padding, indexRounded, indexFontSize, fontWeight } = useStore();
@@ -32,7 +22,7 @@ const SideBar = () => {
       <CardContent className="flex flex-col items-center gap-3 p-0">
         <div className="flex w-full flex-col gap-0.5">
           <p className="pb-2 dark:text-white">{translations.background}</p>
-          <ThemeSelect />
+          <BackgroundSelect />
           <Range
             defaultValue={padding}
             max={128}

@@ -1,13 +1,8 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { backgroundOption } from '@/lib/backgroundOption';
-import { roundedOption } from '@/lib/roundedOption';
-import { fontSizeOptions } from '@/lib/fontSizeOption';
-import { OsEnum } from '@/lib/enum';
-import { fontStyleOptions } from '@/lib/fontStyleOption';
-import { Background, Font, FontSize, FontStyle, Rounded } from '@/lib/type';
-import { fonts } from '@/lib/dataOption';
-import { Locale } from '@/lib/translations';
+import { backgroundOption, roundedOption, fontSizeOptions, fontStyleOptions, OsEnum } from '@/constants';
+import { Background, Font, FontSize, FontStyle, Rounded } from '@/types';
+import { fonts, type Locale } from '@/data';
 
 export interface CustomTheme {
   id: string;
