@@ -5,10 +5,10 @@ Disallow: /api/
 Disallow: /_next/
 
 # Sitemap
-Sitemap: https://codescreenshot.vercel.app/sitemap.xml
+Sitemap: https://code-screenshot-five.vercel.app/sitemap.xml
 
 # Host
-Host: https://codescreenshot.vercel.app
+Host: https://code-screenshot-five.vercel.app
 
 # Crawl-delay (optional)
 Crawl-delay: 10
