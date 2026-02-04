@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import { useStore } from '@/store/useStore';
 import { Button } from '../ui/button';
 import { OsEnum } from '@/constants/os-enum';
@@ -8,31 +7,27 @@ import { useTranslation } from '@/hooks/useTranslation';
 
 const OsSelect = () => {
   const { os, setOs } = useStore();
-  const { t: translations } = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <div className="flex h-9 w-full items-center">
-      <p className="w-2/5 text-sm">{translations.windows}</p>
-      <div className="flex items-center gap-2">
+      <span className="w-2/5 text-sm">{t.windows}</span>
+      <div className="flex items-center gap-2" role="group" aria-label={t.windows}>
         <Button
-          className={os === OsEnum.mac ? 'border-primary' : ''}
-          value={OsEnum.mac}
-          variant="secondary"
+          variant={os === OsEnum.mac ? 'default' : 'secondary'}
           size="sm"
           onClick={() => setOs(OsEnum.mac)}
           aria-pressed={os === OsEnum.mac}
         >
-          {translations.mac}
+          {t.mac}
         </Button>
         <Button
-          className={os === OsEnum.none ? 'border-primary' : ''}
-          value={OsEnum.none}
-          variant="secondary"
+          variant={os === OsEnum.none ? 'default' : 'secondary'}
           size="sm"
           onClick={() => setOs(OsEnum.none)}
           aria-pressed={os === OsEnum.none}
         >
-          {translations.none}
+          {t.none}
         </Button>
       </div>
     </div>

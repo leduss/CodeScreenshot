@@ -1,10 +1,9 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useId } from 'react';
 import { useStore } from '@/store/useStore';
 import { Button } from '../ui/button';
 import { Separator } from '../ui/separator';
-import { cn } from '@/utils';
 import { useTranslation } from '@/hooks/useTranslation';
 
 const LineNumbers = () => {
@@ -15,9 +14,9 @@ const LineNumbers = () => {
     toggleLineHighlight,
     setHighlightedLines,
   } = useStore();
-  const { t: translations } = useTranslation();
-
-  const [lineInput, setLineInput] = React.useState<string>('');
+  const { t } = useTranslation();
+  const inputId = useId();
+  const [lineInput, setLineInput] = useState('');
 
   const addLineHighlight = () => {
     const line = parseInt(lineInput, 10);
@@ -27,18 +26,21 @@ const LineNumbers = () => {
     }
   };
 
-  const removeLineHighlight = (line: number) => {
-    toggleLineHighlight(line);
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      addLineHighlight();
+    }
   };
 
   return (
     <div className="flex flex-col gap-3">
       <div className="flex items-center justify-between">
-        <p className="text-sm dark:text-white">{translations.lineNumbers}</p>
+        <span className="text-sm">{t.lineNumbers}</span>
         <Button
           variant={showLineNumbers ? 'default' : 'outline'}
           size="sm"
           onClick={() => setShowLineNumbers(!showLineNumbers)}
+          aria-pressed={showLineNumbers}
         >
           {showLineNumbers ? 'On' : 'Off'}
         </Button>
@@ -46,43 +48,45 @@ const LineNumbers = () => {
 
       <Separator />
 
-      <div className="flex flex-col gap-2">
-        <p className="text-sm dark:text-white">{translations.highlightLines}</p>
+      <fieldset className="flex flex-col gap-2 border-0 p-0 m-0">
+        <label htmlFor={inputId} className="text-sm">
+          {t.highlightLines}
+        </label>
         <div className="flex gap-2">
           <input
+            id={inputId}
             type="number"
-            placeholder={translations.linesHash}
+            placeholder={t.linesHash}
             value={lineInput}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setLineInput(e.target.value)
-            }
+            onChange={(e) => setLineInput(e.target.value)}
+            onKeyDown={handleKeyDown}
             min={1}
-            className={cn(
-              'flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50'
-            )}
+            className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
           />
           <Button size="sm" onClick={addLineHighlight}>
-            {translations.add}
+            {t.add}
           </Button>
         </div>
 
         {highlightedLines.length > 0 && (
-          <div className="mt-2 flex flex-wrap gap-1">
+          <ul className="mt-2 flex flex-wrap gap-1 list-none p-0 m-0" aria-label={t.highlightLines}>
             {highlightedLines.map((line) => (
-              <div
+              <li
                 key={line}
-                className="flex items-center gap-1 rounded bg-primary/20 px-2 py-1 text-xs dark:text-white"
+                className="flex items-center gap-1 rounded bg-primary/20 px-2 py-1 text-xs"
               >
                 <span>#{line}</span>
                 <button
-                  onClick={() => removeLineHighlight(line)}
+                  type="button"
+                  onClick={() => toggleLineHighlight(line)}
                   className="text-destructive hover:text-destructive/80"
+                  aria-label={`Remove line ${line}`}
                 >
                   ×
                 </button>
-              </div>
+              </li>
             ))}
-          </div>
+          </ul>
         )}
 
         {highlightedLines.length > 0 && (
@@ -92,10 +96,10 @@ const LineNumbers = () => {
             onClick={() => setHighlightedLines([])}
             className="mt-1 text-xs"
           >
-            {translations.clearAll}
+            {t.clearAll}
           </Button>
         )}
-      </div>
+      </fieldset>
     </div>
   );
 };

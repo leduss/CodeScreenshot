@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import {
   Select,
   SelectContent,
@@ -14,24 +13,19 @@ import { useTranslation } from '@/hooks/useTranslation';
 
 const FontSelect = () => {
   const { font, setFont } = useStore();
-  const { t: translations } = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <div className="flex h-9 w-full items-center">
-      <p className="w-2/5 text-sm">{translations.font}</p>
-      <Select
-        value={font?.name || translations.font}
-        onValueChange={(value) => setFont(value)}
-      >
-        <SelectTrigger className="w-3/5 text-xs">
-          <SelectValue placeholder={translations.font} />
+      <span className="w-2/5 text-sm">{t.font}</span>
+      <Select value={font?.name} onValueChange={setFont}>
+        <SelectTrigger className="w-3/5 text-xs" aria-label={t.font}>
+          <SelectValue placeholder={t.font} />
         </SelectTrigger>
-        <SelectContent className="dark">
-          {fonts.map((f, i) => (
-            <SelectItem key={i} value={f.name}>
-              <div className="flex items-center gap-4">
-                <span className="capitalize">{f.name}</span>
-              </div>
+        <SelectContent>
+          {fonts.map((f) => (
+            <SelectItem key={f.name} value={f.name}>
+              <span className="capitalize">{f.name}</span>
             </SelectItem>
           ))}
         </SelectContent>
