@@ -216,40 +216,30 @@ const CodeEditor = (props: CodeEditorProps) => {
     : 'rgba(0, 0, 0, 0.08)';
 
   return (
-    <>
+    <article
+      className={cn('flex flex-col border h-full', rounded?.value)}
+      style={{
+        backgroundColor: theme?.name === 'transparent' ? undefined : bgColor,
+        color: textColor,
+      }}
+    >
       <SyntaxThemeLoader />
       <SyntaxThemeColors />
-      <div
-        className={cn(
-          'flex flex-col border h-full',
-          rounded?.value,
-          theme?.name === 'transparent' ? '' : ''
-        )}
+
+      <header
+        className={cn('flex h-10 items-center px-2 shrink-0', rounded?.value)}
         style={{
-          backgroundColor: theme?.name === 'transparent' ? undefined : bgColor,
-          color: textColor,
+          backgroundColor:
+            theme?.name === 'transparent' ? undefined : headerBgColor,
         }}
       >
-        <header
-          className={cn(
-            'flex h-10 items-center px-2 shrink-0 text-inherit ',
-            theme?.name === 'transparent' ? '' : '',
-            rounded?.value
-          )}
-          style={{
-            backgroundColor:
-              theme?.name === 'transparent' ? undefined : headerBgColor,
-          }}
-          role="banner"
-          aria-label="Editor header"
-        >
-          {os === OsEnum.mac ? (
-            <div className="flex items-center gap-2">
-              <div className="h-3 w-3 rounded-full bg-red-500"></div>
-              <div className="h-3 w-3 rounded-full bg-yellow-500"></div>
-              <div className="h-3 w-3 rounded-full bg-green-500"></div>
-            </div>
-          ) : null}
+        {os === OsEnum.mac && (
+          <div className="flex items-center gap-2" aria-hidden="true">
+            <span className="size-3 rounded-full bg-red-500" />
+            <span className="size-3 rounded-full bg-yellow-500" />
+            <span className="size-3 rounded-full bg-green-500" />
+          </div>
+        )}
           <div className="ml-10 inline-flex h-10 items-center gap-2 bg-white/10 backdrop-blur-sm px-3 border-t border-violet-500 w-auto max-w-max">
             <div className="flex items-center justify-center w-5 h-5 shrink-0">
               <span style={{ color: textColor }}>
@@ -268,9 +258,9 @@ const CodeEditor = (props: CodeEditorProps) => {
           </div>
         </header>
         <div
-          className={cn('flex flex-1 overflow-hidden text-inherit')}
-          role="code region"
-          aria-label="Code content"
+          className="flex flex-1 overflow-hidden"
+          role="region"
+          aria-label="Code editor"
           style={{ color: textColor }}
         >
           {showLineNumbers && (
@@ -333,8 +323,7 @@ const CodeEditor = (props: CodeEditorProps) => {
             />
           </div>
         </div>
-      </div>
-    </>
+      </article>
   );
 };
 

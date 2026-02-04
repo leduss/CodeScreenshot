@@ -19,9 +19,9 @@ const SideBar = () => {
       <CardHeader className="p-0 py-2 text-center font-mono text-lg font-bold text-primary">
         {SiteConfig.title}
       </CardHeader>
-      <CardContent className="flex flex-col items-center gap-3 p-0">
-        <div className="flex w-full flex-col gap-0.5">
-          <p className="pb-2 dark:text-white">{translations.background}</p>
+      <CardContent className="flex flex-col gap-3 p-0">
+        <section className="flex w-full flex-col gap-1">
+          <h3 className="text-sm font-medium pb-1 dark:text-white">{translations.background}</h3>
           <BackgroundSelect />
           <Range
             defaultValue={padding}
@@ -35,18 +35,21 @@ const SideBar = () => {
             title={translations.rounded}
             type="SET_ROUNDED"
           />
-          <CustomThemeSelector />
-        </div>
+        </section>
+
         <Separator />
-        <div className="flex w-full flex-col gap-0.5">
-          <p className="pb-2 dark:text-white">{translations.code}</p>
+
+        <section className="flex w-full flex-col gap-1">
+          <h3 className="text-sm font-medium pb-1 dark:text-white">{translations.code}</h3>
           <SyntaxThemeSelect />
           <OsSelect />
           <LineNumbers />
-        </div>
+        </section>
+
         <Separator />
-        <div className="flex w-full flex-col gap-0.5">
-          <p className="pb-2 dark:text-white">{translations.font}</p>
+
+        <section className="flex w-full flex-col gap-1">
+          <h3 className="text-sm font-medium pb-1 dark:text-white">{translations.font}</h3>
           <FontSelect />
           <Range
             defaultValue={indexFontSize}
@@ -54,23 +57,25 @@ const SideBar = () => {
             title={translations.fontSize}
             type="SET_FONT_SIZE"
           />
-        </div>
+        </section>
+
         <Separator />
-        <div className="flex w-full flex-col gap-0.5">
-          <p className="pb-2 dark:text-white">Thèmes personnalisés</p>
+
+        <section className="flex w-full flex-col gap-1">
+          <h3 className="text-sm font-medium pb-1 dark:text-white">{translations.customThemes}</h3>
           <CustomThemeSelector />
           <Popover>
             <PopoverTrigger asChild>
               <Button variant="secondary" className="w-full">
                 <Plus className="mr-2 size-4" />
-                Créer un thème
+                {translations.createTheme}
               </Button>
             </PopoverTrigger>
             <PopoverContent className="w-80">
               <CustomThemeCreator />
             </PopoverContent>
           </Popover>
-        </div>
+        </section>
       </CardContent>
     </Card>
   );

@@ -113,10 +113,10 @@ const Footer = (props: FooterProps) => {
   };
 
   return (
-    <div className="flex flex-col gap-4">
-      <Card className="flex h-14 items-center justify-between p-3">
-        <CardContent className="flex gap-4 p-0">
-          <div className="flex gap-2 p-0">
+    <footer className="flex flex-col gap-4 pb-2 shrink-0">
+      <Card className="flex h-14 items-center p-3">
+        <CardContent className="flex items-center gap-4 p-0">
+          <nav className="flex gap-2" aria-label="Export actions">
             <Popover>
               <PopoverTrigger asChild>
                 <Button variant="default" disabled={loading}>
@@ -124,90 +124,51 @@ const Footer = (props: FooterProps) => {
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="flex w-40 flex-col gap-3">
-                <Button
-                  variant="default"
-                  onClick={() => handleClick(title, 'PNG')}
-                  disabled={loading}
-                >
+                <Button variant="default" onClick={() => handleClick(title, 'PNG')} disabled={loading}>
                   {t.png}
                 </Button>
-                <Button
-                  variant="default"
-                  onClick={() => handleClick(title, 'SVG')}
-                  disabled={loading}
-                >
+                <Button variant="default" onClick={() => handleClick(title, 'SVG')} disabled={loading}>
                   {t.svg}
                 </Button>
-                <Button
-                  variant="default"
-                  onClick={() => handleClick(title, 'JPG')}
-                  disabled={loading}
-                >
+                <Button variant="default" onClick={() => handleClick(title, 'JPG')} disabled={loading}>
                   {t.jpg}
                 </Button>
               </PopoverContent>
             </Popover>
-
             <Button variant="default" onClick={copyLink} disabled={loading}>
               {t.copyLink}
             </Button>
             <Button variant="default" onClick={copyImage} disabled={loading}>
               {t.copyImage}
             </Button>
-            <Button
-              variant="default"
-              onClick={toggleFullscreen}
-              disabled={loading}
-            >
-              {isFullscreen ? (
-                <Shrink className="size-4" />
-              ) : (
-                <Expand className="size-4" />
-              )}
+            <Button variant="default" onClick={toggleFullscreen} disabled={loading} aria-label={t.fullscreen}>
+              {isFullscreen ? <Shrink className="size-4" /> : <Expand className="size-4" />}
             </Button>
-          </div>
+          </nav>
+
           <Separator orientation="vertical" className="h-9" />
           <LanguageToggle />
           <ThemeToggle />
         </CardContent>
       </Card>
-      <div className="flex w-full flex-col items-center pb-1 dark:text-white">
-        <div className="flex gap-4">
-          <Link
-            className="cursor-pointer p-0 text-base"
-            href="https://github.com/leduss/scrennshot-code"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {t.github}
-          </Link>
-          <Link
-            className="p-0 text-base"
-            href="/terms"
-            onClick={() => setIsLoader(true)}
-          >
-            {t.terms}
-          </Link>
-        </div>
-        <div className="flex items-center gap-6 text-base dark:text-white">
-          <p>
-            {t.copyright} {new Date().getFullYear()}
-          </p>
-          <p>
-            {t.createdBy}{' '}
-            <Link
-              className="p-0 text-base font-bold text-primary"
-              href="https://juliendussart.fr"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              @Julien
-            </Link>
-          </p>
-          <p>{t.version}</p>
-        </div>
-      </div>
-    </div>
+
+      <nav className="flex justify-center gap-4 text-sm dark:text-white" aria-label="Footer links">
+        <Link href="https://github.com/leduss/scrennshot-code" target="_blank" rel="noopener noreferrer">
+          {t.github}
+        </Link>
+        <Link href="/terms" onClick={() => setIsLoader(true)}>
+          {t.terms}
+        </Link>
+      </nav>
+
+      <p className="text-center text-sm dark:text-white">
+        {t.copyright} {new Date().getFullYear()} · {t.createdBy}{' '}
+        <Link href="https://juliendussart.fr" target="_blank" rel="noopener noreferrer" className="font-bold text-primary">
+          @Julien
+        </Link>{' '}
+        · {t.version}
+      </p>
+    </footer>
   );
 };
 

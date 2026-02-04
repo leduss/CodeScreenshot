@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState, useId } from 'react';
 import { Slider } from '../ui/slider';
 import { useStore } from '@/store/useStore';
 
-interface RangeProps extends React.PropsWithChildren<{}> {
+interface RangeProps {
   defaultValue: number;
   max?: number;
   title: string;
@@ -10,8 +10,8 @@ interface RangeProps extends React.PropsWithChildren<{}> {
   step?: number;
 }
 
-const Range = (props: RangeProps) => {
-  const { defaultValue, max, title, type, step } = props;
+const Range = ({ defaultValue, max = 1, title, type, step = 1 }: RangeProps) => {
+  const id = useId();
   const { setPadding, setRounded, setFontSize, setFontWeight } = useStore();
   const [sliderValue, setSliderValue] = useState([defaultValue]);
 
@@ -21,33 +21,32 @@ const Range = (props: RangeProps) => {
 
   const handleChange = (value: number[]) => {
     setSliderValue(value);
-    const val = value[0] || 0;
-    switch (type) {
-      case 'SET_PADDING':
-        setPadding(val);
-        break;
-      case 'SET_ROUNDED':
-        setRounded(val);
-        break;
-      case 'SET_FONT_SIZE':
-        setFontSize(val);
-        break;
-      case 'SET_FONT_WEIGHT':
-        setFontWeight(val);
-        break;
-    }
+    const val = value[0] ?? 0;
+
+    const actions = {
+      SET_PADDING: setPadding,
+      SET_ROUNDED: setRounded,
+      SET_FONT_SIZE: setFontSize,
+      SET_FONT_WEIGHT: setFontWeight,
+    };
+
+    actions[type](val);
   };
 
   return (
     <div className="flex h-9 w-full items-center">
-      <p className="w-2/5 text-sm">{title}</p>
+      <label htmlFor={id} className="w-2/5 text-sm">
+        {title}
+      </label>
       <Slider
+        id={id}
         className="w-3/5"
         value={sliderValue}
         onValueChange={handleChange}
         min={0}
-        max={max! - 1 || 0}
-        step={step || 1}
+        max={max - 1}
+        step={step}
+        aria-label={title}
       />
     </div>
   );

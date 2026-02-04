@@ -41,6 +41,8 @@ export type TranslationKeys = {
   gradient: string;
   color: string;
   fullscreen: string;
+  customThemes: string;
+  createTheme: string;
 };
 
 export const translations: Record<Locale, TranslationKeys> = {
@@ -85,6 +87,8 @@ export const translations: Record<Locale, TranslationKeys> = {
     gradient: 'Gradient',
     color: 'Couleur',
     fullscreen: 'Plein écran',
+    customThemes: 'Thèmes personnalisés',
+    createTheme: 'Créer un thème',
   },
   en: {
     // Footer
@@ -127,6 +131,8 @@ export const translations: Record<Locale, TranslationKeys> = {
     gradient: 'Gradient',
     color: 'Color',
     fullscreen: 'Fullscreen',
+    customThemes: 'Custom Themes',
+    createTheme: 'Create a theme',
   },
   es: {
     // Footer
@@ -169,6 +175,8 @@ export const translations: Record<Locale, TranslationKeys> = {
     gradient: 'Gradiente',
     color: 'Color',
     fullscreen: 'Pantalla completa',
+    customThemes: 'Temas personalizados',
+    createTheme: 'Crear un tema',
   },
   de: {
     // Footer
@@ -211,6 +219,8 @@ export const translations: Record<Locale, TranslationKeys> = {
     gradient: 'Verlauf',
     color: 'Farbe',
     fullscreen: 'Vollbild',
+    customThemes: 'Benutzerdefinierte Themen',
+    createTheme: 'Thema erstellen',
   },
   it: {
     // Footer
@@ -253,6 +263,8 @@ export const translations: Record<Locale, TranslationKeys> = {
     gradient: 'Sfumatura',
     color: 'Colore',
     fullscreen: 'Schermo intero',
+    customThemes: 'Temi personalizzati',
+    createTheme: 'Crea un tema',
   },
   pt: {
     // Footer
@@ -295,6 +307,8 @@ export const translations: Record<Locale, TranslationKeys> = {
     gradient: 'Gradiente',
     color: 'Cor',
     fullscreen: 'Ecrã completo',
+    customThemes: 'Temas personalizados',
+    createTheme: 'Criar um tema',
   },
 };
 
