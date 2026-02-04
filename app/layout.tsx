@@ -1,5 +1,5 @@
 import { cn } from '@/utils';
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import { type PropsWithChildren } from 'react';
 import './globals.css';
@@ -7,16 +7,32 @@ import { Providers } from './provider';
 import { SiteConfig } from '@/config/site-config';
 import 'devicon/devicon.min.css';
 
-
 const fontSans = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
+export const viewport: Viewport = {
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
+    { media: '(prefers-color-scheme: dark)', color: '#0a0a0a' },
+  ],
+  width: 'device-width',
+  initialScale: 1,
+};
+
 export const metadata: Metadata = {
-  title: SiteConfig.title,
+  metadataBase: new URL(SiteConfig.siteUrl),
+  title: {
+    default: SiteConfig.title,
+    template: `%s | ${SiteConfig.title}`,
+  },
   description: SiteConfig.description,
-  keywords: [...SiteConfig.keywords],
-  authors: SiteConfig.author ? [SiteConfig.author] : undefined,
-  creator: 'CodeScreenshot',
-  publisher: 'CodeScreenshot',
+  keywords: SiteConfig.keywords,
+  authors: [SiteConfig.author],
+  creator: SiteConfig.author.name,
+  publisher: SiteConfig.siteName,
+  formatDetection: {
+    email: false,
+    telephone: false,
+  },
   robots: {
     index: true,
     follow: true,
@@ -31,13 +47,14 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'fr_FR',
-    url: SiteConfig.siteUrl,
+    alternateLocale: ['en_US', 'es_ES', 'de_DE', 'it_IT', 'pt_PT'],
+    url: '/',
     siteName: SiteConfig.siteName,
     title: SiteConfig.title,
     description: SiteConfig.description,
     images: [
       {
-        url: SiteConfig.ogImage,
+        url: '/og-image.png',
         width: 1200,
         height: 630,
         alt: SiteConfig.title,
@@ -50,46 +67,74 @@ export const metadata: Metadata = {
     creator: SiteConfig.twitterHandle,
     title: SiteConfig.title,
     description: SiteConfig.description,
-    images: [SiteConfig.ogImage],
+    images: ['/og-image.png'],
   },
   icons: {
-    icon: SiteConfig.iconHeader,
-    shortcut: SiteConfig.iconHeader,
-    apple: SiteConfig.iconHeader,
+    icon: [
+      { url: '/icon.png', sizes: '32x32', type: 'image/png' },
+      { url: '/icon.png', sizes: '16x16', type: 'image/png' },
+    ],
+    shortcut: '/icon.png',
+    apple: [{ url: '/icon.png', sizes: '180x180', type: 'image/png' }],
   },
-  verification: {
-    google: 'google-site-verification-code',
+  manifest: '/manifest.json',
+  alternates: {
+    canonical: '/',
+    languages: {
+      'fr-FR': '/',
+      'en-US': '/',
+    },
   },
+  category: 'technology',
+};
+
+// JSON-LD Structured Data
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: SiteConfig.title,
+  description: SiteConfig.description,
+  url: SiteConfig.siteUrl,
+  applicationCategory: 'DeveloperApplication',
+  operatingSystem: 'Any',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'EUR',
+  },
+  author: {
+    '@type': 'Person',
+    name: SiteConfig.author.name,
+    url: SiteConfig.author.url,
+  },
+  featureList: [
+    'Syntax highlighting',
+    'Multiple themes',
+    'Export to PNG/SVG/JPG',
+    'Custom fonts',
+    'Line numbers',
+  ],
 };
 
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
-    <>
-      <html lang="fr" className="h-full" suppressHydrationWarning>
-        <head>
-          <meta name="description" content={SiteConfig.description} />
-          <meta name="keywords" content={SiteConfig.keywords.join(', ')} />
-          <meta name="author" content={SiteConfig.author?.name} />
-          <title>{SiteConfig.title}</title>
-          <link
-            rel="icon"
-            href={SiteConfig.iconHeader}
-            sizes="16x16"
-            type="image/png"
-          />
-          <link rel="apple-touch-icon" href={SiteConfig.iconHeader} />
-        </head>
-        <body
-          className={cn(
-            'h-screen w-full bg-background font-sans antialiased overflow-hidden',
-            fontSans.variable
-          )}
-        >
-          <Providers>
-            <div className="size-full overflow-hidden p-4">{children}</div>
-          </Providers>
-        </body>
-      </html>
-    </>
+    <html lang="fr" className="h-full" suppressHydrationWarning>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
+      <body
+        className={cn(
+          'h-screen w-full bg-background font-sans antialiased overflow-hidden',
+          fontSans.variable
+        )}
+      >
+        <Providers>
+          <div className="size-full overflow-hidden p-4">{children}</div>
+        </Providers>
+      </body>
+    </html>
   );
 }
