@@ -67,11 +67,11 @@ const LineNumbers = () => {
         </div>
 
         {highlightedLines.length > 0 && (
-          <div className="flex flex-wrap gap-1 mt-2">
+          <div className="mt-2 flex flex-wrap gap-1">
             {highlightedLines.map((line) => (
               <div
                 key={line}
-                className="flex items-center gap-1 bg-primary/20 px-2 py-1 rounded text-xs dark:text-white"
+                className="flex items-center gap-1 rounded bg-primary/20 px-2 py-1 text-xs dark:text-white"
               >
                 <span>#{line}</span>
                 <button

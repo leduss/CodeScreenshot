@@ -21,7 +21,7 @@ const SideBar = () => {
       </CardHeader>
       <CardContent className="flex flex-col gap-3 p-0">
         <section className="flex w-full flex-col gap-1">
-          <h3 className="text-sm font-medium pb-1 dark:text-white">{translations.background}</h3>
+          <h3 className="pb-1 text-sm font-medium dark:text-white">{translations.background}</h3>
           <BackgroundSelect />
           <Range
             defaultValue={padding}
@@ -40,7 +40,7 @@ const SideBar = () => {
         <Separator />
 
         <section className="flex w-full flex-col gap-1">
-          <h3 className="text-sm font-medium pb-1 dark:text-white">{translations.code}</h3>
+          <h3 className="pb-1 text-sm font-medium dark:text-white">{translations.code}</h3>
           <SyntaxThemeSelect />
           <OsSelect />
           <LineNumbers />
@@ -49,7 +49,7 @@ const SideBar = () => {
         <Separator />
 
         <section className="flex w-full flex-col gap-1">
-          <h3 className="text-sm font-medium pb-1 dark:text-white">{translations.font}</h3>
+          <h3 className="pb-1 text-sm font-medium dark:text-white">{translations.font}</h3>
           <FontSelect />
           <Range
             defaultValue={indexFontSize}
@@ -62,7 +62,7 @@ const SideBar = () => {
         <Separator />
 
         <section className="flex w-full flex-col gap-1">
-          <h3 className="text-sm font-medium pb-1 dark:text-white">{translations.customThemes}</h3>
+          <h3 className="pb-1 text-sm font-medium dark:text-white">{translations.customThemes}</h3>
           <CustomThemeSelector />
           <Popover>
             <PopoverTrigger asChild>

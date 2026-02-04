@@ -102,7 +102,7 @@ export const backgroundOption: Backgrounds = [
     gradient: true,
   },
   {
-    name: 'Emerald',
+    name: 'Emerald Light',
     background: 'linear-gradient(135deg, #00FF00, #32CD32, #98FB98)',
     gradient: true,
   },

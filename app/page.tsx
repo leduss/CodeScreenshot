@@ -7,7 +7,7 @@ import { Footer, SideBar } from '@/components/layout';
 import { codeString } from '@/data';
 import { Resizable } from 're-resizable';
 import { Loading } from '@/components/ui';
-import Head from 'next/head';
+import { useFontLoader } from '@/hooks';
 
 export default function Home() {
   const { fontStyle, font, theme, padding, isLoader } = useStore();
@@ -18,6 +18,10 @@ export default function Home() {
   const editorRef = useRef<HTMLDivElement>(null);
   const mainRef = useRef<HTMLDivElement>(null);
 
+  // Load fonts dynamically
+  useFontLoader(fontStyle?.link);
+  useFontLoader(font?.src);
+
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
     const codeParam = queryParams.get('code');
@@ -27,27 +31,14 @@ export default function Home() {
   }, []);
 
   return (
-    <>
-      <Head>
-        {fontStyle?.link && (
-          <link
-            rel="stylesheet"
-            href={fontStyle.link}
-            crossOrigin="anonymous"
-          />
-        )}
-        {font?.src && (
-          <link rel="stylesheet" href={font.src} crossOrigin="anonymous" />
-        )}
-      </Head>
-      <div className="flex h-full w-full">
-        <aside className="w-[250px] shrink-0 h-full overflow-y-auto border-r">
+    <div className="flex size-full">
+        <aside className="h-full w-[250px] shrink-0 overflow-y-auto border-r">
           <SideBar />
         </aside>
 
         <main
           ref={mainRef}
-          className="m-auto flex h-full flex-col items-center w-full gap-4 pt-2"
+          className="m-auto flex size-full flex-col items-center gap-4 pt-2"
         >
           {isLoading && !isLoader && <Loading setLoading={setIsLoading} />}
 
@@ -80,7 +71,6 @@ export default function Home() {
 
           <Footer editorRef={editorRef} title={title} />
         </main>
-      </div>
-    </>
+    </div>
   );
 }

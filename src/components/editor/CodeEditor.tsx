@@ -240,14 +240,14 @@ const CodeEditor = (props: CodeEditorProps) => {
             <span className="size-3 rounded-full bg-green-500" />
           </div>
         )}
-          <div className="ml-10 inline-flex h-10 items-center gap-2 bg-white/10 backdrop-blur-sm px-3 border-t border-violet-500 w-auto max-w-max">
-            <div className="flex items-center justify-center w-5 h-5 shrink-0">
+          <div className="ml-10 inline-flex h-10 w-auto max-w-max items-center gap-2 border-t border-violet-500 bg-white/10 px-3 backdrop-blur-sm">
+            <div className="flex size-5 shrink-0 items-center justify-center">
               <span style={{ color: textColor }}>
                 {getLanguageIcon(language)}
               </span>
             </div>
             <input
-              className="bg-transparent h-full text-sm outline-none text-inherit placeholder:text-inherit/50 border-none w-auto min-w-[100px]"
+              className="placeholder:text-inherit/50 h-full w-auto min-w-[100px] border-none bg-transparent text-sm text-inherit outline-none"
               style={{ color: textColor }}
               placeholder="nom fichier"
               value={getFullFilename()}
@@ -300,10 +300,10 @@ const CodeEditor = (props: CodeEditorProps) => {
           )}
           <div
             ref={containerRef}
-            className="editor-container flex-1 h-full relative"
+            className="editor-container relative h-full flex-1"
           >
             <Editor
-              className="transition-all duration-500 ease-in-out h-full"
+              className="h-full transition-all duration-500 ease-in-out"
               textareaClassName="focus:outline-none h-full"
               value={code}
               onValueChange={(value) => handleChange(value)}
