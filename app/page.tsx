@@ -10,7 +10,7 @@ import Pricing from '@/components/landing/pricing';
 
 const Home = () => {
   return (
-    <div className="noise-bg relative min-h-screen bg-background overflow-auto">
+    <div className="noise-bg relative min-h-screen overflow-auto bg-background">
       <Navbar />
       <main>
         <Hero />

@@ -23,16 +23,12 @@ export default function SyntaxThemeSelect() {
       <p className="w-2/5 text-sm">{translations.syntaxTheme}</p>
       <Popover>
         <PopoverTrigger asChild>
-          <Button variant="secondary" className="m-0 h-9 w-3/5 p-1">
+          <Button variant="hero"  className="m-0 h-7 w-3/5 p-1">
             <div
               className={cn(
                 'flex h-full w-full items-center justify-center rounded text-xs px-2',
                 currentTheme?.dark ? 'text-white' : 'text-black'
               )}
-              style={{
-                background: currentTheme?.dark ? '#1e1e1e' : '#f8f8f8',
-                border: '1px solid #ddd',
-              }}
             >
               {currentTheme?.name}
             </div>

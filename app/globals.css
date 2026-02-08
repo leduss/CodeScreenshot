@@ -107,6 +107,68 @@
   overflow-wrap: break-word !important;
 }
 
+.editor-container textarea {
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  height: 100% !important;
+  max-height: 100% !important;
+  resize: none;
+}
+
+.editor-container pre {
+  height: 100% !important;
+  max-height: 100% !important;
+  overflow: hidden !important;
+}
+
+/* CodeMirror base styling to fit shell */
+.cm-editor {
+  height: 100% !important;
+}
+
+.cm-scroller {
+  padding: 16px 20px;
+}
+
+.cm-line-highlight {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.cm-foldGutter .cm-gutterElement {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.cm-foldGutter .cm-gutterElement:hover {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.cm-crosshair,
+.cm-crosshair .cm-content {
+  cursor: crosshair;
+}
+
+/* CodeMirror scrollbar */
+.cm-scroller::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.cm-scroller::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.cm-scroller::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+.cm-scroller::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+
 /* Ensure highlight.js styles apply to pre element */
 .editor-container pre code {
   display: block;

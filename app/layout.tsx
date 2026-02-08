@@ -132,7 +132,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
         )}
       >
         <Providers>
-          <div className="size-full  p-4">{children}</div>
+          <div className="size-full">{children}</div>
         </Providers>
       </body>
     </html>

@@ -6,13 +6,13 @@ interface RangeProps {
   defaultValue: number;
   max?: number;
   title: string;
-  type: 'SET_PADDING' | 'SET_ROUNDED' | 'SET_FONT_SIZE' | 'SET_FONT_WEIGHT';
+  type: 'SET_ROUNDED' | 'SET_FONT_SIZE' | 'SET_FONT_WEIGHT';
   step?: number;
 }
 
 const Range = ({ defaultValue, max = 1, title, type, step = 1 }: RangeProps) => {
   const id = useId();
-  const { setPadding, setRounded, setFontSize, setFontWeight } = useStore();
+  const { setRounded, setFontSize, setFontWeight } = useStore();
   const [sliderValue, setSliderValue] = useState([defaultValue]);
 
   useEffect(() => {
@@ -24,7 +24,6 @@ const Range = ({ defaultValue, max = 1, title, type, step = 1 }: RangeProps) => 
     const val = value[0] ?? 0;
 
     const actions = {
-      SET_PADDING: setPadding,
       SET_ROUNDED: setRounded,
       SET_FONT_SIZE: setFontSize,
       SET_FONT_WEIGHT: setFontWeight,
@@ -34,7 +33,7 @@ const Range = ({ defaultValue, max = 1, title, type, step = 1 }: RangeProps) => 
   };
 
   return (
-    <div className="flex h-9 w-full items-center">
+    <div className="flex w-full items-center">
       <label htmlFor={id} className="w-2/5 text-sm">
         {title}
       </label>

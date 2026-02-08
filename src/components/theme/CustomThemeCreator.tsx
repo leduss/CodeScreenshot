@@ -5,13 +5,11 @@ import { Button } from '../ui/button';
 import { Card, CardContent, CardHeader } from '../ui/card';
 import { Label } from '../ui/label';
 import { useStore, CustomTheme } from '@/store/useStore';
-import { useTranslation } from '@/hooks/useTranslation';
 import { toast } from 'sonner';
 import { Input } from '../ui/input';
 
 const CustomThemeCreator = () => {
-  const { addCustomTheme, customThemes } = useStore();
-  const { t } = useTranslation();
+  const { addCustomTheme } = useStore();
   const [name, setName] = useState('');
   const [background, setBackground] = useState('#282c34');
   const [textColor, setTextColor] = useState('#abb2bf');

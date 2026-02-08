@@ -33,6 +33,7 @@ const iconMap: Record<string, string> = {
   kotlin: 'devicon-kotlin-plain colored',
   scala: 'devicon-scala-plain colored',
   dart: 'devicon-dart-plain colored',
+  elixir: 'devicon-elixir-plain colored',
 
   // ===== Web =====
   html: 'devicon-html5-plain colored',
@@ -71,13 +72,20 @@ const iconMap: Record<string, string> = {
   apache: 'devicon-apache-plain colored',
   bash: 'devicon-bash-plain colored',
   shell: 'devicon-bash-plain colored',
+  powershell: 'devicon-powershell-plain colored',
   yaml: 'devicon-yaml-plain colored',
   yml: 'devicon-yaml-plain colored',
   json: 'devicon-json-plain colored',
   toml: 'devicon-toml-plain colored',
+  dockerfile: 'devicon-docker-plain colored',
+  markdown: 'devicon-markdown-original colored',
+  md: 'devicon-markdown-original colored',
 
   // ===== Formats =====
   xml: 'devicon-xml-plain colored',
+  graphql: 'devicon-graphql-plain colored',
+  pascal: 'devicon-pascal-plain colored',
+  plaintext: 'devicon-file-text-plain',
   txt: 'devicon-file-text-plain',
   text: 'devicon-file-text-plain',
 };
@@ -113,7 +121,14 @@ export const getLanguageName = (language: string): string => {
   if (lang.includes('dart')) return 'DART';
   if (lang.includes('html')) return 'HTML';
   if (lang.includes('css')) return 'CSS';
+  if (lang.includes('graphql')) return 'GQL';
+  if (lang.includes('elixir')) return 'EX';
+  if (lang.includes('powershell')) return 'PS';
+  if (lang.includes('dockerfile')) return 'DOCKER';
+  if (lang.includes('pascal')) return 'PAS';
+  if (lang.includes('plaintext')) return 'TXT';
   if (lang.includes('xml')) return 'XML';
+  if (lang.includes('markdown') || lang.includes('md')) return 'MD';
   if (lang.includes('txt') || lang.includes('text')) return 'TXT';
 
   return language.toUpperCase().slice(0, 6);
@@ -151,6 +166,14 @@ export const getLanguageExtension = (language: string): string => {
   if (lang.includes('html')) return '.html';
   if (lang.includes('css')) return '.css';
   if (lang.includes('json')) return '.json';
+  if (lang.includes('sql')) return '.sql';
+  if (lang.includes('graphql')) return '.graphql';
+  if (lang.includes('elixir')) return '.ex';
+  if (lang.includes('powershell')) return '.ps1';
+  if (lang.includes('dockerfile')) return '.dockerfile';
+  if (lang.includes('pascal')) return '.pas';
+  if (lang.includes('plaintext')) return '.txt';
+  if (lang.includes('markdown') || lang.includes('md')) return '.md';
   if (lang.includes('yaml') || lang.includes('yml')) return '.yml';
   if (lang.includes('xml')) return '.xml';
   if (lang.includes('txt') || lang.includes('text')) return '.txt';

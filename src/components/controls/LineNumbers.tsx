@@ -3,6 +3,7 @@
 import React, { useState, useId } from 'react';
 import { useStore } from '@/store/useStore';
 import { Button } from '../ui/button';
+import { Checkbox } from '../ui/checkbox';
 import { Separator } from '../ui/separator';
 import { useTranslation } from '@/hooks/useTranslation';
 
@@ -13,6 +14,18 @@ const LineNumbers = () => {
     highlightedLines,
     toggleLineHighlight,
     setHighlightedLines,
+    showZebra,
+    setShowZebra,
+    showFoldGutter,
+    setShowFoldGutter,
+    showActiveLine,
+    setShowActiveLine,
+    showSelectionMatches,
+    setShowSelectionMatches,
+    showTrailingWhitespace,
+    setShowTrailingWhitespace,
+    showSearch,
+    setShowSearch,
   } = useStore();
   const { t } = useTranslation();
   const inputId = useId();
@@ -33,22 +46,66 @@ const LineNumbers = () => {
   };
 
   return (
-    <div className="flex flex-col gap-3">
-      <div className="flex items-center justify-between">
-        <span className="text-sm">{t.lineNumbers}</span>
-        <Button
-          variant={showLineNumbers ? 'default' : 'outline'}
-          size="sm"
-          onClick={() => setShowLineNumbers(!showLineNumbers)}
-          aria-pressed={showLineNumbers}
-        >
-          {showLineNumbers ? 'On' : 'Off'}
-        </Button>
-      </div>
+    <div className="flex flex-col gap-1">
+      <label className="flex items-center justify-between text-sm">
+        <span>{t.lineNumbers}</span>
+        <Checkbox
+          checked={showLineNumbers}
+          onCheckedChange={(checked) => setShowLineNumbers(!!checked)}
+        />
+      </label>
+
+      <label className="flex items-center justify-between text-sm">
+        <span>{t.zebraStripes}</span>
+        <Checkbox
+          checked={showZebra}
+          onCheckedChange={(checked) => setShowZebra(!!checked)}
+        />
+      </label>
+
+      <label className="flex items-center justify-between text-sm">
+        <span>{t.foldGutter}</span>
+        <Checkbox
+          checked={showFoldGutter}
+          onCheckedChange={(checked) => setShowFoldGutter(!!checked)}
+        />
+      </label>
+
+      <label className="flex items-center justify-between text-sm">
+        <span>{t.activeLine}</span>
+        <Checkbox
+          checked={showActiveLine}
+          onCheckedChange={(checked) => setShowActiveLine(!!checked)}
+        />
+      </label>
+
+      <label className="flex items-center justify-between text-sm">
+        <span>{t.selectionMatches}</span>
+        <Checkbox
+          checked={showSelectionMatches}
+          onCheckedChange={(checked) => setShowSelectionMatches(!!checked)}
+        />
+      </label>
+
+      <label className="flex items-center justify-between text-sm">
+        <span>{t.trailingWhitespace}</span>
+        <Checkbox
+          checked={showTrailingWhitespace}
+          onCheckedChange={(checked) => setShowTrailingWhitespace(!!checked)}
+        />
+      </label>
+
+      <label className="flex items-center justify-between text-sm">
+        <span>{t.search}</span>
+        <Checkbox
+          checked={showSearch}
+          onCheckedChange={(checked) => setShowSearch(!!checked)}
+        />
+      </label>
 
       <Separator />
 
-      <fieldset className="flex flex-col gap-2 border-0 p-0 m-0">
+      <fieldset className="m-0 flex flex-col gap-2 border-0 p-0">
         <label htmlFor={inputId} className="text-sm">
           {t.highlightLines}
         </label>
@@ -69,7 +126,7 @@ const LineNumbers = () => {
         </div>
 
         {highlightedLines.length > 0 && (
-          <ul className="mt-2 flex flex-wrap gap-1 list-none p-0 m-0" aria-label={t.highlightLines}>
+          <ul className="m-0 mt-2 flex list-none flex-wrap gap-1 p-0" aria-label={t.highlightLines}>
             {highlightedLines.map((line) => (
               <li
                 key={line}

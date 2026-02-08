@@ -1,9 +1,9 @@
 export const SiteConfig = {
-  title: 'CodeScreenshot - Créez de belles captures de code',
+  title: 'SnapCode',
   description:
-    "Créez de superbes captures d'écran de code avec CodeScreenshot. Personnalisez les thèmes, polices, arrière-plans et plus encore. Exportez en PNG, SVG ou JPG. Gratuit et sans inscription.",
+    "Créez de superbes captures d'écran de code avec SnapCode. Personnalisez les thèmes, polices, arrière-plans et plus encore. Exportez en PNG, SVG ou JPG. Gratuit et sans inscription.",
   iconHeader: '/icon.png',
-  siteName: 'CodeScreenshot',
+  siteName: 'SnapCode',
   siteUrl: 'https://code-screenshot-five.vercel.app',
   keywords: [
     // Français

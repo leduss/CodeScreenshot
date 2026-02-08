@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { Button } from '../ui/button';
-import { Card, CardContent, CardHeader } from '../ui/card';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import { useStore, CustomTheme } from '@/store/useStore';
 import { Trash2 } from 'lucide-react';

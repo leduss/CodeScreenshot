@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Card, CardContent, Separator, Popover, PopoverContent, PopoverTrigger } from '@/components/ui';
-import { toPng, toSvg, toBlob, toJpeg } from 'html-to-image';
+import { toPng, toBlob, toJpeg } from 'html-to-image';
 import { toast } from 'sonner';
 import { ThemeToggle } from '@/components/theme';
 import Link from 'next/link';
@@ -63,12 +63,6 @@ const Footer = (props: FooterProps) => {
           }
           filename = `${name}.png`;
           break;
-        case 'SVG':
-          if (editorRef.current) {
-            image = await toSvg(editorRef.current, { pixelRatio: 2 });
-          }
-          filename = `${name}.svg`;
-          break;
         default:
           return;
       }
@@ -113,7 +107,7 @@ const Footer = (props: FooterProps) => {
   };
 
   return (
-    <footer className="flex flex-col gap-4 pb-2 shrink-0">
+    <footer className="flex shrink-0 flex-col gap-4 pb-2">
       <Card className="flex h-14 items-center p-3">
         <CardContent className="flex items-center gap-4 p-0">
           <nav className="flex gap-2" aria-label="Export actions">
@@ -126,9 +120,6 @@ const Footer = (props: FooterProps) => {
               <PopoverContent className="flex w-40 flex-col gap-3">
                 <Button variant="default" onClick={() => handleClick(title, 'PNG')} disabled={loading}>
                   {t.png}
-                </Button>
-                <Button variant="default" onClick={() => handleClick(title, 'SVG')} disabled={loading}>
-                  {t.svg}
                 </Button>
                 <Button variant="default" onClick={() => handleClick(title, 'JPG')} disabled={loading}>
                   {t.jpg}

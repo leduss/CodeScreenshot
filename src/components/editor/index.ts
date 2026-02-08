@@ -1,3 +1,2 @@
-export { default as CodeEditor } from './CodeEditor';
-export { default as SyntaxThemeLoader } from './SyntaxThemeLoader';
-export { default as SyntaxThemeColors } from './SyntaxThemeColors';
+export { default as EditorShell } from './EditorShell';
+export { default as EditorContent } from './EditorContent';
