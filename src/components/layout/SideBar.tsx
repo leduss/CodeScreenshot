@@ -15,7 +15,7 @@ const SideBar = () => {
   const { t: translations } = useTranslation();
 
   return (
-    <Card className="h-full w-72 overflow-y-auto p-1">
+    <Card className="size-full overflow-y-auto p-1">
       <CardHeader className="p-0 py-2 text-center font-mono text-lg font-bold text-primary">
         {SiteConfig.title}
       </CardHeader>

@@ -127,12 +127,12 @@ export default function RootLayout({ children }: PropsWithChildren) {
       </head>
       <body
         className={cn(
-          'h-screen w-full bg-background font-sans antialiased overflow-hidden',
+          'h-screen w-full bg-background font-sans antialiased overflow-auto',
           fontSans.variable
         )}
       >
         <Providers>
-          <div className="size-full overflow-hidden p-4">{children}</div>
+          <div className="size-full  p-4">{children}</div>
         </Providers>
       </body>
     </html>
