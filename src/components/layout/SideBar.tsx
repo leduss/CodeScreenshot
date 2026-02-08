@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import {
   SyntaxThemeSelect,
@@ -461,7 +462,7 @@ const SideBar = ({ editorRef, editorTitle }: SideBarProps) => {
                 {translations.exportSettings}
               </button>
             </DialogTrigger>
-            <DialogContent className="border-white/10 bg-[#121316] text-white">
+          <DialogContent className="border-white/10 bg-[#121316] text-white">
               <DialogHeader className="text-left">
                 <DialogTitle>{translations.exportSettings}</DialogTitle>
                 <DialogDescription className="text-white/60">
@@ -626,6 +627,18 @@ const SideBar = ({ editorRef, editorTitle }: SideBarProps) => {
                   </>
                 )}
               </div>
+              <div className="rounded border border-white/5 bg-white/5 p-3 text-xs text-white/70">
+                <p className="font-semibold text-white">{translations.exportGuideTitle}</p>
+                <p className="mt-1 text-[11px]/relaxed text-white/60">
+                  {translations.exportGuideDescription}
+                </p>
+                <Link
+                  href="/pricing"
+                  className="mt-2 inline-flex text-[11px] font-semibold uppercase tracking-wide text-primary hover:text-primary-foreground"
+                >
+                  {translations.exportGuideLink}
+                </Link>
+              </div>
 
               <DialogFooter>
                 <DialogClose asChild>
@@ -647,6 +660,9 @@ const SideBar = ({ editorRef, editorTitle }: SideBarProps) => {
               </DialogFooter>
             </DialogContent>
           </Dialog>
+          <p className="text-[11px] text-white/60">
+            5 exports PNG gratuits. <Link href="/pricing" className="text-primary underline-offset-2 hover:underline">Passez Pro</Link>
+          </p>
           <Dialog open={upgradeOpen} onOpenChange={setUpgradeOpen}>
             <DialogContent className="border-white/10 bg-[#121316] text-white">
               <DialogHeader className="text-left">

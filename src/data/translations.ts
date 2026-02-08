@@ -71,6 +71,9 @@ export type TranslationKeys = {
   createTheme: string;
   exportFeaturesTitle: string;
   freeExportsRemaining: string;
+  exportGuideTitle: string;
+  exportGuideDescription: string;
+  exportGuideLink: string;
 };
 
 export const translations: Record<Locale, TranslationKeys> = {
@@ -133,6 +136,10 @@ export const translations: Record<Locale, TranslationKeys> = {
     exportLockRatio: 'Ratio verrouillé',
     exportFeaturesTitle: 'Fonctionnalités',
     freeExportsRemaining: 'Exports gratuits restants : {count}/5',
+    exportGuideTitle: 'Besoin d’un peu plus ?',
+    exportGuideDescription:
+      'Passe à Pro et débloque les formats, la qualité et les tailles illimitées.',
+    exportGuideLink: 'Voir les options Pro',
     highlightLines: 'Surligner les lignes',
     linesHash: 'Lignes #',
     font: 'Police',
@@ -206,6 +213,10 @@ export const translations: Record<Locale, TranslationKeys> = {
     exportLockRatio: 'Lock ratio',
     exportFeaturesTitle: 'Features',
     freeExportsRemaining: 'Free exports remaining : {count}/5',
+    exportGuideTitle: 'Need more exports?',
+    exportGuideDescription:
+      'Upgrade to Pro for unlimited formats, quality control and sizes.',
+    exportGuideLink: 'See Pro plans',
     highlightLines: 'Highlight lines',
     linesHash: 'Lines #',
     font: 'Font',
@@ -279,6 +290,10 @@ export const translations: Record<Locale, TranslationKeys> = {
     exportLockRatio: 'Bloquear ratio',
     exportFeaturesTitle: 'Características',
     freeExportsRemaining: 'Exportaciones gratuitas restantes : {count}/5',
+    exportGuideTitle: '¿Necesitas más exports?',
+    exportGuideDescription:
+      'Actualiza a Pro para formatos ilimitados, control de calidad y tamaños.',
+    exportGuideLink: 'Ver planes Pro',
     highlightLines: 'Resaltar líneas',
     linesHash: 'Líneas #',
     font: 'Fuente',
@@ -352,6 +367,10 @@ export const translations: Record<Locale, TranslationKeys> = {
     exportLockRatio: 'Seitenverhältnis',
     exportFeaturesTitle: 'Funktionen',
     freeExportsRemaining: 'Verbleibende Gratis-Exporte : {count}/5',
+    exportGuideTitle: 'Braucht du mehr Exporte?',
+    exportGuideDescription:
+      'Upgrade auf Pro für unbegrenzte Formate, Qualitätskontrolle und Größen.',
+    exportGuideLink: 'Pro-Pläne ansehen',
     highlightLines: 'Zeilen hervorheben',
     linesHash: 'Zeilen #',
     font: 'Schriftart',
@@ -425,6 +444,10 @@ export const translations: Record<Locale, TranslationKeys> = {
     exportLockRatio: 'Blocca ratio',
     exportFeaturesTitle: 'Funzionalità',
     freeExportsRemaining: 'Esportazioni gratuite rimanenti : {count}/5',
+    exportGuideTitle: 'Hai bisogno di più esportazioni?',
+    exportGuideDescription:
+      'Passa a Pro per formati, qualità e dimensioni illimitate.',
+    exportGuideLink: 'Vedi i piani Pro',
     highlightLines: 'Evidenzia righe',
     linesHash: 'Righe #',
     font: 'Font',
@@ -498,6 +521,10 @@ export const translations: Record<Locale, TranslationKeys> = {
     exportLockRatio: 'Bloquear proporção',
     exportFeaturesTitle: 'Funcionalidades',
     freeExportsRemaining: 'Exportações gratuitas restantes : {count}/5',
+    exportGuideTitle: 'Precisas de mais exports?',
+    exportGuideDescription:
+      'Faz upgrade para Pro e habilita formatos, qualidade e tamanhos ilimitados.',
+    exportGuideLink: 'Ver planos Pro',
     highlightLines: 'Realçar linhas',
     linesHash: 'Linhas #',
     font: 'Tipo de letra',
