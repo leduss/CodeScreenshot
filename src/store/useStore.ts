@@ -337,6 +337,17 @@ export const useStore = create<EditorState>()(
         isPro: state.isPro,
         exportsUsed: state.exportsUsed,
       }),
+      onRehydrateStorage() {
+        return (state) => {
+          if (state && !state.isPro) {
+            state.showLineNumbers = false;
+            state.showFoldGutter = false;
+            state.showActiveLine = false;
+            state.showSelectionMatches = false;
+            state.showSearch = false;
+          }
+        };
+      },
     }
   )
 );
