@@ -76,7 +76,6 @@ export type TranslationKeys = {
   exportGuideLink: string;
   sidebarHelpTitle: string;
   sidebarHelpDescription: string;
-  sidebarHelpLink: string;
 };
 
 export const translations: Record<Locale, TranslationKeys> = {
@@ -146,7 +145,6 @@ export const translations: Record<Locale, TranslationKeys> = {
     sidebarHelpTitle: 'Personnalise ta capture',
     sidebarHelpDescription:
       'Utilise la sidebar pour régler thèmes, recherche, watermark et layout avant export.',
-    sidebarHelpLink: 'Voir la documentation',
     highlightLines: 'Surligner les lignes',
     linesHash: 'Lignes #',
     font: 'Police',
@@ -227,7 +225,6 @@ export const translations: Record<Locale, TranslationKeys> = {
     sidebarHelpTitle: 'Customize your capture',
     sidebarHelpDescription:
       'Use the sidebar to tweak themes, search, watermark and layout before export.',
-    sidebarHelpLink: 'Browse the docs',
     highlightLines: 'Highlight lines',
     linesHash: 'Lines #',
     font: 'Font',
@@ -308,7 +305,6 @@ export const translations: Record<Locale, TranslationKeys> = {
     sidebarHelpTitle: 'Personaliza tu captura',
     sidebarHelpDescription:
       'Ajusta temas, búsqueda, watermark y disposición directamente desde la sidebar.',
-    sidebarHelpLink: 'Ver la documentación',
     highlightLines: 'Resaltar líneas',
     linesHash: 'Líneas #',
     font: 'Fuente',
@@ -389,7 +385,6 @@ export const translations: Record<Locale, TranslationKeys> = {
     sidebarHelpTitle: 'Passe deine Aufnahme an',
     sidebarHelpDescription:
       'Stelle Themen, Suche, Wasserzeichen und Layout direkt in der Sidebar ein.',
-    sidebarHelpLink: 'Dokumentation lesen',
     highlightLines: 'Zeilen hervorheben',
     linesHash: 'Zeilen #',
     font: 'Schriftart',
@@ -470,7 +465,6 @@ export const translations: Record<Locale, TranslationKeys> = {
     sidebarHelpTitle: 'Personalizza la tua cattura',
     sidebarHelpDescription:
       'Modifica temi, ricerca, watermark e layout direttamente dalla sidebar.',
-    sidebarHelpLink: 'Vai alla documentazione',
     highlightLines: 'Evidenzia righe',
     linesHash: 'Righe #',
     font: 'Font',
@@ -551,7 +545,6 @@ export const translations: Record<Locale, TranslationKeys> = {
     sidebarHelpTitle: 'Personaliza a tua captura',
     sidebarHelpDescription:
       'Ajusta temas, pesquisa, watermark e layout diretamente na sidebar.',
-    sidebarHelpLink: 'Ver a documentação',
     highlightLines: 'Realçar linhas',
     linesHash: 'Linhas #',
     font: 'Tipo de letra',

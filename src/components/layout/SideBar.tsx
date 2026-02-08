@@ -462,12 +462,6 @@ const SideBar = ({ editorRef, editorTitle }: SideBarProps) => {
             <p className="mt-1 text-[11px] text-white/60">
               {translations.sidebarHelpDescription}
             </p>
-            <Link
-              href="/docs"
-              className="mt-2 inline-flex text-[11px] font-semibold uppercase tracking-wide text-primary hover:text-primary-foreground"
-            >
-              {translations.sidebarHelpLink}
-            </Link>
           </div>
         </div>
 
