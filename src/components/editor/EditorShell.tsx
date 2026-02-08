@@ -17,6 +17,7 @@ interface EditorShellProps {
   className?: string;
   roundedClass?: string;
   hideHeaderActionsDuringCapture?: boolean;
+  hideFooterDuringCapture?: boolean;
 }
 
 const EditorShell = ({
@@ -32,6 +33,7 @@ const EditorShell = ({
   className,
   roundedClass,
   hideHeaderActionsDuringCapture = false,
+  hideFooterDuringCapture = false,
 }: EditorShellProps) => {
   const {
     font,
@@ -61,6 +63,12 @@ const EditorShell = ({
     `${exportFormat.toUpperCase()} · ${exportWidth}×${exportHeight}${
       !isPro ? ` · ${Math.max(0, 5 - exportsUsed)} gratuits` : ''
     }`;
+  const headerActionClasses = hideHeaderActionsDuringCapture
+    ? 'pointer-events-none opacity-0'
+    : 'opacity-100';
+  const footerActionClasses = hideFooterDuringCapture
+    ? 'pointer-events-none opacity-0'
+    : 'opacity-100';
 
   useEffect(() => {
     const { language: detectedLanguage } = flourite(code, { noUnknown: true });
@@ -196,9 +204,7 @@ const EditorShell = ({
               </div>
 
               <div
-                className={`flex items-center gap-2 text-muted-foreground transition-opacity ${
-                  hideHeaderActionsDuringCapture ? 'pointer-events-none opacity-0' : 'opacity-100'
-                }`}
+                className={`flex items-center gap-2 text-muted-foreground transition-opacity ${headerActionClasses}`}
               >
                   <button
                     className="rounded-md p-1.5 transition-colors hover:bg-white/5 hover:text-white"
@@ -237,7 +243,9 @@ const EditorShell = ({
           </div>
 
           {!isZen && (
-            <footer className="flex h-11 items-center justify-between border-t border-white/5 bg-[#17181b] px-5 text-xs text-muted-foreground">
+            <footer
+              className={`flex h-11 items-center justify-between border-t border-white/5 bg-[#17181b] px-5 text-xs text-muted-foreground transition-opacity ${footerActionClasses}`}
+            >
               <div className="flex items-center gap-3">
                 <span className="rounded bg-white/10 px-2 py-0.5 text-[11px] font-medium text-primary">
                   {footerLeft ?? language}

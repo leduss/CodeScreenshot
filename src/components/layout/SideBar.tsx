@@ -160,6 +160,7 @@ const SideBar = ({ editorRef, editorTitle, onExportCaptureChange }: SideBarProps
     }
     onExportCaptureChange?.(true);
     setExporting(true);
+    await new Promise((resolve) => requestAnimationFrame(() => resolve()));
     try {
       const editorEl = editorRef.current;
       const rect = editorEl.getBoundingClientRect();
