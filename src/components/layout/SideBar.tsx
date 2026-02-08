@@ -76,6 +76,13 @@ const SideBar = ({ editorRef, editorTitle }: SideBarProps) => {
     incrementExportsUsed,
     syncExportsUsed,
     resetExportsUsed,
+    layoutPreset,
+    setLayoutPreset,
+    setShowSearch,
+    setShowSelectionMatches,
+    setShowFoldGutter,
+    setShowActiveLine,
+    setShowLineNumbers,
   } = useStore();
   const { t: translations } = useTranslation();
   const radiusClass = rounded?.value ?? 'rounded-[22px]';
@@ -390,6 +397,56 @@ const SideBar = ({ editorRef, editorTitle }: SideBarProps) => {
             />
           </section>
 
+          <div className="mt-4 rounded border border-white/5 bg-[#17181b]/60 p-3">
+            <p className="text-xs font-semibold uppercase tracking-wide text-white/60">
+              {translations.layoutTitle}
+            </p>
+            <div className="mt-2 flex gap-2">
+              {[
+                { value: 'centered', label: translations.layoutCentered },
+                { value: 'full', label: translations.layoutFull },
+                { value: 'ratio', label: translations.layoutRatio },
+              ].map((option) => (
+                <button
+                  key={option.value}
+                  type="button"
+                  onClick={() => setLayoutPreset(option.value as 'centered' | 'full' | 'ratio')}
+                  className={`flex-1 rounded border px-2 py-1 text-[11px] uppercase transition ${
+                    layoutPreset === option.value
+                      ? 'border-primary text-primary'
+                      : 'border-white/20 text-white/60 hover:border-primary/50'
+                  }`}
+                >
+                  {option.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-4 rounded border border-white/5 bg-[#1b1e24]/70 p-3 text-xs text-white/80">
+            <p className="text-sm font-semibold text-white">
+              {translations.proPresetTitle}
+            </p>
+            <p className="mt-1 text-[11px] text-white/60">
+              {translations.proPresetDescription}
+            </p>
+            <button
+              type="button"
+              onClick={() => {
+                setZenMode(true);
+                setShowSearch(true);
+                setShowSelectionMatches(true);
+                setShowLineNumbers(true);
+                setShowFoldGutter(true);
+                setShowActiveLine(true);
+                setWatermarkText('SnapCode Pro');
+              }}
+              className="mt-3 inline-flex items-center justify-center rounded border border-primary/30 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-primary transition hover:border-primary/60 hover:bg-primary/5"
+            >
+              {translations.proPresetButton}
+            </button>
+          </div>
+
           <div className="my-4 h-px w-full bg-white/5" />
           <section className="flex w-full flex-col gap-2">
             <h3 className="pb-1 text-sm font-medium text-white/80">
@@ -647,13 +704,13 @@ const SideBar = ({ editorRef, editorTitle }: SideBarProps) => {
                 <p className="mt-1 text-[11px]/relaxed text-white/60">
                   {translations.exportGuideDescription}
                 </p>
-                <Link
-                  href="/pricing"
-                  className="mt-2 inline-flex text-[11px] font-semibold uppercase tracking-wide text-primary hover:text-primary-foreground"
-                >
-                  {translations.exportGuideLink}
-                </Link>
-              </div>
+            <Link
+              href="/pricing"
+              className="mt-2 inline-flex text-[11px] font-semibold uppercase tracking-wide text-primary hover:text-primary-foreground"
+            >
+              {translations.exportGuideLink}
+            </Link>
+          </div>
 
               <DialogFooter>
                 <DialogClose asChild>

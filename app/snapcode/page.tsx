@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useStore } from '@/store/useStore';
 import { SideBar } from '@/components/layout';
 import { codeString } from '@/data';
@@ -16,16 +16,21 @@ export default function Capture() {
     rounded,
     language,
     setLanguage,
+    isPro,
   } = useStore();
   const editorText = '#e6e8ef';
   const [title, setTitle] = useState<string>('counter');
   const [code, setCode] = useState<string>(codeString);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const editorRef = useRef<HTMLDivElement>(null);
+  const layoutPreset = useStore((state) => state.layoutPreset);
 
   // Load fonts dynamically
   useFontLoader(fontStyle?.link);
-  useFontLoader(font?.src);
+  const effectiveFontSrc = isPro
+    ? font?.src
+    : 'https://db.onlinewebfonts.com/c/203eabac5dc6b58ce623b91fc47f34cc?family=Input';
+  useFontLoader(effectiveFontSrc);
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
@@ -61,11 +66,19 @@ export default function Capture() {
 
         <main className="flex size-full min-h-0 flex-col items-center gap-6 px-6 py-8">
           <section className="flex min-h-0 w-full flex-1 items-center justify-center overflow-hidden">
-            <div
-              ref={editorRef}
-              className={`box-border h-full max-w-none ${rounded?.value ?? ''}`}
-              style={{ width: '75%' }}
-            >
+          <div
+            ref={editorRef}
+            className={`box-border h-full max-w-none ${rounded?.value ?? ''}`}
+            style={{
+              width:
+                layoutPreset === 'full'
+                  ? '100%'
+                  : layoutPreset === 'ratio'
+                  ? '80%'
+                  : '75%',
+              aspectRatio: layoutPreset === 'ratio' ? '4 / 3' : undefined,
+            }}
+          >
               <EditorShell
                 title={title}
                 code={code}

@@ -55,6 +55,7 @@ interface EditorState {
   exportLockRatio: boolean;
   isPro: boolean;
   exportsUsed: number;
+  layoutPreset: 'centered' | 'full' | 'ratio';
 
   // Actions
   setSyntaxTheme: (theme: string) => void;
@@ -98,6 +99,7 @@ interface EditorState {
   setActiveCustomTheme: (theme: CustomTheme | null) => void;
   setLanguage: (language: string) => void;
   reset: () => void;
+  setLayoutPreset: (preset: 'centered' | 'full' | 'ratio') => void;
 }
 
 const initialState = {
@@ -139,6 +141,7 @@ const initialState = {
   language: 'typescript',
   isPro: false,
   exportsUsed: 0,
+  layoutPreset: 'centered',
 };
 
 export const useStore = create<EditorState>()(
@@ -278,6 +281,8 @@ export const useStore = create<EditorState>()(
         set({ activeCustomTheme: theme }),
 
       setLanguage: (language: string) => set({ language }),
+      setLayoutPreset: (preset: 'centered' | 'full' | 'ratio') =>
+        set({ layoutPreset: preset }),
 
       reset: () => set(initialState),
     }),

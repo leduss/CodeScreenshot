@@ -145,6 +145,14 @@ export const translations: Record<Locale, TranslationKeys> = {
     sidebarHelpTitle: 'Personnalise ta capture',
     sidebarHelpDescription:
       'Utilise la sidebar pour régler thèmes, recherche, watermark et layout avant export.',
+    layoutTitle: 'Disposition',
+    layoutCentered: 'Centré',
+    layoutFull: 'Plein',
+    layoutRatio: 'Ratio 4:3',
+    proPresetTitle: 'Preset Pro',
+    proPresetDescription:
+      'Active instantanément zen, watermark et recherche pour comparer.',
+    proPresetButton: 'Activer le preset Pro',
     highlightLines: 'Surligner les lignes',
     linesHash: 'Lignes #',
     font: 'Police',
@@ -225,6 +233,14 @@ export const translations: Record<Locale, TranslationKeys> = {
     sidebarHelpTitle: 'Customize your capture',
     sidebarHelpDescription:
       'Use the sidebar to tweak themes, search, watermark and layout before export.',
+    layoutTitle: 'Layout',
+    layoutCentered: 'Centered',
+    layoutFull: 'Full width',
+    layoutRatio: '4:3 ratio',
+    proPresetTitle: 'Pro preset',
+    proPresetDescription:
+      'Enable zen, watermark and search to preview the Pro state.',
+    proPresetButton: 'Activate Pro preset',
     highlightLines: 'Highlight lines',
     linesHash: 'Lines #',
     font: 'Font',
@@ -305,6 +321,14 @@ export const translations: Record<Locale, TranslationKeys> = {
     sidebarHelpTitle: 'Personaliza tu captura',
     sidebarHelpDescription:
       'Ajusta temas, búsqueda, watermark y disposición directamente desde la sidebar.',
+    layoutTitle: 'Diseño',
+    layoutCentered: 'Centrado',
+    layoutFull: 'Ancho completo',
+    layoutRatio: 'Ratio 4:3',
+    proPresetTitle: 'Preset Pro',
+    proPresetDescription:
+      'Activa zen, watermark y búsqueda para comparar con la versión Pro.',
+    proPresetButton: 'Activar preset Pro',
     highlightLines: 'Resaltar líneas',
     linesHash: 'Líneas #',
     font: 'Fuente',
@@ -385,6 +409,14 @@ export const translations: Record<Locale, TranslationKeys> = {
     sidebarHelpTitle: 'Passe deine Aufnahme an',
     sidebarHelpDescription:
       'Stelle Themen, Suche, Wasserzeichen und Layout direkt in der Sidebar ein.',
+    layoutTitle: 'Layout',
+    layoutCentered: 'Zentriert',
+    layoutFull: 'Volle Breite',
+    layoutRatio: 'Seitenverhältnis 4:3',
+    proPresetTitle: 'Pro Preset',
+    proPresetDescription:
+      'Aktiviere Zen, Wasserzeichen und Suche, um die Pro-Ansicht zu zeigen.',
+    proPresetButton: 'Pro Preset aktivieren',
     highlightLines: 'Zeilen hervorheben',
     linesHash: 'Zeilen #',
     font: 'Schriftart',
@@ -465,6 +497,14 @@ export const translations: Record<Locale, TranslationKeys> = {
     sidebarHelpTitle: 'Personalizza la tua cattura',
     sidebarHelpDescription:
       'Modifica temi, ricerca, watermark e layout direttamente dalla sidebar.',
+    layoutTitle: 'Layout',
+    layoutCentered: 'Centrato',
+    layoutFull: 'Larghezza piena',
+    layoutRatio: 'Rapporto 4:3',
+    proPresetTitle: 'Preset Pro',
+    proPresetDescription:
+      'Attiva Zen, watermark e ricerca per vedere cosa offre la versione Pro.',
+    proPresetButton: 'Attiva preset Pro',
     highlightLines: 'Evidenzia righe',
     linesHash: 'Righe #',
     font: 'Font',
@@ -545,6 +585,14 @@ export const translations: Record<Locale, TranslationKeys> = {
     sidebarHelpTitle: 'Personaliza a tua captura',
     sidebarHelpDescription:
       'Ajusta temas, pesquisa, watermark e layout diretamente na sidebar.',
+    layoutTitle: 'Layout',
+    layoutCentered: 'Centralizado',
+    layoutFull: 'Largura total',
+    layoutRatio: 'Proporção 4:3',
+    proPresetTitle: 'Preset Pro',
+    proPresetDescription:
+      'Liga Zen, watermark e pesquisa para mostrar o estado Pro.',
+    proPresetButton: 'Ativar preset Pro',
     highlightLines: 'Realçar linhas',
     linesHash: 'Linhas #',
     font: 'Tipo de letra',
