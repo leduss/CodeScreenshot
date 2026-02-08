@@ -78,6 +78,7 @@ const SideBar = ({ editorRef, editorTitle }: SideBarProps) => {
     resetExportsUsed,
     layoutPreset,
     setLayoutPreset,
+    activateProPreviewPreset,
     setShowSearch,
     setShowSelectionMatches,
     setShowFoldGutter,
@@ -432,15 +433,7 @@ const SideBar = ({ editorRef, editorTitle }: SideBarProps) => {
             </p>
             <button
               type="button"
-              onClick={() => {
-                setZenMode(true);
-                setShowSearch(true);
-                setShowSelectionMatches(true);
-                setShowLineNumbers(true);
-                setShowFoldGutter(true);
-                setShowActiveLine(true);
-                setWatermarkText('SnapCode Pro');
-              }}
+              onClick={activateProPreviewPreset}
               className="mt-3 inline-flex items-center justify-center rounded border border-primary/30 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-primary transition hover:border-primary/60 hover:bg-primary/5"
             >
               {translations.proPresetButton}

@@ -56,6 +56,7 @@ interface EditorState {
   isPro: boolean;
   exportsUsed: number;
   layoutPreset: 'centered' | 'full' | 'ratio';
+  previewProActive: boolean;
 
   // Actions
   setSyntaxTheme: (theme: string) => void;
@@ -100,6 +101,7 @@ interface EditorState {
   setLanguage: (language: string) => void;
   reset: () => void;
   setLayoutPreset: (preset: 'centered' | 'full' | 'ratio') => void;
+  activateProPreviewPreset: () => void;
 }
 
 const initialState = {
@@ -142,6 +144,7 @@ const initialState = {
   isPro: false,
   exportsUsed: 0,
   layoutPreset: 'centered',
+  previewProActive: false,
 };
 
 export const useStore = create<EditorState>()(
@@ -179,22 +182,36 @@ export const useStore = create<EditorState>()(
 
       setIsLoader: (loading: boolean) => set({ isLoader: loading }),
 
-      setShowLineNumbers: (show: boolean) => set({ showLineNumbers: show }),
+      setShowLineNumbers: (show: boolean) =>
+        set((state) => ({
+          showLineNumbers: state.isPro || state.previewProActive ? show : false,
+        })),
 
       setShowZebra: (show: boolean) => set({ showZebra: show }),
 
-      setShowFoldGutter: (show: boolean) => set({ showFoldGutter: show }),
+      setShowFoldGutter: (show: boolean) =>
+        set((state) => ({
+          showFoldGutter: state.isPro || state.previewProActive ? show : false,
+        })),
 
-      setShowActiveLine: (show: boolean) => set({ showActiveLine: show }),
+      setShowActiveLine: (show: boolean) =>
+        set((state) => ({
+          showActiveLine: state.isPro || state.previewProActive ? show : false,
+        })),
 
       setShowSelectionMatches: (show: boolean) =>
-        set({ showSelectionMatches: show }),
+        set((state) => ({
+          showSelectionMatches:
+            state.isPro || state.previewProActive ? show : false,
+        })),
 
       setShowTrailingWhitespace: (show: boolean) =>
         set({ showTrailingWhitespace: show }),
 
       setShowSearch: (show: boolean) =>
-        set((state) => ({ showSearch: state.isPro ? show : false })),
+        set((state) => ({
+          showSearch: state.isPro || state.previewProActive ? show : false,
+        })),
 
       setZenMode: (enabled: boolean) => set({ zenMode: enabled }),
 
@@ -283,6 +300,18 @@ export const useStore = create<EditorState>()(
       setLanguage: (language: string) => set({ language }),
       setLayoutPreset: (preset: 'centered' | 'full' | 'ratio') =>
         set({ layoutPreset: preset }),
+      setPreviewProActive: (active: boolean) => set({ previewProActive: active }),
+      activateProPreviewPreset: () =>
+        set({
+          previewProActive: true,
+          zenMode: true,
+          showSearch: true,
+          showSelectionMatches: true,
+          showLineNumbers: true,
+          showFoldGutter: true,
+          showActiveLine: true,
+          watermarkText: 'SnapCode Pro',
+        }),
 
       reset: () => set(initialState),
     }),
@@ -321,6 +350,7 @@ export const useStore = create<EditorState>()(
         layoutPreset: state.layoutPreset,
         locale: state.locale,
         isPro: state.isPro,
+        previewProActive: state.previewProActive,
         exportsUsed: state.exportsUsed,
       }),
     }
