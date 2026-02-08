@@ -78,7 +78,6 @@ const SideBar = ({ editorRef, editorTitle }: SideBarProps) => {
     resetExportsUsed,
     layoutPreset,
     setLayoutPreset,
-    activateProPreviewPreset,
     setShowSearch,
     setShowSelectionMatches,
     setShowFoldGutter,
@@ -422,22 +421,6 @@ const SideBar = ({ editorRef, editorTitle }: SideBarProps) => {
                 </button>
               ))}
             </div>
-          </div>
-
-          <div className="mt-4 rounded border border-white/5 bg-[#1b1e24]/70 p-3 text-xs text-white/80">
-            <p className="text-sm font-semibold text-white">
-              {translations.proPresetTitle}
-            </p>
-            <p className="mt-1 text-[11px] text-white/60">
-              {translations.proPresetDescription}
-            </p>
-            <button
-              type="button"
-              onClick={activateProPreviewPreset}
-              className="mt-3 inline-flex items-center justify-center rounded border border-primary/30 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-primary transition hover:border-primary/60 hover:bg-primary/5"
-            >
-              {translations.proPresetButton}
-            </button>
           </div>
 
           <div className="my-4 h-px w-full bg-white/5" />
