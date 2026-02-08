@@ -160,7 +160,7 @@ const SideBar = ({ editorRef, editorTitle, onExportCaptureChange }: SideBarProps
     }
     onExportCaptureChange?.(true);
     setExporting(true);
-    await new Promise((resolve) => requestAnimationFrame(() => resolve()));
+    await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
     try {
       const editorEl = editorRef.current;
       const rect = editorEl.getBoundingClientRect();
@@ -196,7 +196,7 @@ const SideBar = ({ editorRef, editorTitle, onExportCaptureChange }: SideBarProps
         el.style.backdropFilter = 'none';
         el.style.filter = 'none';
       });
-      await new Promise((resolve) => requestAnimationFrame(resolve));
+      await new Promise<void>((resolve) => requestAnimationFrame(resolve));
       if (document.fonts?.ready) {
         await document.fonts.ready;
       }
