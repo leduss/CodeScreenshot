@@ -74,8 +74,17 @@ export type TranslationKeys = {
   exportGuideTitle: string;
   exportGuideDescription: string;
   exportGuideLink: string;
+  exportName: string;
+  exportNamePlaceholder: string;
   sidebarHelpTitle: string;
   sidebarHelpDescription: string;
+  layoutTitle: string;
+  layoutCentered: string;
+  layoutFull: string;
+  layoutRatio: string;
+  proPresetTitle: string;
+  proPresetDescription: string;
+  proPresetButton: string;
 };
 
 export const translations: Record<Locale, TranslationKeys> = {
@@ -142,6 +151,8 @@ export const translations: Record<Locale, TranslationKeys> = {
     exportGuideDescription:
       'Passe à Pro et débloque les formats, la qualité et les tailles illimitées.',
     exportGuideLink: 'Voir les options Pro',
+    exportName: 'Nom du fichier',
+    exportNamePlaceholder: 'ma-capture',
     sidebarHelpTitle: 'Personnalise ta capture',
     sidebarHelpDescription:
       'Utilise la sidebar pour régler thèmes, recherche, watermark et layout avant export.',
@@ -230,6 +241,8 @@ export const translations: Record<Locale, TranslationKeys> = {
     exportGuideDescription:
       'Upgrade to Pro for unlimited formats, quality control and sizes.',
     exportGuideLink: 'See Pro plans',
+    exportName: 'File name',
+    exportNamePlaceholder: 'my-capture',
     sidebarHelpTitle: 'Customize your capture',
     sidebarHelpDescription:
       'Use the sidebar to tweak themes, search, watermark and layout before export.',
@@ -318,6 +331,8 @@ export const translations: Record<Locale, TranslationKeys> = {
     exportGuideDescription:
       'Actualiza a Pro para formatos ilimitados, control de calidad y tamaños.',
     exportGuideLink: 'Ver planes Pro',
+    exportName: 'Nombre del archivo',
+    exportNamePlaceholder: 'mi-captura',
     sidebarHelpTitle: 'Personaliza tu captura',
     sidebarHelpDescription:
       'Ajusta temas, búsqueda, watermark y disposición directamente desde la sidebar.',
@@ -406,6 +421,8 @@ export const translations: Record<Locale, TranslationKeys> = {
     exportGuideDescription:
       'Upgrade auf Pro für unbegrenzte Formate, Qualitätskontrolle und Größen.',
     exportGuideLink: 'Pro-Pläne ansehen',
+    exportName: 'Dateiname',
+    exportNamePlaceholder: 'meine-capture',
     sidebarHelpTitle: 'Passe deine Aufnahme an',
     sidebarHelpDescription:
       'Stelle Themen, Suche, Wasserzeichen und Layout direkt in der Sidebar ein.',
@@ -494,6 +511,8 @@ export const translations: Record<Locale, TranslationKeys> = {
     exportGuideDescription:
       'Passa a Pro per formati, qualità e dimensioni illimitate.',
     exportGuideLink: 'Vedi i piani Pro',
+    exportName: 'Nome file',
+    exportNamePlaceholder: 'mia-cattura',
     sidebarHelpTitle: 'Personalizza la tua cattura',
     sidebarHelpDescription:
       'Modifica temi, ricerca, watermark e layout direttamente dalla sidebar.',
@@ -582,6 +601,8 @@ export const translations: Record<Locale, TranslationKeys> = {
     exportGuideDescription:
       'Faz upgrade para Pro e habilita formatos, qualidade e tamanhos ilimitados.',
     exportGuideLink: 'Ver planos Pro',
+    exportName: 'Nome do arquivo',
+    exportNamePlaceholder: 'minha-captura',
     sidebarHelpTitle: 'Personaliza a tua captura',
     sidebarHelpDescription:
       'Ajusta temas, pesquisa, watermark e layout diretamente na sidebar.',

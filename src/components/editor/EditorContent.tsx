@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import CodeMirror from '@uiw/react-codemirror';
 import {
   Decoration,
@@ -67,7 +67,14 @@ import { useStore } from '@/store/useStore';
 import { bracketMatching } from '@codemirror/language';
 import rainbowBrackets from 'rainbowbrackets';
 import { closeBrackets, closeBracketsKeymap } from '@codemirror/autocomplete';
-import { searchKeymap, highlightSelectionMatches } from '@codemirror/search';
+import {
+  search,
+  searchKeymap,
+  highlightSelectionMatches,
+  openSearchPanel,
+  closeSearchPanel,
+  searchPanelOpen,
+} from '@codemirror/search';
 import { highlightTrailingWhitespace } from '@codemirror/view';
 import { history, historyKeymap } from '@codemirror/commands';
 import { syntaxThemes } from '@/constants/syntax-themes/themes';
@@ -95,6 +102,7 @@ const EditorContent = ({ value, onChange }: EditorContentProps) => {
     letterSpacing,
     isPro,
   } = useStore();
+  const [editorView, setEditorView] = useState<EditorView | null>(null);
 
   const themeExtension = useMemo<Extension>(() => {
     const themeMap: Record<string, Extension> = {
@@ -191,6 +199,17 @@ const EditorContent = ({ value, onChange }: EditorContentProps) => {
     return ext ?? loadLanguage('tsx');
   }, [language]);
 
+  useEffect(() => {
+    if (!editorView) return;
+    if (showSearch) {
+      openSearchPanel(editorView);
+      return;
+    }
+    if (searchPanelOpen(editorView.state)) {
+      closeSearchPanel(editorView);
+    }
+  }, [editorView, showSearch]);
+
   const highlightExtension = useMemo(() => {
     if (!isPro) return [];
     const lines = new Set(highlightedLines);
@@ -255,7 +274,7 @@ const EditorContent = ({ value, onChange }: EditorContentProps) => {
       ...(showSelectionMatches
         ? [highlightSelectionMatches({ wholeWords: false })]
         : []),
-      ...(isPro && showSearch ? [keymap.of(searchKeymap)] : []),
+      ...(isPro && showSearch ? [search(), keymap.of(searchKeymap)] : []),
       ...(showTrailingWhitespace ? [highlightTrailingWhitespace()] : []),
       rectangularSelection(),
       crosshairCursor(),
@@ -372,6 +391,7 @@ const EditorContent = ({ value, onChange }: EditorContentProps) => {
         }}
         extensions={extensions}
         theme={themeExtension}
+        onCreateEditor={(view) => setEditorView(view)}
         onChange={onChange}
         style={{ height: '100%' }}
         className="h-full"

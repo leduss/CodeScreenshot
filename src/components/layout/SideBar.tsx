@@ -58,7 +58,6 @@ const SideBar = ({ editorRef, editorTitle, onExportCaptureChange }: SideBarProps
     setWatermarkText,
     watermarkPosition,
     setWatermarkPosition,
-    snippetTitle,
     setSnippetTitle,
     snippetDescription,
     setSnippetDescription,
@@ -85,6 +84,7 @@ const SideBar = ({ editorRef, editorTitle, onExportCaptureChange }: SideBarProps
     setShowFoldGutter,
     setShowActiveLine,
     setShowLineNumbers,
+    snippetTitle,
   } = useStore();
   const isDev = process.env.NODE_ENV === 'development';
   const { t: translations } = useTranslation();
@@ -564,9 +564,28 @@ const SideBar = ({ editorRef, editorTitle, onExportCaptureChange }: SideBarProps
                     <SelectContent>
                       <SelectItem value="png">{translations.png}</SelectItem>
                       <SelectItem value="jpg">{translations.jpg}</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div className="flex flex-col gap-2">
+                    <label className="text-sm text-white/80">
+                      {translations.exportName}
+                      {!isPro && (
+                        <span className="ml-2 rounded bg-primary/20 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary">
+                          Pro
+                        </span>
+                      )}
+                    </label>
+                    <Input
+                      type="text"
+                      value={isPro ? snippetTitle : ''}
+                      placeholder={translations.exportNamePlaceholder}
+                      onChange={(event) => setSnippetTitle(event.target.value)}
+                      className="h-9"
+                      disabled={!isPro}
+                    />
+                  </div>
 
                 <div className="flex flex-col gap-2">
                   <div className="flex items-center justify-between text-sm">
