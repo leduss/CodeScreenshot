@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ArrowRight, Sparkles } from 'lucide-react';
+import Link from 'next/link';
 import { Button } from '../ui';
 import CodePreview from './code-preview';
 
@@ -106,18 +107,20 @@ const Hero = () => {
           haut de gamme sans installation.
         </p>
 
-        <div
-          ref={ctaRef}
-          className="flex flex-col items-center justify-center gap-4 sm:flex-row"
-        >
-          <Button variant="hero" size="xl">
-            Commencer gratuitement
-            <ArrowRight className="size-5" />
-          </Button>
-          <Button variant="hero-outline" size="xl">
-            Voir la démo
-          </Button>
-        </div>
+          <div
+            ref={ctaRef}
+            className="flex flex-col items-center justify-center gap-4 sm:flex-row"
+          >
+            <Button variant="hero" size="xl" asChild>
+              <Link href="/snapcode">
+                Commencer gratuitement
+                <ArrowRight className="size-5" />
+              </Link>
+            </Button>
+            <Button variant="hero-outline" size="xl">
+              Voir la démo
+            </Button>
+          </div>
       </div>
 
       <div

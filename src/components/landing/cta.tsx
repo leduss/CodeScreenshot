@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 
@@ -49,9 +50,11 @@ const CTA = () => {
               expérience illimitée et toutes les options avancées.
             </p>
             <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <Button variant="hero" size="xl">
-                Créer ma première capture
-                <ArrowRight className="size-5" />
+              <Button variant="hero" size="xl" asChild>
+                <Link href="/snapcode">
+                  Créer ma première capture
+                  <ArrowRight className="size-5" />
+                </Link>
               </Button>
               <Button variant="hero-outline" size="xl">
                 Passer Pro
