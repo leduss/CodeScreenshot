@@ -195,10 +195,9 @@ const EditorShell = ({
                 />
               </div>
 
-              {isPro && (
               <div
                 className={`flex items-center gap-2 text-muted-foreground transition-opacity ${
-                  hideHeaderActionsDuringCapture ? 'opacity-0 pointer-events-none' : 'opacity-100'
+                  hideHeaderActionsDuringCapture ? 'pointer-events-none opacity-0' : 'opacity-100'
                 }`}
               >
                   <button
@@ -223,7 +222,6 @@ const EditorShell = ({
                     <Share2 className="size-3.5" />
                   </button>
                 </div>
-              )}
             </header>
           )}
 
