@@ -193,29 +193,31 @@ const EditorShell = ({
                 />
               </div>
 
-              <div className="flex items-center gap-2 text-muted-foreground">
-                <button
-                  className="rounded-md p-1.5 transition-colors hover:bg-white/5 hover:text-white"
-                  type="button"
-                  aria-label="Copier"
-                >
-                  <Copy className="size-3.5" />
-                </button>
-                <button
-                  className="rounded-md p-1.5 transition-colors hover:bg-white/5 hover:text-white"
-                  type="button"
-                  aria-label="Télécharger"
-                >
-                  <Download className="size-3.5" />
-                </button>
-                <button
-                  className="rounded-md p-1.5 transition-colors hover:bg-white/5 hover:text-primary"
-                  type="button"
-                  aria-label="Partager"
-                >
-                  <Share2 className="size-3.5" />
-                </button>
-              </div>
+              {isPro && (
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <button
+                    className="rounded-md p-1.5 transition-colors hover:bg-white/5 hover:text-white"
+                    type="button"
+                    aria-label="Copier"
+                  >
+                    <Copy className="size-3.5" />
+                  </button>
+                  <button
+                    className="rounded-md p-1.5 transition-colors hover:bg-white/5 hover:text-white"
+                    type="button"
+                    aria-label="Télécharger"
+                  >
+                    <Download className="size-3.5" />
+                  </button>
+                  <button
+                    className="rounded-md p-1.5 transition-colors hover:bg-white/5 hover:text-primary"
+                    type="button"
+                    aria-label="Partager"
+                  >
+                    <Share2 className="size-3.5" />
+                  </button>
+                </div>
+              )}
             </header>
           )}
 
