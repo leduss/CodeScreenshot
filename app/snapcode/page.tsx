@@ -27,6 +27,7 @@ export default function Capture() {
   const setExportWidth = useStore((state) => state.setExportWidth);
   const setExportHeight = useStore((state) => state.setExportHeight);
   const setExportLockRatio = useStore((state) => state.setExportLockRatio);
+  const [isCapturingExport, setIsCapturingExport] = useState(false);
 
   // Load fonts dynamically
   useFontLoader(fontStyle?.link);
@@ -81,7 +82,11 @@ export default function Capture() {
             <Loading setLoading={setIsLoading} />
           </div>
         )}
-        <SideBar editorRef={editorRef} editorTitle={title} />
+        <SideBar
+          editorRef={editorRef}
+          editorTitle={title}
+          onExportCaptureChange={setIsCapturingExport}
+        />
 
 
         <main className="flex size-full min-h-0 flex-col items-center gap-6 px-6 py-8">
@@ -107,6 +112,7 @@ export default function Capture() {
                 titleTextColor={editorText}
                 language={language}
                 roundedClass={rounded?.value}
+                hideHeaderActionsDuringCapture={isCapturingExport}
               >
                 <EditorContent value={code} onChange={setCode} />
               </EditorShell>

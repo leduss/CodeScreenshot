@@ -16,6 +16,7 @@ interface EditorShellProps {
   children?: React.ReactNode;
   className?: string;
   roundedClass?: string;
+  hideHeaderActionsDuringCapture?: boolean;
 }
 
 const EditorShell = ({
@@ -30,6 +31,7 @@ const EditorShell = ({
   children,
   className,
   roundedClass,
+  hideHeaderActionsDuringCapture = false,
 }: EditorShellProps) => {
   const {
     font,
@@ -194,7 +196,11 @@ const EditorShell = ({
               </div>
 
               {isPro && (
-                <div className="flex items-center gap-2 text-muted-foreground">
+              <div
+                className={`flex items-center gap-2 text-muted-foreground transition-opacity ${
+                  hideHeaderActionsDuringCapture ? 'opacity-0 pointer-events-none' : 'opacity-100'
+                }`}
+              >
                   <button
                     className="rounded-md p-1.5 transition-colors hover:bg-white/5 hover:text-white"
                     type="button"

@@ -39,9 +39,10 @@ import { ThemeToggle } from '../theme';
 interface SideBarProps {
   editorRef?: React.RefObject<HTMLDivElement | null>;
   editorTitle?: string;
+  onExportCaptureChange?: (isCapturing: boolean) => void;
 }
 
-const SideBar = ({ editorRef, editorTitle }: SideBarProps) => {
+const SideBar = ({ editorRef, editorTitle, onExportCaptureChange }: SideBarProps) => {
   const {
     indexRounded,
     indexFontSize,
@@ -155,6 +156,7 @@ const SideBar = ({ editorRef, editorTitle }: SideBarProps) => {
       setUpgradeOpen(true);
       return;
     }
+    onExportCaptureChange?.(true);
     setExporting(true);
     try {
       const editorEl = editorRef.current;
@@ -278,6 +280,7 @@ const SideBar = ({ editorRef, editorTitle }: SideBarProps) => {
       toast.error(translations.error);
     } finally {
       setExporting(false);
+      onExportCaptureChange?.(false);
     }
   };
 
