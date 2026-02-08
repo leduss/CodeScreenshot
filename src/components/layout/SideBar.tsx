@@ -100,12 +100,20 @@ const SideBar = ({ editorRef, editorTitle }: SideBarProps) => {
   const exportFeatureList = [
     { key: 'zenMode', label: translations.zenMode, locked: !isPro },
     { key: 'lineNumbers', label: translations.lineNumbers, locked: !isPro },
-    { key: 'highlightLines', label: translations.highlightLines, locked: !isPro },
+    {
+      key: 'highlightLines',
+      label: translations.highlightLines,
+      locked: !isPro,
+    },
     { key: 'search', label: translations.search, locked: !isPro },
     { key: 'watermark', label: translations.watermark, locked: !isPro },
     { key: 'snippetMeta', label: translations.snippetMeta, locked: !isPro },
     { key: 'fontSize', label: translations.fontSize, locked: !isPro },
-    { key: 'exportSettings', label: translations.exportSettings, locked: false },
+    {
+      key: 'exportSettings',
+      label: translations.exportSettings,
+      locked: false,
+    },
   ];
   const remainingExports = Math.max(0, 5 - exportsUsed);
   const remainingLabel = translations.freeExportsRemaining?.replace(
@@ -189,9 +197,9 @@ const SideBar = ({ editorRef, editorTitle }: SideBarProps) => {
           ? Math.round(targetWidth * aspect)
           : exportHeight
         : Math.round(targetWidth * aspect);
-      const exportRoot = editorEl.querySelector('[data-export-root]') as
-        | HTMLElement
-        | null;
+      const exportRoot = editorEl.querySelector(
+        '[data-export-root]'
+      ) as HTMLElement | null;
       const resolvedBg = exportRoot
         ? getComputedStyle(exportRoot).backgroundColor
         : 'rgba(0, 0, 0, 0)';
@@ -238,9 +246,7 @@ const SideBar = ({ editorRef, editorTitle }: SideBarProps) => {
       }
 
       const filenameBase =
-        editorTitle?.trim() ||
-        (isPro ? snippetTitle?.trim() : '') ||
-        'snippet';
+        editorTitle?.trim() || (isPro ? snippetTitle?.trim() : '') || 'snippet';
       const link = document.createElement('a');
       link.href = image;
       link.download = `${filenameBase}.${effectiveFormat}`;
@@ -448,9 +454,24 @@ const SideBar = ({ editorRef, editorTitle }: SideBarProps) => {
           </section>
 
           <div className="my-4 h-px w-full bg-white/5" />
+
+          <div className="rounded border border-white/10 bg-white/5 p-3 text-xs text-white/80">
+            <p className="text-sm font-semibold text-white">
+              {translations.sidebarHelpTitle}
+            </p>
+            <p className="mt-1 text-[11px] text-white/60">
+              {translations.sidebarHelpDescription}
+            </p>
+            <Link
+              href="/docs"
+              className="mt-2 inline-flex text-[11px] font-semibold uppercase tracking-wide text-primary hover:text-primary-foreground"
+            >
+              {translations.sidebarHelpLink}
+            </Link>
+          </div>
         </div>
 
-        <div className="relative flex items-center justify-end gap-3 border-t border-white/5 bg-[#17181b] px-4 py-3 text-xs text-muted-foreground">
+        <div className="relative flex items-center justify-between gap-3 border-t border-white/5 bg-[#17181b] px-4 py-3 text-xs text-muted-foreground">
           <ThemeToggle />
           <div className="h-6 w-px bg-white/10" />
           <Dialog open={exportOpen} onOpenChange={setExportOpen}>
@@ -462,7 +483,7 @@ const SideBar = ({ editorRef, editorTitle }: SideBarProps) => {
                 {translations.exportSettings}
               </button>
             </DialogTrigger>
-          <DialogContent className="border-white/10 bg-[#121316] text-white">
+            <DialogContent className="border-white/10 bg-[#121316] text-white">
               <DialogHeader className="text-left">
                 <DialogTitle>{translations.exportSettings}</DialogTitle>
                 <DialogDescription className="text-white/60">
@@ -577,9 +598,7 @@ const SideBar = ({ editorRef, editorTitle }: SideBarProps) => {
                   </span>
                   <Checkbox
                     checked={exportLockRatio}
-                    onCheckedChange={(checked) =>
-                      setExportLockRatio(!!checked)
-                    }
+                    onCheckedChange={(checked) => setExportLockRatio(!!checked)}
                     disabled={!isPro}
                   />
                 </label>
@@ -628,7 +647,9 @@ const SideBar = ({ editorRef, editorTitle }: SideBarProps) => {
                 )}
               </div>
               <div className="rounded border border-white/5 bg-white/5 p-3 text-xs text-white/70">
-                <p className="font-semibold text-white">{translations.exportGuideTitle}</p>
+                <p className="font-semibold text-white">
+                  {translations.exportGuideTitle}
+                </p>
                 <p className="mt-1 text-[11px]/relaxed text-white/60">
                   {translations.exportGuideDescription}
                 </p>
@@ -689,9 +710,12 @@ const SideBar = ({ editorRef, editorTitle }: SideBarProps) => {
           <div className="h-6 w-px bg-white/10" />
           <LanguageToggle />
         </div>
-        <div className="mt-2 flex flex-col items-start gap-1 text-[11px] text-white/60">
+        <div className="flex items-start gap-1 px-4 pb-1 text-[11px] text-white/60">
           <span>5 exports PNG gratuits.</span>
-          <Link href="/pricing" className="text-primary underline-offset-2 hover:underline">
+          <Link
+            href="/pricing"
+            className="text-primary underline-offset-2 hover:underline"
+          >
             Passez Pro
           </Link>
         </div>

@@ -74,6 +74,9 @@ export type TranslationKeys = {
   exportGuideTitle: string;
   exportGuideDescription: string;
   exportGuideLink: string;
+  sidebarHelpTitle: string;
+  sidebarHelpDescription: string;
+  sidebarHelpLink: string;
 };
 
 export const translations: Record<Locale, TranslationKeys> = {
@@ -217,6 +220,18 @@ export const translations: Record<Locale, TranslationKeys> = {
     exportGuideDescription:
       'Upgrade to Pro for unlimited formats, quality control and sizes.',
     exportGuideLink: 'See Pro plans',
+    sidebarHelpTitle: 'Customize your capture',
+    sidebarHelpDescription:
+      'Use the sidebar to tweak themes, search, watermark and layout before export.',
+    sidebarHelpLink: 'Browse the docs',
+    sidebarHelpTitle: 'Customize your capture',
+    sidebarHelpDescription:
+      'Use the sidebar to tweak themes, search, watermark and layout before export.',
+    sidebarHelpLink: 'Browse the docs',
+    sidebarHelpTitle: 'Customize votre capture',
+    sidebarHelpDescription:
+      'Utilisez la sidebar pour ajuster les thèmes, la recherche, le watermark et la mise en page.',
+    sidebarHelpLink: 'Voir la documentation',
     highlightLines: 'Highlight lines',
     linesHash: 'Lines #',
     font: 'Font',
@@ -294,6 +309,10 @@ export const translations: Record<Locale, TranslationKeys> = {
     exportGuideDescription:
       'Actualiza a Pro para formatos ilimitados, control de calidad y tamaños.',
     exportGuideLink: 'Ver planes Pro',
+    sidebarHelpTitle: 'Personaliza tu captura',
+    sidebarHelpDescription:
+      'Ajusta temas, búsqueda, watermark y disposición directamente desde la sidebar.',
+    sidebarHelpLink: 'Ver la documentación',
     highlightLines: 'Resaltar líneas',
     linesHash: 'Líneas #',
     font: 'Fuente',
@@ -371,6 +390,10 @@ export const translations: Record<Locale, TranslationKeys> = {
     exportGuideDescription:
       'Upgrade auf Pro für unbegrenzte Formate, Qualitätskontrolle und Größen.',
     exportGuideLink: 'Pro-Pläne ansehen',
+    sidebarHelpTitle: 'Passe deine Aufnahme an',
+    sidebarHelpDescription:
+      'Stelle Themen, Suche, Wasserzeichen und Layout direkt in der Sidebar ein.',
+    sidebarHelpLink: 'Dokumentation lesen',
     highlightLines: 'Zeilen hervorheben',
     linesHash: 'Zeilen #',
     font: 'Schriftart',
@@ -448,6 +471,10 @@ export const translations: Record<Locale, TranslationKeys> = {
     exportGuideDescription:
       'Passa a Pro per formati, qualità e dimensioni illimitate.',
     exportGuideLink: 'Vedi i piani Pro',
+    sidebarHelpTitle: 'Personalizza la tua cattura',
+    sidebarHelpDescription:
+      'Modifica temi, ricerca, watermark e layout direttamente dalla sidebar.',
+    sidebarHelpLink: 'Vai alla documentazione',
     highlightLines: 'Evidenzia righe',
     linesHash: 'Righe #',
     font: 'Font',
@@ -525,6 +552,10 @@ export const translations: Record<Locale, TranslationKeys> = {
     exportGuideDescription:
       'Faz upgrade para Pro e habilita formatos, qualidade e tamanhos ilimitados.',
     exportGuideLink: 'Ver planos Pro',
+    sidebarHelpTitle: 'Personaliza a tua captura',
+    sidebarHelpDescription:
+      'Ajusta temas, pesquisa, watermark e layout diretamente na sidebar.',
+    sidebarHelpLink: 'Ver a documentação',
     highlightLines: 'Realçar linhas',
     linesHash: 'Linhas #',
     font: 'Tipo de letra',

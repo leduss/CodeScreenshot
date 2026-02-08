@@ -26,12 +26,22 @@ const EditorShell = ({
   onLanguageChange,
   titleTextColor = '#e6e8ef',
   footerLeft,
-  footerRight = '2x · PNG · 1200×800',
+  footerRight,
   children,
   className,
   roundedClass,
 }: EditorShellProps) => {
-  const { font, zenMode, watermarkText, watermarkPosition, isPro } = useStore();
+  const {
+    font,
+    zenMode,
+    watermarkText,
+    watermarkPosition,
+    isPro,
+    exportFormat,
+    exportWidth,
+    exportHeight,
+    exportsUsed,
+  } = useStore();
   const radiusClass = roundedClass ?? 'rounded-[22px]';
   const glowRadiusClass = roundedClass ?? 'rounded-[24px]';
   const [isEditing, setIsEditing] = useState(false);
@@ -43,6 +53,12 @@ const EditorShell = ({
     'bottom-right': 'bottom-4 right-4',
     center: 'top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2',
   };
+
+  const computedFooterRight =
+    footerRight ??
+    `${exportFormat.toUpperCase()} · ${exportWidth}×${exportHeight}${
+      !isPro ? ` · ${Math.max(0, 5 - exportsUsed)} gratuits` : ''
+    }`;
 
   useEffect(() => {
     const { language: detectedLanguage } = flourite(code, { noUnknown: true });
@@ -223,7 +239,7 @@ const EditorShell = ({
                 <span>{font?.name || 'JetBrains Mono'}</span>
               </div>
               <div className="text-[11px] text-muted-foreground">
-                {footerRight}
+                {computedFooterRight}
               </div>
             </footer>
           )}
