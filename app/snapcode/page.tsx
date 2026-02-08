@@ -113,7 +113,7 @@ export default function Capture() {
                 language={language}
                 roundedClass={rounded?.value}
                 hideHeaderActionsDuringCapture={isCapturingExport}
-                hideFooterDuringCapture={isCapturingExport}
+                hideFooterContentDuringCapture={isCapturingExport}
               >
                 <EditorContent value={code} onChange={setCode} />
               </EditorShell>

@@ -17,7 +17,7 @@ interface EditorShellProps {
   className?: string;
   roundedClass?: string;
   hideHeaderActionsDuringCapture?: boolean;
-  hideFooterDuringCapture?: boolean;
+  hideFooterContentDuringCapture?: boolean;
 }
 
 const EditorShell = ({
@@ -33,7 +33,7 @@ const EditorShell = ({
   className,
   roundedClass,
   hideHeaderActionsDuringCapture = false,
-  hideFooterDuringCapture = false,
+  hideFooterContentDuringCapture = false,
 }: EditorShellProps) => {
   const {
     font,
@@ -159,6 +159,9 @@ const EditorShell = ({
   const isZen = isPro ? zenMode : false;
   const forcedWatermark = 'SnapCode Free';
   const effectiveWatermarkText = isPro ? watermarkText : forcedWatermark;
+  const footerContentClass = hideFooterContentDuringCapture
+    ? 'opacity-0 pointer-events-none'
+    : 'opacity-100';
 
   return (
     <div className={`group relative h-full ${className ?? ''}`}>
@@ -173,28 +176,30 @@ const EditorShell = ({
 
         <div className="relative flex h-full flex-col">
           {!isZen && (
-            <header className="flex h-12 items-center justify-between border-b border-white/5 bg-[#17181b] px-5">
+            <header className="relative flex h-12 items-center justify-between border-b border-white/5 bg-[#17181b] px-5">
               <div className="flex items-center gap-2" aria-hidden="true">
                 <span className="size-3 rounded-full bg-[hsl(8_85%_55%)]" />
                 <span className="size-3 rounded-full bg-[hsl(45_90%_50%)]" />
                 <span className="size-3 rounded-full bg-[hsl(140_60%_45%)]" />
               </div>
 
-              <div className="ml-10 inline-flex h-10 w-auto max-w-max items-center gap-2 border-t border-violet-500 bg-white/10 px-3 backdrop-blur-sm">
-                <div className="flex size-5 shrink-0 items-center justify-center">
-                  <span style={{ color: titleTextColor }}>
-                    {getLanguageIcon(language)}
-                  </span>
+              <div className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2">
+                <div className="inline-flex h-10 w-auto max-w-[280px] items-center gap-2 border-t border-violet-500 bg-white/10 px-3 backdrop-blur-sm">
+                  <div className="flex size-5 shrink-0 items-center justify-center">
+                    <span style={{ color: titleTextColor }}>
+                      {getLanguageIcon(language)}
+                    </span>
+                  </div>
+                  <input
+                    className="placeholder:text-inherit/50 h-full w-[175px] border-none bg-transparent text-sm text-inherit outline-none"
+                    style={{ color: titleTextColor }}
+                    placeholder="nom fichier"
+                    value={getFullFilename()}
+                    onChange={(e) => onTitleChange?.(e.target.value)}
+                    onFocus={() => setIsEditing(true)}
+                    onBlur={() => setIsEditing(false)}
+                  />
                 </div>
-                <input
-                  className="placeholder:text-inherit/50 h-full w-auto min-w-[100px] border-none bg-transparent text-sm text-inherit outline-none"
-                  style={{ color: titleTextColor }}
-                  placeholder="nom fichier"
-                  value={getFullFilename()}
-                  onChange={(e) => onTitleChange?.(e.target.value)}
-                  onFocus={() => setIsEditing(true)}
-                  onBlur={() => setIsEditing(false)}
-                />
               </div>
 
               {isPro && !hideHeaderActionsDuringCapture && (
@@ -236,15 +241,17 @@ const EditorShell = ({
             )}
           </div>
 
-          {!isZen && !hideFooterDuringCapture && (
+          {!isZen && (
             <footer className="flex h-11 items-center justify-between border-t border-white/5 bg-[#17181b] px-5 text-xs text-muted-foreground">
-              <div className="flex items-center gap-3">
+              <div className={`flex items-center gap-3 ${footerContentClass}`}>
                 <span className="rounded bg-white/10 px-2 py-0.5 text-[11px] font-medium text-primary">
                   {footerLeft ?? language}
                 </span>
                 <span>{font?.name || 'JetBrains Mono'}</span>
               </div>
-              <div className="text-[11px] text-muted-foreground">
+              <div
+                className={`text-[11px] text-muted-foreground ${footerContentClass}`}
+              >
                 {computedFooterRight}
               </div>
             </footer>
