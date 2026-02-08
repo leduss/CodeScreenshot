@@ -24,6 +24,9 @@ export default function Capture() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const editorRef = useRef<HTMLDivElement>(null);
   const layoutPreset = useStore((state) => state.layoutPreset);
+  const setExportWidth = useStore((state) => state.setExportWidth);
+  const setExportHeight = useStore((state) => state.setExportHeight);
+  const setExportLockRatio = useStore((state) => state.setExportLockRatio);
 
   // Load fonts dynamically
   useFontLoader(fontStyle?.link);
@@ -53,6 +56,22 @@ export default function Capture() {
     };
   }, []);
 
+  const layoutSizes = useMemo(
+    () => ({
+      centered: { width: 1200, height: 800, lockRatio: true },
+      full: { width: 1920, height: 1080, lockRatio: false },
+      ratio: { width: 1600, height: 1200, lockRatio: true },
+    }),
+    []
+  );
+
+  useEffect(() => {
+    const settings = layoutSizes[layoutPreset] ?? layoutSizes.centered;
+    setExportWidth(settings.width);
+    setExportHeight(settings.height);
+    setExportLockRatio(settings.lockRatio);
+  }, [layoutPreset, layoutSizes, setExportHeight, setExportLockRatio, setExportWidth]);
+
 
   return (
     <div className="noise-bg  h-screen w-screen overflow-hidden bg-background p-4">
@@ -63,6 +82,7 @@ export default function Capture() {
           </div>
         )}
         <SideBar editorRef={editorRef} editorTitle={title} />
+
 
         <main className="flex size-full min-h-0 flex-col items-center gap-6 px-6 py-8">
           <section className="flex min-h-0 w-full flex-1 items-center justify-center overflow-hidden">
