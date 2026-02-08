@@ -140,7 +140,7 @@ const initialState = {
   language: 'typescript',
   isPro: false,
   exportsUsed: 0,
-  layoutPreset: 'centered',
+  layoutPreset: 'centered' as const,
 };
 
 export const useStore = create<EditorState>()(

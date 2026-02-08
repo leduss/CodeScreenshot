@@ -27,7 +27,6 @@ export default function Capture() {
   const setExportWidth = useStore((state) => state.setExportWidth);
   const setExportHeight = useStore((state) => state.setExportHeight);
   const setExportLockRatio = useStore((state) => state.setExportLockRatio);
-  const setSnippetTitle = useStore((state) => state.setSnippetTitle);
   const [isCapturingExport, setIsCapturingExport] = useState(false);
 
   // Load fonts dynamically
@@ -45,10 +44,6 @@ export default function Capture() {
       setCode(normalized);
     }
   }, []);
-
-  useEffect(() => {
-    setSnippetTitle(title);
-  }, [title, setSnippetTitle]);
 
   useEffect(() => {
     const prevHtmlOverflow = document.documentElement.style.overflow;

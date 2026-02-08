@@ -42,7 +42,11 @@ interface SideBarProps {
   onExportCaptureChange?: (isCapturing: boolean) => void;
 }
 
-const SideBar = ({ editorRef, editorTitle, onExportCaptureChange }: SideBarProps) => {
+const SideBar = ({
+  editorRef,
+  editorTitle,
+  onExportCaptureChange,
+}: SideBarProps) => {
   const {
     indexRounded,
     indexFontSize,
@@ -93,6 +97,8 @@ const SideBar = ({ editorRef, editorTitle, onExportCaptureChange }: SideBarProps
   const [exportOpen, setExportOpen] = useState(false);
   const [exporting, setExporting] = useState(false);
   const [upgradeOpen, setUpgradeOpen] = useState(false);
+  const [exportFileName, setExportFileName] = useState('');
+  const [exportNameTouched, setExportNameTouched] = useState(false);
   useEffect(() => {
     const { prev, next } = syncExportsUsed();
     if (prev > next && next === 0) {
@@ -100,6 +106,11 @@ const SideBar = ({ editorRef, editorTitle, onExportCaptureChange }: SideBarProps
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  useEffect(() => {
+    if (!exportNameTouched) {
+      setExportFileName(editorTitle?.trim() ?? '');
+    }
+  }, [editorTitle, exportNameTouched]);
   const watermarkOptions = [
     { value: 'top-left', label: 'Top left' },
     { value: 'top-right', label: 'Top right' },
@@ -160,7 +171,9 @@ const SideBar = ({ editorRef, editorTitle, onExportCaptureChange }: SideBarProps
     }
     onExportCaptureChange?.(true);
     setExporting(true);
-    await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
+    await new Promise<void>((resolve) =>
+      requestAnimationFrame(() => resolve())
+    );
     try {
       const editorEl = editorRef.current;
       const rect = editorEl.getBoundingClientRect();
@@ -196,7 +209,9 @@ const SideBar = ({ editorRef, editorTitle, onExportCaptureChange }: SideBarProps
         el.style.backdropFilter = 'none';
         el.style.filter = 'none';
       });
-      await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
+      await new Promise<void>((resolve) =>
+        requestAnimationFrame(() => resolve())
+      );
       if (document.fonts?.ready) {
         await document.fonts.ready;
       }
@@ -257,8 +272,7 @@ const SideBar = ({ editorRef, editorTitle, onExportCaptureChange }: SideBarProps
         image = await toPng(editorEl, options);
       }
 
-      const filenameBase =
-        editorTitle?.trim() || (isPro ? snippetTitle?.trim() : '') || 'snippet';
+      const filenameBase = exportFileName.trim() || 'snippet';
       const link = document.createElement('a');
       link.href = image;
       link.download = `${filenameBase}.${effectiveFormat}`;
@@ -304,10 +318,11 @@ const SideBar = ({ editorRef, editorTitle, onExportCaptureChange }: SideBarProps
         {isDev && (
           <div className="flex items-center gap-3 border-b border-white/5 bg-white/5 px-3 py-2 text-[11px] uppercase tracking-wider text-white/70">
             <span>DEV</span>
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-300" aria-hidden="true" />
-            <span>
-              {isPro ? 'Pro activé' : 'Free activé'}
-            </span>
+            <span
+              className="size-1.5 rounded-full bg-emerald-300"
+              aria-hidden="true"
+            />
+            <span>{isPro ? 'Pro activé' : 'Free activé'}</span>
             <button
               className="ml-auto rounded border border-white/20 px-3 py-0.5 text-[11px] font-semibold uppercase tracking-wider text-white transition hover:border-white/50"
               type="button"
@@ -433,7 +448,11 @@ const SideBar = ({ editorRef, editorTitle, onExportCaptureChange }: SideBarProps
                 <button
                   key={option.value}
                   type="button"
-                  onClick={() => setLayoutPreset(option.value as 'centered' | 'full' | 'ratio')}
+                  onClick={() =>
+                    setLayoutPreset(
+                      option.value as 'centered' | 'full' | 'ratio'
+                    )
+                  }
                   className={`flex-1 rounded border px-2 py-1 text-[11px] uppercase transition ${
                     layoutPreset === option.value
                       ? 'border-primary text-primary'
@@ -564,28 +583,31 @@ const SideBar = ({ editorRef, editorTitle, onExportCaptureChange }: SideBarProps
                     <SelectContent>
                       <SelectItem value="png">{translations.png}</SelectItem>
                       <SelectItem value="jpg">{translations.jpg}</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
+                    </SelectContent>
+                  </Select>
+                </div>
 
-                  <div className="flex flex-col gap-2">
-                    <label className="text-sm text-white/80">
-                      {translations.exportName}
-                      {!isPro && (
-                        <span className="ml-2 rounded bg-primary/20 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary">
-                          Pro
-                        </span>
-                      )}
-                    </label>
-                    <Input
-                      type="text"
-                      value={isPro ? snippetTitle : ''}
-                      placeholder={translations.exportNamePlaceholder}
-                      onChange={(event) => setSnippetTitle(event.target.value)}
-                      className="h-9"
-                      disabled={!isPro}
-                    />
-                  </div>
+                <div className="flex flex-col gap-2">
+                  <label className="text-sm text-white/80">
+                    {translations.exportName}
+                    {!isPro && (
+                      <span className="ml-2 rounded bg-primary/20 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary">
+                        Pro
+                      </span>
+                    )}
+                  </label>
+                  <Input
+                    type="text"
+                    value={exportFileName}
+                    placeholder={translations.exportNamePlaceholder}
+                    onChange={(event) => {
+                      setExportNameTouched(true);
+                      setExportFileName(event.target.value);
+                    }}
+                    className="h-9"
+                    disabled={!isPro}
+                  />
+                </div>
 
                 <div className="flex flex-col gap-2">
                   <div className="flex items-center justify-between text-sm">
@@ -722,13 +744,13 @@ const SideBar = ({ editorRef, editorTitle, onExportCaptureChange }: SideBarProps
                 <p className="mt-1 text-[11px]/relaxed text-white/60">
                   {translations.exportGuideDescription}
                 </p>
-            <Link
-              href="/pricing"
-              className="mt-2 inline-flex text-[11px] font-semibold uppercase tracking-wide text-primary hover:text-primary-foreground"
-            >
-              {translations.exportGuideLink}
-            </Link>
-          </div>
+                <Link
+                  href="/pricing"
+                  className="mt-2 inline-flex text-[11px] font-semibold uppercase tracking-wide text-primary hover:text-primary-foreground"
+                >
+                  {translations.exportGuideLink}
+                </Link>
+              </div>
 
               <DialogFooter>
                 <DialogClose asChild>
