@@ -318,6 +318,7 @@ export const useStore = create<EditorState>()(
         exportWidth: state.exportWidth,
         exportHeight: state.exportHeight,
         exportLockRatio: state.exportLockRatio,
+        layoutPreset: state.layoutPreset,
         locale: state.locale,
         isPro: state.isPro,
         exportsUsed: state.exportsUsed,
