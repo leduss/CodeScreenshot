@@ -60,7 +60,7 @@ export default function Capture() {
   const layoutSizes = useMemo(
     () => ({
       centered: { width: 1200, height: 800, lockRatio: true },
-      full: { width: 1920, height: 1080, lockRatio: false },
+      full: { width: 1920, height: 1080, lockRatio: true },
       ratio: { width: 1600, height: 1200, lockRatio: true },
     }),
     []

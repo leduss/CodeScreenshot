@@ -48,11 +48,13 @@ interface EditorState {
   customThemes: CustomTheme[];
   activeCustomTheme: CustomTheme | null;
   language: string;
+  windowStyle: 'mac' | 'windows' | 'linux' | 'minimal';
   exportFormat: 'png' | 'jpg';
   exportQuality: number;
   exportWidth: number;
   exportHeight: number;
   exportLockRatio: boolean;
+  exportRatioPreset: 'auto' | '1:1' | '4:5' | '16:9';
   isPro: boolean;
   exportsUsed: number;
   layoutPreset: 'centered' | 'full' | 'ratio';
@@ -84,6 +86,7 @@ interface EditorState {
   setExportWidth: (value: number) => void;
   setExportHeight: (value: number) => void;
   setExportLockRatio: (value: boolean) => void;
+  setExportRatioPreset: (value: 'auto' | '1:1' | '4:5' | '16:9') => void;
   setIsPro: (value: boolean) => void;
   setExportsUsed: (value: number) => void;
   syncExportsUsed: () => { prev: number; next: number };
@@ -97,6 +100,7 @@ interface EditorState {
   removeCustomTheme: (id: string) => void;
   setActiveCustomTheme: (theme: CustomTheme | null) => void;
   setLanguage: (language: string) => void;
+  setWindowStyle: (style: 'mac' | 'windows' | 'linux' | 'minimal') => void;
   reset: () => void;
   setLayoutPreset: (preset: 'centered' | 'full' | 'ratio') => void;
 }
@@ -133,11 +137,13 @@ const initialState = {
   exportWidth: 1200,
   exportHeight: 800,
   exportLockRatio: true,
+  exportRatioPreset: 'auto' as const,
   locale: 'fr' as Locale,
   isFullscreen: false,
   customThemes: [],
   activeCustomTheme: null,
   language: 'typescript',
+  windowStyle: 'mac' as const,
   isPro: false,
   exportsUsed: 0,
   layoutPreset: 'centered' as const,
@@ -231,6 +237,7 @@ export const useStore = create<EditorState>()(
       setExportHeight: (value) => set({ exportHeight: value }),
 
       setExportLockRatio: (value) => set({ exportLockRatio: value }),
+      setExportRatioPreset: (value) => set({ exportRatioPreset: value }),
 
       setIsPro: (value: boolean) =>
         set((state) => ({
@@ -294,6 +301,10 @@ export const useStore = create<EditorState>()(
         set({ activeCustomTheme: theme }),
 
       setLanguage: (language: string) => set({ language }),
+      setWindowStyle: (style: 'mac' | 'windows' | 'linux' | 'minimal') =>
+        set((state) => ({
+          windowStyle: state.isPro ? style : state.windowStyle,
+        })),
       setLayoutPreset: (preset: 'centered' | 'full' | 'ratio') =>
         set({ layoutPreset: preset }),
       reset: () => set(initialState),
@@ -330,6 +341,8 @@ export const useStore = create<EditorState>()(
         exportWidth: state.exportWidth,
         exportHeight: state.exportHeight,
         exportLockRatio: state.exportLockRatio,
+        exportRatioPreset: state.exportRatioPreset,
+        windowStyle: state.windowStyle,
         layoutPreset: state.layoutPreset,
         locale: state.locale,
         isPro: state.isPro,

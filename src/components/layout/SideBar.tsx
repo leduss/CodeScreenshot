@@ -75,6 +75,8 @@ const SideBar = ({
     setExportHeight,
     exportLockRatio,
     setExportLockRatio,
+    exportRatioPreset,
+    setExportRatioPreset,
     isPro,
     exportsUsed,
     incrementExportsUsed,
@@ -83,12 +85,9 @@ const SideBar = ({
     layoutPreset,
     setLayoutPreset,
     setIsPro,
-    setShowSearch,
-    setShowSelectionMatches,
-    setShowFoldGutter,
-    setShowActiveLine,
-    setShowLineNumbers,
     snippetTitle,
+    windowStyle,
+    setWindowStyle,
   } = useStore();
   const isDev = process.env.NODE_ENV === 'development';
   const { t: translations } = useTranslation();
@@ -205,7 +204,17 @@ const SideBar = ({
         scrollerEl.style.overflow = 'visible';
       }
 
+      const prevEffectStyles: Array<{
+        el: HTMLElement;
+        filter: string;
+        backdropFilter: string;
+      }> = [];
       editorEl.querySelectorAll<HTMLElement>('*').forEach((el) => {
+        prevEffectStyles.push({
+          el,
+          filter: el.style.filter,
+          backdropFilter: el.style.backdropFilter,
+        });
         el.style.backdropFilter = 'none';
         el.style.filter = 'none';
       });
@@ -224,6 +233,15 @@ const SideBar = ({
           ? Math.round(targetWidth * aspect)
           : exportHeight
         : Math.round(targetWidth * aspect);
+      const ratioPreset = isPro ? exportRatioPreset : 'auto';
+      const ratioValue =
+        ratioPreset === '1:1'
+          ? 1
+          : ratioPreset === '4:5'
+          ? 4 / 5
+          : ratioPreset === '16:9'
+          ? 16 / 9
+          : null;
       const exportRoot = editorEl.querySelector(
         '[data-export-root]'
       ) as HTMLElement | null;
@@ -272,6 +290,36 @@ const SideBar = ({
         image = await toPng(editorEl, options);
       }
 
+      if (ratioValue) {
+        const cropWidth = targetWidth;
+        const cropHeight = Math.round(cropWidth / ratioValue);
+        const cropDataUrl = await new Promise<string>((resolve, reject) => {
+          const img = new Image();
+          img.onload = () => {
+            const canvas = document.createElement('canvas');
+            canvas.width = cropWidth;
+            canvas.height = cropHeight;
+            const ctx = canvas.getContext('2d');
+            if (!ctx) {
+              reject(new Error('Canvas context not available'));
+              return;
+            }
+            ctx.fillStyle = backgroundColor;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            const yOffset = Math.max(0, Math.floor((img.height - cropHeight) / 2));
+            ctx.drawImage(img, 0, yOffset, cropWidth, cropHeight, 0, 0, cropWidth, cropHeight);
+            resolve(
+              effectiveFormat === 'jpg'
+                ? canvas.toDataURL('image/jpeg', effectiveQuality / 100)
+                : canvas.toDataURL('image/png')
+            );
+          };
+          img.onerror = () => reject(new Error('Image load failed'));
+          img.src = image;
+        });
+        image = cropDataUrl;
+      }
+
       const filenameBase = exportFileName.trim() || 'snippet';
       const link = document.createElement('a');
       link.href = image;
@@ -293,6 +341,10 @@ const SideBar = ({
         scrollerEl.style.height = prevScrollerStyle.height ?? '';
         scrollerEl.style.overflow = prevScrollerStyle.overflow ?? '';
       }
+      prevEffectStyles.forEach(({ el, filter, backdropFilter }) => {
+        el.style.filter = filter;
+        el.style.backdropFilter = backdropFilter;
+      });
     } catch {
       toast.error(translations.error);
     } finally {
@@ -348,6 +400,42 @@ const SideBar = ({
           <section className="flex w-full flex-col gap-1">
             <SyntaxThemeSelect />
             <LineNumbers />
+            <div className="mt-2 rounded border border-white/5 bg-[#17181b]/60 p-3">
+              <p className="text-xs font-semibold uppercase tracking-wide text-white/60">
+                {translations.windowStyle}
+                {!isPro && (
+                  <span className="ml-2 rounded bg-primary/20 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary">
+                    Pro
+                  </span>
+                )}
+              </p>
+              <div className="mt-2 flex gap-2">
+                {[
+                  { value: 'mac', label: translations.mac },
+                  { value: 'windows', label: translations.windows },
+                  { value: 'linux', label: translations.linux },
+                  { value: 'minimal', label: translations.minimal },
+                ].map((option) => (
+                  <button
+                    key={option.value}
+                    type="button"
+                    disabled={!isPro}
+                    onClick={() =>
+                      setWindowStyle(
+                        option.value as 'mac' | 'windows' | 'linux' | 'minimal'
+                      )
+                    }
+                    className={`flex-1 rounded border px-2 py-1 text-[11px] uppercase transition ${
+                      windowStyle === option.value
+                        ? 'border-primary text-primary'
+                        : 'border-white/20 text-white/60 hover:border-primary/50'
+                    } ${!isPro ? 'cursor-not-allowed opacity-60' : ''}`}
+                  >
+                    {option.label}
+                  </button>
+                ))}
+              </div>
+            </div>
             <label className="mt-1 flex items-center justify-between text-sm">
               <span>
                 {translations.zenMode}
@@ -676,6 +764,44 @@ const SideBar = ({
                       disabled={!isPro}
                     />
                   </div>
+                </div>
+
+                <div className="flex flex-col gap-2">
+                  <label className="text-sm text-white/80">
+                    {translations.exportRatioPreset}
+                    {!isPro && (
+                      <span className="ml-2 rounded bg-primary/20 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary">
+                        Pro
+                      </span>
+                    )}
+                  </label>
+                  <Select
+                    value={exportRatioPreset}
+                    onValueChange={(value) =>
+                      setExportRatioPreset(
+                        value as 'auto' | '1:1' | '4:5' | '16:9'
+                      )
+                    }
+                    disabled={!isPro}
+                  >
+                    <SelectTrigger className="h-9">
+                      <SelectValue placeholder={translations.exportRatioPreset} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="auto">
+                        {translations.exportRatioAuto}
+                      </SelectItem>
+                      <SelectItem value="1:1">
+                        {translations.exportRatioSquare}
+                      </SelectItem>
+                      <SelectItem value="4:5">
+                        {translations.exportRatioPortrait}
+                      </SelectItem>
+                      <SelectItem value="16:9">
+                        {translations.exportRatioWide}
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
 
                 <label className="flex items-center justify-between text-sm">

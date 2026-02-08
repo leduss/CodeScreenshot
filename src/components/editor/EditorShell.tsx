@@ -41,6 +41,7 @@ const EditorShell = ({
     watermarkText,
     watermarkPosition,
     isPro,
+    windowStyle,
     exportFormat,
     exportWidth,
     exportHeight,
@@ -177,10 +178,14 @@ const EditorShell = ({
         <div className="relative flex h-full flex-col">
           {!isZen && (
             <header className="relative flex h-12 items-center justify-between border-b border-white/5 bg-[#17181b] px-5">
-              <div className="flex items-center gap-2" aria-hidden="true">
-                <span className="size-3 rounded-full bg-[hsl(8_85%_55%)]" />
-                <span className="size-3 rounded-full bg-[hsl(45_90%_50%)]" />
-                <span className="size-3 rounded-full bg-[hsl(140_60%_45%)]" />
+              <div className="flex min-w-[64px] items-center gap-2" aria-hidden="true">
+                {windowStyle === 'mac' && (
+                  <>
+                    <span className="size-3 rounded-full bg-[hsl(8_85%_55%)] shadow-[0_0_6px_hsl(8_85%_55%/0.45)]" />
+                    <span className="size-3 rounded-full bg-[hsl(45_90%_50%)] shadow-[0_0_6px_hsl(45_90%_50%/0.45)]" />
+                    <span className="size-3 rounded-full bg-[hsl(140_60%_45%)] shadow-[0_0_6px_hsl(140_60%_45%/0.45)]" />
+                  </>
+                )}
               </div>
 
               <div className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2">
@@ -202,31 +207,59 @@ const EditorShell = ({
                 </div>
               </div>
 
-              {isPro && !hideHeaderActionsDuringCapture && (
-                <div className="flex items-center gap-2 text-muted-foreground">
-                  <button
-                    className="rounded-md p-1.5 transition-colors hover:bg-white/5 hover:text-white"
-                    type="button"
-                    aria-label="Copier"
-                  >
-                    <Copy className="size-3.5" />
-                  </button>
-                  <button
-                    className="rounded-md p-1.5 transition-colors hover:bg-white/5 hover:text-white"
-                    type="button"
-                    aria-label="Télécharger"
-                  >
-                    <Download className="size-3.5" />
-                  </button>
-                  <button
-                    className="rounded-md p-1.5 transition-colors hover:bg-white/5 hover:text-primary"
-                    type="button"
-                    aria-label="Partager"
-                  >
-                    <Share2 className="size-3.5" />
-                  </button>
-                </div>
-              )}
+              <div className="flex items-center gap-2 text-muted-foreground">
+                {isPro && !hideHeaderActionsDuringCapture && (
+                  <>
+                    <button
+                      className="rounded-md p-1.5 transition-colors hover:bg-white/5 hover:text-white"
+                      type="button"
+                      aria-label="Copier"
+                    >
+                      <Copy className="size-3.5" />
+                    </button>
+                    <button
+                      className="rounded-md p-1.5 transition-colors hover:bg-white/5 hover:text-white"
+                      type="button"
+                      aria-label="Télécharger"
+                    >
+                      <Download className="size-3.5" />
+                    </button>
+                    <button
+                      className="rounded-md p-1.5 transition-colors hover:bg-white/5 hover:text-primary"
+                      type="button"
+                      aria-label="Partager"
+                    >
+                      <Share2 className="size-3.5" />
+                    </button>
+                  </>
+                )}
+                {windowStyle === 'windows' && (
+                  <div className="ml-2 flex items-center gap-1 text-[10px] text-white/60">
+                    <span className="flex size-5 items-center justify-center rounded border border-white/10 bg-[hsl(210_35%_22%)] text-[hsl(200_60%_85%)]">
+                      —
+                    </span>
+                    <span className="flex size-5 items-center justify-center rounded border border-white/10 bg-[hsl(210_35%_22%)] text-[hsl(200_60%_85%)]">
+                      □
+                    </span>
+                    <span className="flex size-5 items-center justify-center rounded border border-white/10 bg-[hsl(4_75%_55%)] text-white">
+                      ×
+                    </span>
+                  </div>
+                )}
+                {windowStyle === 'linux' && (
+                  <div className="ml-2 flex items-center gap-1 text-[10px] font-semibold text-white/80">
+                    <span className="flex size-5 items-center justify-center rounded-full border border-white/30  shadow-[0_0_6px_hsl(145_55%_45%/0.35)]">
+                      —
+                    </span>
+                    <span className="flex size-5 items-center justify-center rounded-full border border-white/30  shadow-[0_0_6px_hsl(45_90%_55%/0.35)]">
+                      □
+                    </span>
+                    <span className="flex size-5 items-center justify-center rounded-full border border-white/30 bg-[hsl(5_80%_55%)] shadow-[0_0_6px_hsl(5_80%_55%/0.35)]">
+                      ×
+                    </span>
+                  </div>
+                )}
+              </div>
             </header>
           )}
 

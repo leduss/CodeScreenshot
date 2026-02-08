@@ -56,6 +56,11 @@ export type TranslationKeys = {
   exportWidth: string;
   exportHeight: string;
   exportLockRatio: string;
+  exportRatioPreset: string;
+  exportRatioAuto: string;
+  exportRatioSquare: string;
+  exportRatioPortrait: string;
+  exportRatioWide: string;
   highlightLines: string;
   linesHash: string;
   font: string;
@@ -69,6 +74,9 @@ export type TranslationKeys = {
   fullscreen: string;
   customThemes: string;
   createTheme: string;
+  windowStyle: string;
+  linux: string;
+  minimal: string;
   exportFeaturesTitle: string;
   freeExportsRemaining: string;
   exportGuideTitle: string;
@@ -118,7 +126,7 @@ export const translations: Record<Locale, TranslationKeys> = {
     rounded: 'Arrondi',
     code: 'Code',
     syntaxTheme: 'Thème',
-    windows: 'Système',
+    windows: 'Windows',
     mac: 'Mac',
     none: 'Aucun',
     lineNumbers: 'Numéros de ligne',
@@ -145,6 +153,11 @@ export const translations: Record<Locale, TranslationKeys> = {
     exportWidth: 'Largeur',
     exportHeight: 'Hauteur',
     exportLockRatio: 'Ratio verrouillé',
+    exportRatioPreset: 'Preset ratio',
+    exportRatioAuto: 'Auto',
+    exportRatioSquare: '1:1',
+    exportRatioPortrait: '4:5',
+    exportRatioWide: '16:9',
     exportFeaturesTitle: 'Fonctionnalités',
     freeExportsRemaining: 'Exports gratuits restants : {count}/5',
     exportGuideTitle: 'Besoin d’un peu plus ?',
@@ -177,6 +190,9 @@ export const translations: Record<Locale, TranslationKeys> = {
     fullscreen: 'Plein écran',
     customThemes: 'Thèmes personnalisés',
     createTheme: 'Créer un thème',
+    windowStyle: 'Cadre',
+    linux: 'Linux',
+    minimal: 'Minimal',
   },
   en: {
     // Footer
@@ -235,6 +251,11 @@ export const translations: Record<Locale, TranslationKeys> = {
     exportWidth: 'Width',
     exportHeight: 'Height',
     exportLockRatio: 'Lock ratio',
+    exportRatioPreset: 'Ratio preset',
+    exportRatioAuto: 'Auto',
+    exportRatioSquare: '1:1',
+    exportRatioPortrait: '4:5',
+    exportRatioWide: '16:9',
     exportFeaturesTitle: 'Features',
     freeExportsRemaining: 'Free exports remaining : {count}/5',
     exportGuideTitle: 'Need more exports?',
@@ -267,6 +288,9 @@ export const translations: Record<Locale, TranslationKeys> = {
     fullscreen: 'Fullscreen',
     customThemes: 'Custom Themes',
     createTheme: 'Create a theme',
+    windowStyle: 'Window frame',
+    linux: 'Linux',
+    minimal: 'Minimal',
   },
   es: {
     // Footer
@@ -325,6 +349,11 @@ export const translations: Record<Locale, TranslationKeys> = {
     exportWidth: 'Ancho',
     exportHeight: 'Alto',
     exportLockRatio: 'Bloquear ratio',
+    exportRatioPreset: 'Preset ratio',
+    exportRatioAuto: 'Auto',
+    exportRatioSquare: '1:1',
+    exportRatioPortrait: '4:5',
+    exportRatioWide: '16:9',
     exportFeaturesTitle: 'Características',
     freeExportsRemaining: 'Exportaciones gratuitas restantes : {count}/5',
     exportGuideTitle: '¿Necesitas más exports?',
@@ -357,6 +386,9 @@ export const translations: Record<Locale, TranslationKeys> = {
     fullscreen: 'Pantalla completa',
     customThemes: 'Temas personalizados',
     createTheme: 'Crear un tema',
+    windowStyle: 'Marco',
+    linux: 'Linux',
+    minimal: 'Minimal',
   },
   de: {
     // Footer
@@ -415,6 +447,11 @@ export const translations: Record<Locale, TranslationKeys> = {
     exportWidth: 'Breite',
     exportHeight: 'Höhe',
     exportLockRatio: 'Seitenverhältnis',
+    exportRatioPreset: 'Ratio preset',
+    exportRatioAuto: 'Auto',
+    exportRatioSquare: '1:1',
+    exportRatioPortrait: '4:5',
+    exportRatioWide: '16:9',
     exportFeaturesTitle: 'Funktionen',
     freeExportsRemaining: 'Verbleibende Gratis-Exporte : {count}/5',
     exportGuideTitle: 'Braucht du mehr Exporte?',
@@ -447,6 +484,9 @@ export const translations: Record<Locale, TranslationKeys> = {
     fullscreen: 'Vollbild',
     customThemes: 'Benutzerdefinierte Themen',
     createTheme: 'Thema erstellen',
+    windowStyle: 'Fensterrahmen',
+    linux: 'Linux',
+    minimal: 'Minimal',
   },
   it: {
     // Footer
@@ -505,6 +545,11 @@ export const translations: Record<Locale, TranslationKeys> = {
     exportWidth: 'Larghezza',
     exportHeight: 'Altezza',
     exportLockRatio: 'Blocca ratio',
+    exportRatioPreset: 'Preset ratio',
+    exportRatioAuto: 'Auto',
+    exportRatioSquare: '1:1',
+    exportRatioPortrait: '4:5',
+    exportRatioWide: '16:9',
     exportFeaturesTitle: 'Funzionalità',
     freeExportsRemaining: 'Esportazioni gratuite rimanenti : {count}/5',
     exportGuideTitle: 'Hai bisogno di più esportazioni?',
@@ -537,6 +582,9 @@ export const translations: Record<Locale, TranslationKeys> = {
     fullscreen: 'Schermo intero',
     customThemes: 'Temi personalizzati',
     createTheme: 'Crea un tema',
+    windowStyle: 'Cornice',
+    linux: 'Linux',
+    minimal: 'Minimal',
   },
   pt: {
     // Footer
@@ -595,6 +643,11 @@ export const translations: Record<Locale, TranslationKeys> = {
     exportWidth: 'Largura',
     exportHeight: 'Altura',
     exportLockRatio: 'Bloquear proporção',
+    exportRatioPreset: 'Preset ratio',
+    exportRatioAuto: 'Auto',
+    exportRatioSquare: '1:1',
+    exportRatioPortrait: '4:5',
+    exportRatioWide: '16:9',
     exportFeaturesTitle: 'Funcionalidades',
     freeExportsRemaining: 'Exportações gratuitas restantes : {count}/5',
     exportGuideTitle: 'Precisas de mais exports?',
@@ -627,6 +680,9 @@ export const translations: Record<Locale, TranslationKeys> = {
     fullscreen: 'Ecrã completo',
     customThemes: 'Temas personalizados',
     createTheme: 'Criar um tema',
+    windowStyle: 'Moldura',
+    linux: 'Linux',
+    minimal: 'Minimal',
   },
 };
 
