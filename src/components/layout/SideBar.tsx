@@ -85,6 +85,7 @@ const SideBar = ({ editorRef, editorTitle, onExportCaptureChange }: SideBarProps
     setShowActiveLine,
     setShowLineNumbers,
   } = useStore();
+  const isDev = process.env.NODE_ENV === 'development';
   const { t: translations } = useTranslation();
   const radiusClass = rounded?.value ?? 'rounded-[22px]';
   const glowRadiusClass = rounded?.value ?? 'rounded-[24px]';
@@ -297,6 +298,23 @@ const SideBar = ({ editorRef, editorTitle, onExportCaptureChange }: SideBarProps
         <header className="relative flex h-12 items-center justify-center border-b border-white/5 bg-[#17181b] px-4 font-mono text-lg font-bold text-primary">
           {SiteConfig.title}
         </header>
+
+        {isDev && (
+          <div className="flex items-center gap-3 border-b border-white/5 bg-white/5 px-3 py-2 text-[11px] uppercase tracking-wider text-white/70">
+            <span>DEV</span>
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-300" aria-hidden="true" />
+            <span>
+              {isPro ? 'Pro activé' : 'Free activé'}
+            </span>
+            <button
+              className="ml-auto rounded border border-white/20 px-3 py-0.5 text-[11px] font-semibold uppercase tracking-wider text-white transition hover:border-white/50"
+              type="button"
+              onClick={() => setIsPro(!isPro)}
+            >
+              {isPro ? 'Basculer Free' : 'Basculer Pro'}
+            </button>
+          </div>
+        )}
 
         <div className="relative flex-1 overflow-y-auto px-4 py-2 text-sm text-muted-foreground">
           <section className="flex w-full flex-col">
