@@ -196,9 +196,7 @@ export const useStore = create<EditorState>()(
         })),
 
       setShowSelectionMatches: (show: boolean) =>
-        set((state) => ({
-          showSelectionMatches: state.isPro ? show : false,
-        })),
+        set({ showSelectionMatches: show }),
 
       setShowTrailingWhitespace: (show: boolean) =>
         set({ showTrailingWhitespace: show }),
@@ -343,7 +341,6 @@ export const useStore = create<EditorState>()(
             state.showLineNumbers = false;
             state.showFoldGutter = false;
             state.showActiveLine = false;
-            state.showSelectionMatches = false;
             state.showSearch = false;
           }
         };
