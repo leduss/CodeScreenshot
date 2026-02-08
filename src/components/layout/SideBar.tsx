@@ -196,7 +196,7 @@ const SideBar = ({ editorRef, editorTitle, onExportCaptureChange }: SideBarProps
         el.style.backdropFilter = 'none';
         el.style.filter = 'none';
       });
-      await new Promise<void>((resolve) => requestAnimationFrame(resolve));
+      await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
       if (document.fonts?.ready) {
         await document.fonts.ready;
       }
