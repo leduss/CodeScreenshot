@@ -46,6 +46,9 @@ export type TranslationKeys = {
   watermark: string;
   watermarkPlaceholder: string;
   watermarkPosition: string;
+  signature: string;
+  signaturePlaceholder: string;
+  signatureEnabled: string;
   snippetMeta: string;
   snippetTitle: string;
   snippetDescription: string;
@@ -61,6 +64,9 @@ export type TranslationKeys = {
   exportRatioSquare: string;
   exportRatioPortrait: string;
   exportRatioWide: string;
+  exportLong: string;
+  exportPagination: string;
+  exportPageHeight: string;
   highlightLines: string;
   linesHash: string;
   font: string;
@@ -90,6 +96,12 @@ export type TranslationKeys = {
   layoutCentered: string;
   layoutFull: string;
   layoutRatio: string;
+  splitModeTitle: string;
+  splitSingle: string;
+  splitVertical: string;
+  splitHorizontal: string;
+  splitDiffHint: string;
+  splitDiffTitle: string;
   proPresetTitle: string;
   proPresetDescription: string;
   proPresetButton: string;
@@ -143,6 +155,9 @@ export const translations: Record<Locale, TranslationKeys> = {
     watermark: 'Watermark',
     watermarkPlaceholder: 'Texte du watermark',
     watermarkPosition: 'Position',
+    signature: 'Signature',
+    signaturePlaceholder: 'Signature discrète',
+    signatureEnabled: 'Afficher la signature',
     snippetMeta: 'Meta snippet',
     snippetTitle: 'Titre',
     snippetDescription: 'Description',
@@ -158,6 +173,9 @@ export const translations: Record<Locale, TranslationKeys> = {
     exportRatioSquare: '1:1',
     exportRatioPortrait: '4:5',
     exportRatioWide: '16:9',
+    exportLong: 'Export long',
+    exportPagination: 'Pagination',
+    exportPageHeight: 'Hauteur page',
     exportFeaturesTitle: 'Fonctionnalités',
     freeExportsRemaining: 'Exports gratuits restants : {count}/5',
     exportGuideTitle: 'Besoin d’un peu plus ?',
@@ -173,6 +191,12 @@ export const translations: Record<Locale, TranslationKeys> = {
     layoutCentered: 'Centré',
     layoutFull: 'Plein',
     layoutRatio: 'Ratio 4:3',
+    splitModeTitle: 'Multi-panels',
+    splitSingle: 'Simple',
+    splitVertical: 'Colonne',
+    splitHorizontal: 'Ligne',
+    splitDiffHint: 'Diff actif',
+    splitDiffTitle: 'Diff',
     proPresetTitle: 'Preset Pro',
     proPresetDescription:
       'Active instantanément zen, watermark et recherche pour comparer.',
@@ -241,6 +265,9 @@ export const translations: Record<Locale, TranslationKeys> = {
     watermark: 'Watermark',
     watermarkPlaceholder: 'Watermark text',
     watermarkPosition: 'Position',
+    signature: 'Signature',
+    signaturePlaceholder: 'Subtle signature',
+    signatureEnabled: 'Show signature',
     snippetMeta: 'Snippet metadata',
     snippetTitle: 'Title',
     snippetDescription: 'Description',
@@ -256,6 +283,9 @@ export const translations: Record<Locale, TranslationKeys> = {
     exportRatioSquare: '1:1',
     exportRatioPortrait: '4:5',
     exportRatioWide: '16:9',
+    exportLong: 'Long export',
+    exportPagination: 'Pagination',
+    exportPageHeight: 'Page height',
     exportFeaturesTitle: 'Features',
     freeExportsRemaining: 'Free exports remaining : {count}/5',
     exportGuideTitle: 'Need more exports?',
@@ -271,6 +301,12 @@ export const translations: Record<Locale, TranslationKeys> = {
     layoutCentered: 'Centered',
     layoutFull: 'Full width',
     layoutRatio: '4:3 ratio',
+    splitModeTitle: 'Multi-panes',
+    splitSingle: 'Single',
+    splitVertical: 'Columns',
+    splitHorizontal: 'Rows',
+    splitDiffHint: 'Diff enabled',
+    splitDiffTitle: 'Diff',
     proPresetTitle: 'Pro preset',
     proPresetDescription:
       'Enable zen, watermark and search to preview the Pro state.',
@@ -339,6 +375,9 @@ export const translations: Record<Locale, TranslationKeys> = {
     watermark: 'Marca de agua',
     watermarkPlaceholder: 'Texto de marca de agua',
     watermarkPosition: 'Posición',
+    signature: 'Firma',
+    signaturePlaceholder: 'Firma discreta',
+    signatureEnabled: 'Mostrar firma',
     snippetMeta: 'Metadata del snippet',
     snippetTitle: 'Título',
     snippetDescription: 'Descripción',
@@ -354,6 +393,9 @@ export const translations: Record<Locale, TranslationKeys> = {
     exportRatioSquare: '1:1',
     exportRatioPortrait: '4:5',
     exportRatioWide: '16:9',
+    exportLong: 'Export largo',
+    exportPagination: 'Paginación',
+    exportPageHeight: 'Altura de página',
     exportFeaturesTitle: 'Características',
     freeExportsRemaining: 'Exportaciones gratuitas restantes : {count}/5',
     exportGuideTitle: '¿Necesitas más exports?',
@@ -369,6 +411,12 @@ export const translations: Record<Locale, TranslationKeys> = {
     layoutCentered: 'Centrado',
     layoutFull: 'Ancho completo',
     layoutRatio: 'Ratio 4:3',
+    splitModeTitle: 'Paneles múltiples',
+    splitSingle: 'Simple',
+    splitVertical: 'Columnas',
+    splitHorizontal: 'Filas',
+    splitDiffHint: 'Diff activo',
+    splitDiffTitle: 'Diff',
     proPresetTitle: 'Preset Pro',
     proPresetDescription:
       'Activa zen, watermark y búsqueda para comparar con la versión Pro.',
@@ -437,6 +485,9 @@ export const translations: Record<Locale, TranslationKeys> = {
     watermark: 'Wasserzeichen',
     watermarkPlaceholder: 'Wasserzeichen-Text',
     watermarkPosition: 'Position',
+    signature: 'Signatur',
+    signaturePlaceholder: 'Dezente Signatur',
+    signatureEnabled: 'Signatur anzeigen',
     snippetMeta: 'Snippet-Metadaten',
     snippetTitle: 'Titel',
     snippetDescription: 'Beschreibung',
@@ -452,6 +503,9 @@ export const translations: Record<Locale, TranslationKeys> = {
     exportRatioSquare: '1:1',
     exportRatioPortrait: '4:5',
     exportRatioWide: '16:9',
+    exportLong: 'Langer Export',
+    exportPagination: 'Paginierung',
+    exportPageHeight: 'Seitenhöhe',
     exportFeaturesTitle: 'Funktionen',
     freeExportsRemaining: 'Verbleibende Gratis-Exporte : {count}/5',
     exportGuideTitle: 'Braucht du mehr Exporte?',
@@ -467,6 +521,12 @@ export const translations: Record<Locale, TranslationKeys> = {
     layoutCentered: 'Zentriert',
     layoutFull: 'Volle Breite',
     layoutRatio: 'Seitenverhältnis 4:3',
+    splitModeTitle: 'Multi-Panes',
+    splitSingle: 'Einzeln',
+    splitVertical: 'Spalten',
+    splitHorizontal: 'Zeilen',
+    splitDiffHint: 'Diff aktiv',
+    splitDiffTitle: 'Diff',
     proPresetTitle: 'Pro Preset',
     proPresetDescription:
       'Aktiviere Zen, Wasserzeichen und Suche, um die Pro-Ansicht zu zeigen.',
@@ -535,6 +595,9 @@ export const translations: Record<Locale, TranslationKeys> = {
     watermark: 'Filigrana',
     watermarkPlaceholder: 'Testo filigrana',
     watermarkPosition: 'Posizione',
+    signature: 'Firma',
+    signaturePlaceholder: 'Firma discreta',
+    signatureEnabled: 'Mostra firma',
     snippetMeta: 'Metadata snippet',
     snippetTitle: 'Titolo',
     snippetDescription: 'Descrizione',
@@ -550,6 +613,9 @@ export const translations: Record<Locale, TranslationKeys> = {
     exportRatioSquare: '1:1',
     exportRatioPortrait: '4:5',
     exportRatioWide: '16:9',
+    exportLong: 'Export lungo',
+    exportPagination: 'Paginazione',
+    exportPageHeight: 'Altezza pagina',
     exportFeaturesTitle: 'Funzionalità',
     freeExportsRemaining: 'Esportazioni gratuite rimanenti : {count}/5',
     exportGuideTitle: 'Hai bisogno di più esportazioni?',
@@ -565,6 +631,12 @@ export const translations: Record<Locale, TranslationKeys> = {
     layoutCentered: 'Centrato',
     layoutFull: 'Larghezza piena',
     layoutRatio: 'Rapporto 4:3',
+    splitModeTitle: 'Multi-pannelli',
+    splitSingle: 'Singolo',
+    splitVertical: 'Colonne',
+    splitHorizontal: 'Righe',
+    splitDiffHint: 'Diff attivo',
+    splitDiffTitle: 'Diff',
     proPresetTitle: 'Preset Pro',
     proPresetDescription:
       'Attiva Zen, watermark e ricerca per vedere cosa offre la versione Pro.',
@@ -633,6 +705,9 @@ export const translations: Record<Locale, TranslationKeys> = {
     watermark: "Marca d'água",
     watermarkPlaceholder: "Texto da marca d'água",
     watermarkPosition: 'Posição',
+    signature: 'Assinatura',
+    signaturePlaceholder: 'Assinatura discreta',
+    signatureEnabled: 'Mostrar assinatura',
     snippetMeta: 'Metadados do snippet',
     snippetTitle: 'Título',
     snippetDescription: 'Descrição',
@@ -648,6 +723,9 @@ export const translations: Record<Locale, TranslationKeys> = {
     exportRatioSquare: '1:1',
     exportRatioPortrait: '4:5',
     exportRatioWide: '16:9',
+    exportLong: 'Export longo',
+    exportPagination: 'Paginação',
+    exportPageHeight: 'Altura da página',
     exportFeaturesTitle: 'Funcionalidades',
     freeExportsRemaining: 'Exportações gratuitas restantes : {count}/5',
     exportGuideTitle: 'Precisas de mais exports?',
@@ -663,6 +741,12 @@ export const translations: Record<Locale, TranslationKeys> = {
     layoutCentered: 'Centralizado',
     layoutFull: 'Largura total',
     layoutRatio: 'Proporção 4:3',
+    splitModeTitle: 'Multi-painéis',
+    splitSingle: 'Simples',
+    splitVertical: 'Colunas',
+    splitHorizontal: 'Linhas',
+    splitDiffHint: 'Diff ativo',
+    splitDiffTitle: 'Diff',
     proPresetTitle: 'Preset Pro',
     proPresetDescription:
       'Liga Zen, watermark e pesquisa para mostrar o estado Pro.',

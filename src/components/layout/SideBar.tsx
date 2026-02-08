@@ -62,6 +62,10 @@ const SideBar = ({
     setWatermarkText,
     watermarkPosition,
     setWatermarkPosition,
+    showSignature,
+    setShowSignature,
+    signatureText,
+    setSignatureText,
     setSnippetTitle,
     snippetDescription,
     setSnippetDescription,
@@ -77,6 +81,12 @@ const SideBar = ({
     setExportLockRatio,
     exportRatioPreset,
     setExportRatioPreset,
+    exportLong,
+    setExportLong,
+    exportPaginate,
+    setExportPaginate,
+    exportPageHeight,
+    setExportPageHeight,
     isPro,
     exportsUsed,
     incrementExportsUsed,
@@ -88,6 +98,10 @@ const SideBar = ({
     snippetTitle,
     windowStyle,
     setWindowStyle,
+    splitMode,
+    setSplitMode,
+    diffHighlightEnabled,
+    setDiffHighlightEnabled,
   } = useStore();
   const isDev = process.env.NODE_ENV === 'development';
   const { t: translations } = useTranslation();
@@ -129,6 +143,18 @@ const SideBar = ({
     { key: 'watermark', label: translations.watermark, locked: !isPro },
     { key: 'snippetMeta', label: translations.snippetMeta, locked: !isPro },
     { key: 'fontSize', label: translations.fontSize, locked: !isPro },
+    { key: 'exportLong', label: translations.exportLong, locked: !isPro },
+    {
+      key: 'exportPagination',
+      label: translations.exportPagination,
+      locked: !isPro,
+    },
+    { key: 'splitMode', label: translations.splitModeTitle, locked: !isPro },
+    {
+      key: 'diffHighlight',
+      label: translations.splitDiffTitle,
+      locked: !isPro,
+    },
     {
       key: 'exportSettings',
       label: translations.exportSettings,
@@ -175,6 +201,12 @@ const SideBar = ({
     );
     try {
       const editorEl = editorRef.current;
+      const effectiveExportLong = isPro
+        ? exportPaginate
+          ? true
+          : exportLong
+        : true;
+      const effectivePaginate = isPro ? exportPaginate : false;
       const rect = editorEl.getBoundingClientRect();
       const headerEl = editorEl.querySelector('header') as HTMLElement | null;
       const footerEl = editorEl.querySelector('footer') as HTMLElement | null;
@@ -184,6 +216,10 @@ const SideBar = ({
       const headerHeight = headerEl?.offsetHeight ?? 0;
       const footerHeight = footerEl?.offsetHeight ?? 0;
       const fullCodeHeight = scrollerEl?.scrollHeight ?? rect.height;
+      const visibleCodeHeight = scrollerEl?.clientHeight ?? fullCodeHeight;
+      const codeHeight = effectiveExportLong
+        ? fullCodeHeight
+        : visibleCodeHeight;
 
       const prevEditorStyle = {
         width: editorEl.style.width,
@@ -196,12 +232,12 @@ const SideBar = ({
         overflow: scrollerEl?.style.overflow,
       };
       editorEl.style.width = `${rect.width}px`;
-      editorEl.style.height = `${headerHeight + footerHeight + fullCodeHeight}px`;
+      editorEl.style.height = `${headerHeight + footerHeight + codeHeight}px`;
       editorEl.style.maxHeight = 'none';
-      editorEl.style.overflow = 'visible';
+      editorEl.style.overflow = effectiveExportLong ? 'visible' : 'hidden';
       if (scrollerEl) {
-        scrollerEl.style.height = `${fullCodeHeight}px`;
-        scrollerEl.style.overflow = 'visible';
+        scrollerEl.style.height = `${codeHeight}px`;
+        scrollerEl.style.overflow = effectiveExportLong ? 'visible' : 'hidden';
       }
 
       const prevEffectStyles: Array<{
@@ -225,7 +261,7 @@ const SideBar = ({
         await document.fonts.ready;
       }
 
-      const contentHeight = headerHeight + footerHeight + fullCodeHeight;
+      const contentHeight = headerHeight + footerHeight + codeHeight;
       const aspect = rect.width === 0 ? 1 : contentHeight / rect.width;
       const targetWidth = isPro ? exportWidth : 1200;
       const targetHeight = isPro
@@ -233,15 +269,19 @@ const SideBar = ({
           ? Math.round(targetWidth * aspect)
           : exportHeight
         : Math.round(targetWidth * aspect);
-      const ratioPreset = isPro ? exportRatioPreset : 'auto';
+      const ratioPreset = effectivePaginate
+        ? 'auto'
+        : isPro
+          ? exportRatioPreset
+          : 'auto';
       const ratioValue =
         ratioPreset === '1:1'
           ? 1
           : ratioPreset === '4:5'
-          ? 4 / 5
-          : ratioPreset === '16:9'
-          ? 16 / 9
-          : null;
+            ? 4 / 5
+            : ratioPreset === '16:9'
+              ? 16 / 9
+              : null;
       const exportRoot = editorEl.querySelector(
         '[data-export-root]'
       ) as HTMLElement | null;
@@ -306,8 +346,21 @@ const SideBar = ({
             }
             ctx.fillStyle = backgroundColor;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-            const yOffset = Math.max(0, Math.floor((img.height - cropHeight) / 2));
-            ctx.drawImage(img, 0, yOffset, cropWidth, cropHeight, 0, 0, cropWidth, cropHeight);
+            const yOffset = Math.max(
+              0,
+              Math.floor((img.height - cropHeight) / 2)
+            );
+            ctx.drawImage(
+              img,
+              0,
+              yOffset,
+              cropWidth,
+              cropHeight,
+              0,
+              0,
+              cropWidth,
+              cropHeight
+            );
             resolve(
               effectiveFormat === 'jpg'
                 ? canvas.toDataURL('image/jpeg', effectiveQuality / 100)
@@ -321,10 +374,56 @@ const SideBar = ({
       }
 
       const filenameBase = exportFileName.trim() || 'snippet';
-      const link = document.createElement('a');
-      link.href = image;
-      link.download = `${filenameBase}.${effectiveFormat}`;
-      link.click();
+      if (effectivePaginate) {
+        await new Promise<void>((resolve, reject) => {
+          const img = new Image();
+          img.onload = () => {
+            const pageHeight = Math.max(200, Math.round(exportPageHeight));
+            const totalPages = Math.max(1, Math.ceil(img.height / pageHeight));
+            for (let index = 0; index < totalPages; index += 1) {
+              const sliceHeight =
+                index === totalPages - 1
+                  ? img.height - index * pageHeight
+                  : pageHeight;
+              const canvas = document.createElement('canvas');
+              canvas.width = img.width;
+              canvas.height = sliceHeight;
+              const ctx = canvas.getContext('2d');
+              if (!ctx) continue;
+              ctx.fillStyle = backgroundColor;
+              ctx.fillRect(0, 0, canvas.width, canvas.height);
+              ctx.drawImage(
+                img,
+                0,
+                index * pageHeight,
+                img.width,
+                sliceHeight,
+                0,
+                0,
+                img.width,
+                sliceHeight
+              );
+              const dataUrl =
+                effectiveFormat === 'jpg'
+                  ? canvas.toDataURL('image/jpeg', effectiveQuality / 100)
+                  : canvas.toDataURL('image/png');
+              const link = document.createElement('a');
+              const suffix = String(index + 1).padStart(2, '0');
+              link.href = dataUrl;
+              link.download = `${filenameBase}-page-${suffix}.${effectiveFormat}`;
+              link.click();
+            }
+            resolve();
+          };
+          img.onerror = () => reject(new Error('Image load failed'));
+          img.src = image;
+        });
+      } else {
+        const link = document.createElement('a');
+        link.href = image;
+        link.download = `${filenameBase}.${effectiveFormat}`;
+        link.click();
+      }
       toast.success(translations.downloadSuccess);
       if (!isPro) {
         incrementExportsUsed();
@@ -553,6 +652,72 @@ const SideBar = ({
             </div>
           </div>
 
+          <div className="mt-3 rounded border border-white/5 bg-[#17181b]/60 p-3">
+            <p className="text-xs font-semibold uppercase tracking-wide text-white/60">
+              {translations.splitModeTitle}
+              {!isPro && (
+                <span className="ml-2 rounded bg-primary/20 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary">
+                  Pro
+                </span>
+              )}
+            </p>
+            <div className="mt-2 flex gap-2">
+              <button
+                type="button"
+                onClick={() => setSplitMode('single')}
+                className={`flex-1 rounded border px-2 py-1 text-[11px] uppercase transition ${
+                  splitMode === 'single'
+                    ? 'border-primary text-primary'
+                    : 'border-white/20 text-white/60 hover:border-primary/50'
+                }`}
+                disabled={!isPro}
+              >
+                {translations.splitSingle}
+              </button>
+              <button
+                type="button"
+                onClick={() => setSplitMode('vertical')}
+                className={`flex-1 rounded border px-2 py-1 text-[11px] uppercase transition ${
+                  splitMode === 'vertical'
+                    ? 'border-primary text-primary'
+                    : 'border-white/20 text-white/60 hover:border-primary/50'
+                }`}
+                disabled={!isPro}
+              >
+                {translations.splitVertical}
+              </button>
+              <button
+                type="button"
+                onClick={() => setSplitMode('horizontal')}
+                className={`flex-1 rounded border px-2 py-1 text-[11px] uppercase transition ${
+                  splitMode === 'horizontal'
+                    ? 'border-primary text-primary'
+                    : 'border-white/20 text-white/60 hover:border-primary/50'
+                }`}
+                disabled={!isPro}
+              >
+                {translations.splitHorizontal}
+              </button>
+            </div>
+            <div className="mt-3 flex items-center justify-between text-sm">
+              <span>
+                {translations.splitDiffTitle}
+                {!isPro && (
+                  <span className="ml-2 rounded bg-primary/20 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary">
+                    Pro
+                  </span>
+                )}
+              </span>
+              <Checkbox
+                checked={diffHighlightEnabled}
+                onCheckedChange={(checked) =>
+                  setDiffHighlightEnabled(!!checked)
+                }
+                disabled={!isPro || splitMode === 'single'}
+              />
+            </div>
+          </div>
+
           <div className="my-4 h-px w-full bg-white/5" />
           <section className="flex w-full flex-col gap-2">
             <h3 className="pb-1 text-sm font-medium text-white/80">
@@ -587,6 +752,31 @@ const SideBar = ({
               </SelectContent>
             </Select>
           </section>
+
+          <div className="mt-4 rounded border border-white/5 bg-[#17181b]/60 p-3">
+            <div className="flex items-center justify-between text-sm text-white/80">
+              <span>
+                {translations.signature}
+                {!isPro && (
+                  <span className="ml-2 rounded bg-primary/20 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary">
+                    Pro
+                  </span>
+                )}
+              </span>
+              <Checkbox
+                checked={showSignature}
+                onCheckedChange={(checked) => setShowSignature(!!checked)}
+                disabled={!isPro}
+              />
+            </div>
+            <Input
+              placeholder={translations.signaturePlaceholder}
+              value={signatureText}
+              onChange={(event) => setSignatureText(event.target.value)}
+              className="mt-2 h-9"
+              disabled={!isPro || !showSignature}
+            />
+          </div>
 
           <div className="my-4 h-px w-full bg-white/5" />
 
@@ -640,61 +830,60 @@ const SideBar = ({
                 {translations.exportSettings}
               </button>
             </DialogTrigger>
-            <DialogContent className="border-white/10 bg-[#121316] text-white">
+            <DialogContent className="border-white/10 bg-[#121316] text-white sm:max-w-4xl">
               <DialogHeader className="text-left">
                 <DialogTitle>{translations.exportSettings}</DialogTitle>
-                <DialogDescription className="text-white/60">
-                  {translations.export}
-                </DialogDescription>
               </DialogHeader>
 
               <div className="flex flex-col gap-4">
-                <div className="flex flex-col gap-2">
-                  <label className="text-sm text-white/80">
-                    {translations.exportFormat}
-                    {!isPro && (
-                      <span className="ml-2 rounded bg-primary/20 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary">
-                        Pro
-                      </span>
-                    )}
-                  </label>
-                  <Select
-                    value={exportFormat}
-                    onValueChange={(value) =>
-                      setExportFormat(value as 'png' | 'jpg')
-                    }
-                    disabled={!isPro}
-                  >
-                    <SelectTrigger className="h-9">
-                      <SelectValue placeholder={translations.exportFormat} />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="png">{translations.png}</SelectItem>
-                      <SelectItem value="jpg">{translations.jpg}</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
+                <div className="grid grid-cols-3 gap-2">
+                  <div className="flex flex-col gap-2">
+                    <label className="text-sm text-white/80">
+                      {translations.exportFormat}
+                      {!isPro && (
+                        <span className="ml-2 rounded bg-primary/20 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary">
+                          Pro
+                        </span>
+                      )}
+                    </label>
+                    <Select
+                      value={exportFormat}
+                      onValueChange={(value) =>
+                        setExportFormat(value as 'png' | 'jpg')
+                      }
+                      disabled={!isPro}
+                    >
+                      <SelectTrigger className="h-9">
+                        <SelectValue placeholder={translations.exportFormat} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="png">{translations.png}</SelectItem>
+                        <SelectItem value="jpg">{translations.jpg}</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
 
-                <div className="flex flex-col gap-2">
-                  <label className="text-sm text-white/80">
-                    {translations.exportName}
-                    {!isPro && (
-                      <span className="ml-2 rounded bg-primary/20 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary">
-                        Pro
-                      </span>
-                    )}
-                  </label>
-                  <Input
-                    type="text"
-                    value={exportFileName}
-                    placeholder={translations.exportNamePlaceholder}
-                    onChange={(event) => {
-                      setExportNameTouched(true);
-                      setExportFileName(event.target.value);
-                    }}
-                    className="h-9"
-                    disabled={!isPro}
-                  />
+                  <div className="flex flex-col gap-2">
+                    <label className="text-sm text-white/80">
+                      {translations.exportName}
+                      {!isPro && (
+                        <span className="ml-2 rounded bg-primary/20 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary">
+                          Pro
+                        </span>
+                      )}
+                    </label>
+                    <Input
+                      type="text"
+                      value={exportFileName}
+                      placeholder={translations.exportNamePlaceholder}
+                      onChange={(event) => {
+                        setExportNameTouched(true);
+                        setExportFileName(event.target.value);
+                      }}
+                      className="h-9"
+                      disabled={!isPro}
+                    />
+                  </div>
                 </div>
 
                 <div className="flex flex-col gap-2">
@@ -782,10 +971,12 @@ const SideBar = ({
                         value as 'auto' | '1:1' | '4:5' | '16:9'
                       )
                     }
-                    disabled={!isPro}
+                    disabled={!isPro || exportPaginate}
                   >
                     <SelectTrigger className="h-9">
-                      <SelectValue placeholder={translations.exportRatioPreset} />
+                      <SelectValue
+                        placeholder={translations.exportRatioPreset}
+                      />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="auto">
@@ -804,79 +995,146 @@ const SideBar = ({
                   </Select>
                 </div>
 
-                <label className="flex items-center justify-between text-sm">
-                  <span>
-                    {translations.exportLockRatio}
+                <div className="grid gap-3 sm:grid-cols-3">
+                  <label className="flex items-center gap-2 text-sm">
+                    <Checkbox
+                      checked={exportLockRatio}
+                      onCheckedChange={(checked) =>
+                        setExportLockRatio(!!checked)
+                      }
+                      disabled={!isPro}
+                    />
+                    <span>
+                      {translations.exportLockRatio}
+                      {!isPro && (
+                        <span className="ml-2 rounded bg-primary/20 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary">
+                          Pro
+                        </span>
+                      )}
+                    </span>
+                  </label>
+
+                  <label className="flex items-center gap-2 text-sm">
+                    <Checkbox
+                      checked={exportLong}
+                      onCheckedChange={(checked) => setExportLong(!!checked)}
+                      disabled={!isPro || exportPaginate}
+                    />
+                    <span>
+                      {translations.exportLong}
+                      {!isPro && (
+                        <span className="ml-2 rounded bg-primary/20 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary">
+                          Pro
+                        </span>
+                      )}
+                    </span>
+                  </label>
+
+                  <label className="flex items-center gap-2 text-sm">
+                    <Checkbox
+                      checked={exportPaginate}
+                      onCheckedChange={(checked) => {
+                        const enabled = !!checked;
+                        setExportPaginate(enabled);
+                        if (enabled) setExportLong(true);
+                      }}
+                      disabled={!isPro}
+                    />
+                    <span>
+                      {translations.exportPagination}
+                      {!isPro && (
+                        <span className="ml-2 rounded bg-primary/20 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary">
+                          Pro
+                        </span>
+                      )}
+                    </span>
+                  </label>
+                </div>
+
+                <div className="flex flex-col gap-2">
+                  <label className="text-sm text-white/80">
+                    {translations.exportPageHeight}
                     {!isPro && (
                       <span className="ml-2 rounded bg-primary/20 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary">
                         Pro
                       </span>
                     )}
-                  </span>
-                  <Checkbox
-                    checked={exportLockRatio}
-                    onCheckedChange={(checked) => setExportLockRatio(!!checked)}
-                    disabled={!isPro}
+                  </label>
+                  <Input
+                    type="number"
+                    min={200}
+                    value={exportPageHeight}
+                    onChange={(event) =>
+                      setExportPageHeight(
+                        Math.max(200, Number(event.target.value))
+                      )
+                    }
+                    className="h-9"
+                    disabled={!isPro || !exportPaginate}
                   />
-                </label>
+                </div>
               </div>
 
-              <div className="border-t border-white/10 pt-4 text-sm">
-                <p className="text-xs uppercase text-white/50">
-                  {translations.exportFeaturesTitle}
-                </p>
-                <ul className="mt-2 grid grid-cols-2 gap-2 text-xs text-white/70">
-                  {exportFeatureList.map((feature) => (
-                    <li
-                      key={feature.key}
-                      className="flex items-center justify-between rounded border border-white/5 bg-white/5 px-2 py-1"
-                    >
-                      <span>{feature.label}</span>
-                      {feature.locked && (
-                        <span className="rounded bg-primary/20 px-2 py-0.5 text-[10px] font-semibold uppercase text-primary">
-                          Pro
-                        </span>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-                {!isPro && remainingLabel && (
-                  <>
-                    <p className="mt-2 text-[10px] text-white/50">
-                      {remainingLabel}
+              {!isPro && (
+                <div className="grid gap-3 border-t border-white/10 pt-4 text-sm sm:grid-cols-2">
+                  <div className="rounded border border-white/5 bg-white/5 p-3">
+                    <p className="text-xs uppercase text-white/50">
+                      {translations.exportFeaturesTitle}
                     </p>
-                    {process.env.NODE_ENV === 'development' && (
-                      <div className="mt-2 flex justify-center">
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => {
-                            resetExportsUsed();
-                            toast.success(translations.limitResetMessage);
-                          }}
-                          className="text-xs uppercase"
+                    <ul className="mt-2 grid grid-cols-2 gap-2 text-xs text-white/70">
+                      {exportFeatureList.map((feature) => (
+                        <li
+                          key={feature.key}
+                          className="flex items-center justify-between rounded border border-white/5 bg-white/5 px-2 py-1"
                         >
-                          Réinitialiser mes exports
-                        </Button>
-                      </div>
+                          <span>{feature.label}</span>
+                          {feature.locked && (
+                            <span className="rounded bg-primary/20 px-2 py-0.5 text-[10px] font-semibold uppercase text-primary">
+                              Pro
+                            </span>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                    {remainingLabel && (
+                      <>
+                        <p className="mt-2 text-[10px] text-white/50">
+                          {remainingLabel}
+                        </p>
+                        {process.env.NODE_ENV === 'development' && (
+                          <div className="mt-2 flex justify-center">
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => {
+                                resetExportsUsed();
+                                toast.success(translations.limitResetMessage);
+                              }}
+                              className="text-xs uppercase"
+                            >
+                              Réinitialiser mes exports
+                            </Button>
+                          </div>
+                        )}
+                      </>
                     )}
-                  </>
-                )}
-              </div>
-              <div className="rounded border border-white/5 bg-white/5 p-3 text-xs text-white/70">
-                <p className="font-semibold text-white">
-                  {translations.exportGuideTitle}
-                </p>
-                <p className="mt-1 text-[11px]/relaxed text-white/60">
-                  {translations.exportGuideDescription}
-                </p>
-                <Link
-                  href="/pricing"
-                  className="mt-2 inline-flex text-[11px] font-semibold uppercase tracking-wide text-primary hover:text-primary-foreground"
-                >
-                  {translations.exportGuideLink}
-                </Link>
-              </div>
+                  </div>
+                  <div className="rounded border border-white/5 bg-white/5 p-3 text-xs text-white/70 h-24">
+                    <p className="font-semibold text-white">
+                      {translations.exportGuideTitle}
+                    </p>
+                    <p className="mt-1 text-[11px]/relaxed text-white/60">
+                      {translations.exportGuideDescription}
+                    </p>
+                    <Link
+                      href="/pricing"
+                      className="mt-2 inline-flex text-[11px] font-semibold uppercase tracking-wide text-primary hover:text-primary-foreground"
+                    >
+                      {translations.exportGuideLink}
+                    </Link>
+                  </div>
+                </div>
+              )}
 
               <DialogFooter>
                 <DialogClose asChild>

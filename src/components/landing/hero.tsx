@@ -117,9 +117,6 @@ const Hero = () => {
                 <ArrowRight className="size-5" />
               </Link>
             </Button>
-            <Button variant="hero-outline" size="xl">
-              Voir la démo
-            </Button>
           </div>
       </div>
 

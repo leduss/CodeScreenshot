@@ -41,6 +41,8 @@ interface EditorState {
   letterSpacing: number;
   watermarkText: string;
   watermarkPosition: string;
+  showSignature: boolean;
+  signatureText: string;
   snippetTitle: string;
   snippetDescription: string;
   locale: Locale;
@@ -55,9 +57,14 @@ interface EditorState {
   exportHeight: number;
   exportLockRatio: boolean;
   exportRatioPreset: 'auto' | '1:1' | '4:5' | '16:9';
+  exportLong: boolean;
+  exportPaginate: boolean;
+  exportPageHeight: number;
   isPro: boolean;
   exportsUsed: number;
   layoutPreset: 'centered' | 'full' | 'ratio';
+  splitMode: 'single' | 'vertical' | 'horizontal';
+  diffHighlightEnabled: boolean;
   // Actions
   setSyntaxTheme: (theme: string) => void;
   setRounded: (index: number) => void;
@@ -79,6 +86,8 @@ interface EditorState {
   setLetterSpacing: (value: number) => void;
   setWatermarkText: (value: string) => void;
   setWatermarkPosition: (value: string) => void;
+  setShowSignature: (value: boolean) => void;
+  setSignatureText: (value: string) => void;
   setSnippetTitle: (value: string) => void;
   setSnippetDescription: (value: string) => void;
   setExportFormat: (value: 'png' | 'jpg') => void;
@@ -87,6 +96,9 @@ interface EditorState {
   setExportHeight: (value: number) => void;
   setExportLockRatio: (value: boolean) => void;
   setExportRatioPreset: (value: 'auto' | '1:1' | '4:5' | '16:9') => void;
+  setExportLong: (value: boolean) => void;
+  setExportPaginate: (value: boolean) => void;
+  setExportPageHeight: (value: number) => void;
   setIsPro: (value: boolean) => void;
   setExportsUsed: (value: number) => void;
   syncExportsUsed: () => { prev: number; next: number };
@@ -103,6 +115,8 @@ interface EditorState {
   setWindowStyle: (style: 'mac' | 'windows' | 'linux' | 'minimal') => void;
   reset: () => void;
   setLayoutPreset: (preset: 'centered' | 'full' | 'ratio') => void;
+  setSplitMode: (mode: 'single' | 'vertical' | 'horizontal') => void;
+  setDiffHighlightEnabled: (value: boolean) => void;
 }
 
 const initialState = {
@@ -129,7 +143,9 @@ const initialState = {
   lineHeight: 1.6,
   letterSpacing: 0,
   watermarkText: '',
-  watermarkPosition: 'bottom-right',
+  watermarkPosition: 'top-right',
+  showSignature: false,
+  signatureText: '',
   snippetTitle: '',
   snippetDescription: '',
   exportFormat: 'png' as 'png' | 'jpg',
@@ -138,15 +154,20 @@ const initialState = {
   exportHeight: 800,
   exportLockRatio: true,
   exportRatioPreset: 'auto' as const,
+  exportLong: true,
+  exportPaginate: false,
+  exportPageHeight: 1400,
   locale: 'fr' as Locale,
   isFullscreen: false,
   customThemes: [],
   activeCustomTheme: null,
   language: 'typescript',
-  windowStyle: 'mac' as const,
+  windowStyle: 'minimal' as const,
   isPro: false,
   exportsUsed: 0,
   layoutPreset: 'centered' as const,
+  splitMode: 'single' as const,
+  diffHighlightEnabled: true,
 };
 
 export const useStore = create<EditorState>()(
@@ -223,6 +244,12 @@ export const useStore = create<EditorState>()(
       setWatermarkPosition: (value: string) =>
         set({ watermarkPosition: value }),
 
+      setShowSignature: (value: boolean) =>
+        set((state) => ({
+          showSignature: state.isPro ? value : false,
+        })),
+      setSignatureText: (value: string) => set({ signatureText: value }),
+
       setSnippetTitle: (value: string) => set({ snippetTitle: value }),
 
       setSnippetDescription: (value: string) =>
@@ -238,6 +265,18 @@ export const useStore = create<EditorState>()(
 
       setExportLockRatio: (value) => set({ exportLockRatio: value }),
       setExportRatioPreset: (value) => set({ exportRatioPreset: value }),
+      setExportLong: (value) =>
+        set((state) => ({
+          exportLong: state.isPro ? value : state.exportLong,
+        })),
+      setExportPaginate: (value) =>
+        set((state) => ({
+          exportPaginate: state.isPro ? value : state.exportPaginate,
+        })),
+      setExportPageHeight: (value) =>
+        set((state) => ({
+          exportPageHeight: state.isPro ? value : state.exportPageHeight,
+        })),
 
       setIsPro: (value: boolean) =>
         set((state) => ({
@@ -246,6 +285,9 @@ export const useStore = create<EditorState>()(
           showLineNumbers: value ? state.showLineNumbers : false,
           showFoldGutter: value ? state.showFoldGutter : false,
           showActiveLine: value ? state.showActiveLine : false,
+          showSignature: value ? state.showSignature : false,
+          exportPaginate: value ? state.exportPaginate : false,
+          exportLong: value ? state.exportLong : true,
         })),
       setExportsUsed: (value: number) => {
         persistExportsUsed(value);
@@ -307,6 +349,14 @@ export const useStore = create<EditorState>()(
         })),
       setLayoutPreset: (preset: 'centered' | 'full' | 'ratio') =>
         set({ layoutPreset: preset }),
+      setSplitMode: (mode: 'single' | 'vertical' | 'horizontal') =>
+        set((state) => ({
+          splitMode: state.isPro ? mode : 'single',
+        })),
+      setDiffHighlightEnabled: (value: boolean) =>
+        set((state) => ({
+          diffHighlightEnabled: state.isPro ? value : false,
+        })),
       reset: () => set(initialState),
     }),
     {
@@ -334,6 +384,8 @@ export const useStore = create<EditorState>()(
         letterSpacing: state.letterSpacing,
         watermarkText: state.watermarkText,
         watermarkPosition: state.watermarkPosition,
+        showSignature: state.showSignature,
+        signatureText: state.signatureText,
         snippetTitle: state.snippetTitle,
         snippetDescription: state.snippetDescription,
         exportFormat: state.exportFormat,
@@ -342,8 +394,13 @@ export const useStore = create<EditorState>()(
         exportHeight: state.exportHeight,
         exportLockRatio: state.exportLockRatio,
         exportRatioPreset: state.exportRatioPreset,
+        exportLong: state.exportLong,
+        exportPaginate: state.exportPaginate,
+        exportPageHeight: state.exportPageHeight,
         windowStyle: state.windowStyle,
         layoutPreset: state.layoutPreset,
+        splitMode: state.splitMode,
+        diffHighlightEnabled: state.diffHighlightEnabled,
         locale: state.locale,
         isPro: state.isPro,
         exportsUsed: state.exportsUsed,
@@ -355,6 +412,11 @@ export const useStore = create<EditorState>()(
             state.showFoldGutter = false;
             state.showActiveLine = false;
             state.showSearch = false;
+            state.showSignature = false;
+            state.exportPaginate = false;
+            state.exportLong = true;
+            state.splitMode = 'single';
+            state.diffHighlightEnabled = false;
           }
         };
       },

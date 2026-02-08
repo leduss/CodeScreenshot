@@ -27,7 +27,29 @@ export default function Capture() {
   const setExportWidth = useStore((state) => state.setExportWidth);
   const setExportHeight = useStore((state) => state.setExportHeight);
   const setExportLockRatio = useStore((state) => state.setExportLockRatio);
+  const splitMode = useStore((state) => state.splitMode);
+  const diffHighlightEnabled = useStore(
+    (state) => state.diffHighlightEnabled
+  );
   const [isCapturingExport, setIsCapturingExport] = useState(false);
+  const [codeSecond, setCodeSecond] = useState<string>(codeString);
+  const diffLines = useMemo(() => {
+    if (splitMode === 'single' || !diffHighlightEnabled) {
+      return { left: [], right: [] };
+    }
+    const leftLines = code.split('\n');
+    const rightLines = codeSecond.split('\n');
+    const max = Math.max(leftLines.length, rightLines.length);
+    const leftDiff: number[] = [];
+    const rightDiff: number[] = [];
+    for (let i = 0; i < max; i += 1) {
+      if (leftLines[i] !== rightLines[i]) {
+        if (i < leftLines.length) leftDiff.push(i + 1);
+        if (i < rightLines.length) rightDiff.push(i + 1);
+      }
+    }
+    return { left: leftDiff, right: rightDiff };
+  }, [code, codeSecond, splitMode]);
 
   // Load fonts dynamically
   useFontLoader(fontStyle?.link);
@@ -88,22 +110,21 @@ export default function Capture() {
           onExportCaptureChange={setIsCapturingExport}
         />
 
-
         <main className="flex size-full min-h-0 flex-col items-center gap-6 px-6 py-8">
           <section className="flex min-h-0 w-full flex-1 items-center justify-center overflow-hidden">
-          <div
-            ref={editorRef}
-            className={`box-border h-full max-w-none ${rounded?.value ?? ''}`}
-            style={{
-              width:
-                layoutPreset === 'full'
-                  ? '100%'
-                  : layoutPreset === 'ratio'
-                  ? '80%'
-                  : '75%',
-              aspectRatio: layoutPreset === 'ratio' ? '4 / 3' : undefined,
-            }}
-          >
+            <div
+              ref={editorRef}
+              className={`box-border h-full max-w-none ${rounded?.value ?? ''}`}
+              style={{
+                width:
+                  layoutPreset === 'full'
+                    ? '100%'
+                    : layoutPreset === 'ratio'
+                      ? '80%'
+                      : '75%',
+                aspectRatio: layoutPreset === 'ratio' ? '4 / 3' : undefined,
+              }}
+            >
               <EditorShell
                 title={title}
                 code={code}
@@ -115,7 +136,34 @@ export default function Capture() {
                 hideHeaderActionsDuringCapture={isCapturingExport}
                 hideFooterContentDuringCapture={isCapturingExport}
               >
-                <EditorContent value={code} onChange={setCode} />
+                {splitMode === 'single' ? (
+                  <EditorContent value={code} onChange={setCode} />
+                ) : (
+                  <div
+                    className={`grid size-full ${
+                      splitMode === 'vertical' ? 'grid-cols-2' : 'grid-rows-2'
+                    }`}
+                  >
+                    <div className="min-h-0 min-w-0 overflow-hidden border-white/5">
+                      <EditorContent
+                        value={code}
+                        onChange={setCode}
+                        highlightedLinesOverride={diffLines.left}
+                      />
+                    </div>
+                    <div
+                      className={`min-h-0 min-w-0 overflow-hidden border-white/5 ${
+                        splitMode === 'vertical' ? 'border-l' : 'border-t'
+                      }`}
+                    >
+                      <EditorContent
+                        value={codeSecond}
+                        onChange={setCodeSecond}
+                        highlightedLinesOverride={diffLines.right}
+                      />
+                    </div>
+                  </div>
+                )}
               </EditorShell>
             </div>
           </section>

@@ -1,7 +1,17 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Download, Image, Link2, Palette, Zap, Shield } from 'lucide-react';
+import {
+  Columns2,
+  Crop,
+  ScrollText,
+  Download,
+  Image,
+  Link2,
+  Palette,
+  Zap,
+  Shield,
+} from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -41,6 +51,24 @@ const features = [
     title: '100% privé',
     description:
       "Votre code ne quitte jamais votre navigateur : Export, preview et rendu restent locaux.",
+  },
+  {
+    icon: Crop,
+    title: 'Presets ratio + crop intelligent',
+    description:
+      'Exports 1:1, 4:5, 16:9 avec cadrage propre pour éviter les étirements.',
+  },
+  {
+    icon: ScrollText,
+    title: 'Export long + pagination',
+    description:
+      'Capture du scroll complet avec découpage en pages pour les longs snippets.',
+  },
+  {
+    icon: Columns2,
+    title: 'Multi‑panes (split)',
+    description:
+      'Comparez deux versions côte à côte ou en lignes avec surlignage des différences.',
   },
 ];
 

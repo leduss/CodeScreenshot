@@ -82,9 +82,14 @@ import { syntaxThemes } from '@/constants/syntax-themes/themes';
 interface EditorContentProps {
   value: string;
   onChange: (value: string) => void;
+  highlightedLinesOverride?: number[];
 }
 
-const EditorContent = ({ value, onChange }: EditorContentProps) => {
+const EditorContent = ({
+  value,
+  onChange,
+  highlightedLinesOverride,
+}: EditorContentProps) => {
   const {
     font,
     fontSize,
@@ -212,10 +217,13 @@ const EditorContent = ({ value, onChange }: EditorContentProps) => {
 
   const highlightExtension = useMemo(() => {
     if (!isPro) return [];
-    const lines = new Set(highlightedLines);
+    const activeLines = highlightedLinesOverride ?? highlightedLines;
+    const lines = new Set(activeLines);
     if (lines.size === 0) return [];
 
-    const lineHighlight = Decoration.line({ class: 'cm-line-highlight' });
+    const lineHighlight = Decoration.line({
+      class: highlightedLinesOverride ? 'cm-line-diff' : 'cm-line-highlight',
+    });
 
     const build = (view: EditorView) => {
       const builder = [];
@@ -253,7 +261,7 @@ const EditorContent = ({ value, onChange }: EditorContentProps) => {
     );
 
     return [plugin];
-  }, [highlightedLines, isPro]);
+  }, [highlightedLines, highlightedLinesOverride, isPro]);
 
   const extensions = useMemo(() => {
     const zebra = showZebra
@@ -313,6 +321,10 @@ const EditorContent = ({ value, onChange }: EditorContentProps) => {
           },
           '.cm-activeLineGutter': {
             backgroundColor: 'transparent',
+          },
+          '.cm-line-diff': {
+            backgroundColor: 'rgba(255, 184, 108, 0.12)',
+            borderLeft: '2px solid rgba(255, 184, 108, 0.7)',
           },
           '.rainbow-bracket-red': {
             color: bracketPalette[0] ?? '#ff79c6',

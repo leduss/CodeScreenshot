@@ -40,6 +40,8 @@ const EditorShell = ({
     zenMode,
     watermarkText,
     watermarkPosition,
+    showSignature,
+    signatureText,
     isPro,
     windowStyle,
     exportFormat,
@@ -160,6 +162,7 @@ const EditorShell = ({
   const isZen = isPro ? zenMode : false;
   const forcedWatermark = 'SnapCode Free';
   const effectiveWatermarkText = isPro ? watermarkText : forcedWatermark;
+  const effectiveSignatureText = isPro && showSignature ? signatureText : '';
   const footerContentClass = hideFooterContentDuringCapture
     ? 'opacity-0 pointer-events-none'
     : 'opacity-100';
@@ -270,6 +273,11 @@ const EditorShell = ({
                 className={`pointer-events-none absolute ${watermarkPositions[watermarkPosition] ?? watermarkPositions['bottom-right']} text-xs font-medium uppercase tracking-[0.2em] text-white/30`}
               >
                 {effectiveWatermarkText}
+              </div>
+            )}
+            {effectiveSignatureText?.trim() && (
+              <div className="pointer-events-none absolute bottom-3 right-4 text-[10px] font-medium uppercase tracking-[0.28em] text-white/30">
+                {effectiveSignatureText}
               </div>
             )}
           </div>
