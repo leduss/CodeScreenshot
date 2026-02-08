@@ -113,11 +113,11 @@ const initialState = {
   font: fonts.find((f) => f.name === 'Input') ?? fonts[0],
   fontWeight: 400,
   isLoader: false,
-  showLineNumbers: true,
+  showLineNumbers: false,
   highlightedLines: [],
   showZebra: false,
-  showFoldGutter: true,
-  showActiveLine: true,
+  showFoldGutter: false,
+  showActiveLine: false,
   showSelectionMatches: true,
   showTrailingWhitespace: false,
   showSearch: false,
@@ -238,6 +238,9 @@ export const useStore = create<EditorState>()(
         set((state) => ({
           isPro: value,
           showSearch: value ? state.showSearch : false,
+          showLineNumbers: value ? state.showLineNumbers : false,
+          showFoldGutter: value ? state.showFoldGutter : false,
+          showActiveLine: value ? state.showActiveLine : false,
         })),
       setExportsUsed: (value: number) => {
         persistExportsUsed(value);
