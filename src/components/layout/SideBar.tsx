@@ -660,9 +660,12 @@ const SideBar = ({ editorRef, editorTitle }: SideBarProps) => {
               </DialogFooter>
             </DialogContent>
           </Dialog>
-          <p className="text-[11px] text-white/60">
-            5 exports PNG gratuits. <Link href="/pricing" className="text-primary underline-offset-2 hover:underline">Passez Pro</Link>
-          </p>
+          <div className="flex items-center justify-center gap-1 text-[11px] text-white/60">
+            <span>5 exports PNG gratuits.</span>
+            <Link href="/pricing" className="text-primary underline-offset-2 hover:underline">
+              Passez Pro
+            </Link>
+          </div>
           <Dialog open={upgradeOpen} onOpenChange={setUpgradeOpen}>
             <DialogContent className="border-white/10 bg-[#121316] text-white">
               <DialogHeader className="text-left">
