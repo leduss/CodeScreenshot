@@ -104,11 +104,11 @@ const Pricing = () => {
               }`}
             >
               {plan.highlighted && (
-                <div className="absolute -top-4 left-1/2 flex items-center gap-2 -translate-x-1/2">
+                <div className="absolute -top-4 left-1/2 flex -translate-x-1/2 items-center gap-2">
                   <span className="bg-gradient-primary rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-wide text-primary-foreground">
                     Populaire
                   </span>
-                  <span className="rounded-full border border-white/30 bg-white/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">
+                  <span className="bg-gradient-primary rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-wide text-primary-foreground whitespace-nowrap">
                     Coming soon
                   </span>
                 </div>
