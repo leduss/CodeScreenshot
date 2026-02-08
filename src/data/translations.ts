@@ -143,6 +143,10 @@ export const translations: Record<Locale, TranslationKeys> = {
     exportGuideDescription:
       'Passe à Pro et débloque les formats, la qualité et les tailles illimitées.',
     exportGuideLink: 'Voir les options Pro',
+    sidebarHelpTitle: 'Personnalise ta capture',
+    sidebarHelpDescription:
+      'Utilise la sidebar pour régler thèmes, recherche, watermark et layout avant export.',
+    sidebarHelpLink: 'Voir la documentation',
     highlightLines: 'Surligner les lignes',
     linesHash: 'Lignes #',
     font: 'Police',
@@ -224,14 +228,6 @@ export const translations: Record<Locale, TranslationKeys> = {
     sidebarHelpDescription:
       'Use the sidebar to tweak themes, search, watermark and layout before export.',
     sidebarHelpLink: 'Browse the docs',
-    sidebarHelpTitle: 'Customize your capture',
-    sidebarHelpDescription:
-      'Use the sidebar to tweak themes, search, watermark and layout before export.',
-    sidebarHelpLink: 'Browse the docs',
-    sidebarHelpTitle: 'Customize votre capture',
-    sidebarHelpDescription:
-      'Utilisez la sidebar pour ajuster les thèmes, la recherche, le watermark et la mise en page.',
-    sidebarHelpLink: 'Voir la documentation',
     highlightLines: 'Highlight lines',
     linesHash: 'Lines #',
     font: 'Font',
