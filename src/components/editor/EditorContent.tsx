@@ -93,6 +93,7 @@ const EditorContent = ({ value, onChange }: EditorContentProps) => {
     highlightedLines,
     lineHeight,
     letterSpacing,
+    isPro,
   } = useStore();
 
   const themeExtension = useMemo<Extension>(() => {
@@ -191,6 +192,7 @@ const EditorContent = ({ value, onChange }: EditorContentProps) => {
   }, [language]);
 
   const highlightExtension = useMemo(() => {
+    if (!isPro) return [];
     const lines = new Set(highlightedLines);
     if (lines.size === 0) return [];
 
@@ -232,7 +234,7 @@ const EditorContent = ({ value, onChange }: EditorContentProps) => {
     );
 
     return [plugin];
-  }, [highlightedLines]);
+  }, [highlightedLines, isPro]);
 
   const extensions = useMemo(() => {
     const zebra = showZebra
@@ -253,7 +255,7 @@ const EditorContent = ({ value, onChange }: EditorContentProps) => {
       ...(showSelectionMatches
         ? [highlightSelectionMatches({ wholeWords: false })]
         : []),
-      ...(showSearch ? [keymap.of(searchKeymap)] : []),
+      ...(isPro && showSearch ? [keymap.of(searchKeymap)] : []),
       ...(showTrailingWhitespace ? [highlightTrailingWhitespace()] : []),
       rectangularSelection(),
       crosshairCursor(),
@@ -270,12 +272,12 @@ const EditorContent = ({ value, onChange }: EditorContentProps) => {
           },
           '.cm-content': {
             fontFamily:
-              font?.name ||
+              (isPro ? font?.name : 'Input') ||
               'JetBrains Mono, ui-monospace, SFMono-Regular, Menlo, monospace',
-            fontSize: fontSize?.px ? `${fontSize.px}px` : '14px',
-            lineHeight: lineHeight ? `${lineHeight}` : null,
+            fontSize: isPro && fontSize?.px ? `${fontSize.px}px` : '14px',
+            lineHeight: isPro && lineHeight ? `${lineHeight}` : null,
             letterSpacing:
-              typeof letterSpacing === 'number'
+              isPro && typeof letterSpacing === 'number'
                 ? `${letterSpacing}em`
                 : null,
           },
@@ -342,6 +344,7 @@ const EditorContent = ({ value, onChange }: EditorContentProps) => {
   }, [
     font?.name,
     fontSize?.px,
+    isPro,
     lineHeight,
     letterSpacing,
     languageExtension,
@@ -360,11 +363,11 @@ const EditorContent = ({ value, onChange }: EditorContentProps) => {
         height="100%"
         indentWithTab
         basicSetup={{
-          lineNumbers: showLineNumbers,
-          foldGutter: showFoldGutter,
-          foldKeymap: showFoldGutter,
-          highlightActiveLine: showActiveLine,
-          highlightActiveLineGutter: showActiveLine,
+          lineNumbers: isPro && showLineNumbers,
+          foldGutter: isPro && showFoldGutter,
+          foldKeymap: isPro && showFoldGutter,
+          highlightActiveLine: isPro && showActiveLine,
+          highlightActiveLineGutter: isPro && showActiveLine,
           highlightSelectionMatches: false,
         }}
         extensions={extensions}

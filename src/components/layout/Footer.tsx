@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Card, CardContent, Separator, Popover, PopoverContent, PopoverTrigger } from '@/components/ui';
+import { Button, Card, CardContent, Separator, Popover, PopoverContent, PopoverTrigger, Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogClose } from '@/components/ui';
 import { toPng, toBlob, toJpeg } from 'html-to-image';
 import { toast } from 'sonner';
 import { ThemeToggle } from '@/components/theme';
@@ -17,7 +17,8 @@ interface FooterProps {
 const Footer = (props: FooterProps) => {
   const { editorRef, title } = props;
   const [loading, setLoading] = useState<boolean>(false);
-  const { setIsLoader, isFullscreen, toggleFullscreen } = useStore();
+  const [upgradeOpen, setUpgradeOpen] = useState(false);
+  const { setIsLoader, isFullscreen, toggleFullscreen, isPro, exportsUsed, incrementExportsUsed } = useStore();
   const { t } = useTranslation();
 
   // Toggle fullscreen with F key
@@ -50,6 +51,15 @@ const Footer = (props: FooterProps) => {
       let image;
       let filename;
 
+      if (!isPro && exportsUsed >= 5) {
+        setUpgradeOpen(true);
+        return;
+      }
+      if (!isPro && format !== 'PNG') {
+        toast.error(t.error);
+        return;
+      }
+
       switch (format) {
         case 'JPG':
           if (editorRef.current) {
@@ -71,6 +81,9 @@ const Footer = (props: FooterProps) => {
       a.download = filename;
       a.click();
       toast.success(t.downloadSuccess);
+      if (!isPro) {
+        incrementExportsUsed();
+      }
     } catch (error) {
       toast.error(t.error);
     } finally {
@@ -121,9 +134,11 @@ const Footer = (props: FooterProps) => {
                 <Button variant="default" onClick={() => handleClick(title, 'PNG')} disabled={loading}>
                   {t.png}
                 </Button>
-                <Button variant="default" onClick={() => handleClick(title, 'JPG')} disabled={loading}>
-                  {t.jpg}
-                </Button>
+                {isPro && (
+                  <Button variant="default" onClick={() => handleClick(title, 'JPG')} disabled={loading}>
+                    {t.jpg}
+                  </Button>
+                )}
               </PopoverContent>
             </Popover>
             <Button variant="default" onClick={copyLink} disabled={loading}>
@@ -142,6 +157,33 @@ const Footer = (props: FooterProps) => {
           <ThemeToggle />
         </CardContent>
       </Card>
+
+      <Dialog open={upgradeOpen} onOpenChange={setUpgradeOpen}>
+        <DialogContent className="border-white/10 bg-[#121316] text-white">
+          <DialogHeader className="text-left">
+            <DialogTitle>{t.limitReachedTitle}</DialogTitle>
+            <DialogDescription className="text-white/60">
+              {t.limitReachedDescription}
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <DialogClose asChild>
+              <button
+                type="button"
+                className="inline-flex h-9 items-center justify-center rounded-md border border-white/10 bg-white/5 px-3 text-sm font-medium text-white/80 transition hover:bg-white/10"
+              >
+                {t.none}
+              </button>
+            </DialogClose>
+            <button
+              type="button"
+              className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-3 text-sm font-medium text-primary-foreground transition"
+            >
+              {t.upgradeCta}
+            </button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
       <nav className="flex justify-center gap-4 text-sm dark:text-white" aria-label="Footer links">
         <Link href="https://github.com/leduss/scrennshot-code" target="_blank" rel="noopener noreferrer">

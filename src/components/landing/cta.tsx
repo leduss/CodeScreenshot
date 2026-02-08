@@ -44,18 +44,21 @@ const CTA = () => {
               <br />
               <span className="text-gradient">plus beau code</span> ?
             </h2>
-            <p className="mx-auto mb-10 max-w-lg text-lg text-muted-foreground">
-              Rejoignez des milliers de développeurs qui utilisent SnapCode pour
-              partager leur code avec style.
+            <p className="mx-auto mb-6 max-w-lg text-lg text-muted-foreground">
+              5 exports PNG gratuits pour commencer, puis passez Pro pour une
+              expérience illimitée et toutes les options avancées.
             </p>
             <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Button variant="hero" size="xl">
                 Créer ma première capture
                 <ArrowRight className="size-5" />
               </Button>
+              <Button variant="hero-outline" size="xl">
+                Passer Pro
+              </Button>
             </div>
             <p className="mt-6 text-sm text-muted-foreground">
-              Gratuit · Sans inscription · Sans limite
+              Gratuit · Sans inscription · 5 exports PNG inclus
             </p>
           </div>
         </div>

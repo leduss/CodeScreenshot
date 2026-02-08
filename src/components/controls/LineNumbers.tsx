@@ -26,6 +26,7 @@ const LineNumbers = () => {
     setShowTrailingWhitespace,
     showSearch,
     setShowSearch,
+    isPro,
   } = useStore();
   const { t } = useTranslation();
   const inputId = useId();
@@ -48,10 +49,18 @@ const LineNumbers = () => {
   return (
     <div className="flex flex-col gap-1">
       <label className="flex items-center justify-between text-sm">
-        <span>{t.lineNumbers}</span>
+        <span>
+          {t.lineNumbers}
+          {!isPro && (
+            <span className="ml-2 rounded bg-primary/20 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary">
+              Pro
+            </span>
+          )}
+        </span>
         <Checkbox
           checked={showLineNumbers}
           onCheckedChange={(checked) => setShowLineNumbers(!!checked)}
+          disabled={!isPro}
         />
       </label>
 
@@ -64,18 +73,34 @@ const LineNumbers = () => {
       </label>
 
       <label className="flex items-center justify-between text-sm">
-        <span>{t.foldGutter}</span>
+        <span>
+          {t.foldGutter}
+          {!isPro && (
+            <span className="ml-2 rounded bg-primary/20 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary">
+              Pro
+            </span>
+          )}
+        </span>
         <Checkbox
           checked={showFoldGutter}
           onCheckedChange={(checked) => setShowFoldGutter(!!checked)}
+          disabled={!isPro}
         />
       </label>
 
       <label className="flex items-center justify-between text-sm">
-        <span>{t.activeLine}</span>
+        <span>
+          {t.activeLine}
+          {!isPro && (
+            <span className="ml-2 rounded bg-primary/20 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary">
+              Pro
+            </span>
+          )}
+        </span>
         <Checkbox
           checked={showActiveLine}
           onCheckedChange={(checked) => setShowActiveLine(!!checked)}
+          disabled={!isPro}
         />
       </label>
 
@@ -96,10 +121,18 @@ const LineNumbers = () => {
       </label>
 
       <label className="flex items-center justify-between text-sm">
-        <span>{t.search}</span>
+        <span>
+          {t.search}
+          {!isPro && (
+            <span className="ml-2 rounded bg-primary/20 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary">
+              Pro
+            </span>
+          )}
+        </span>
         <Checkbox
           checked={showSearch}
           onCheckedChange={(checked) => setShowSearch(!!checked)}
+          disabled={!isPro}
         />
       </label>
 
@@ -108,6 +141,11 @@ const LineNumbers = () => {
       <fieldset className="m-0 flex flex-col gap-2 border-0 p-0">
         <label htmlFor={inputId} className="text-sm">
           {t.highlightLines}
+          {!isPro && (
+            <span className="ml-2 rounded bg-primary/20 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary">
+              Pro
+            </span>
+          )}
         </label>
         <div className="flex gap-2">
           <input
@@ -118,15 +156,19 @@ const LineNumbers = () => {
             onChange={(e) => setLineInput(e.target.value)}
             onKeyDown={handleKeyDown}
             min={1}
-            className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+            disabled={!isPro}
+            className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
           />
-          <Button size="sm" onClick={addLineHighlight}>
+          <Button size="sm" onClick={addLineHighlight} disabled={!isPro}>
             {t.add}
           </Button>
         </div>
 
         {highlightedLines.length > 0 && (
-          <ul className="m-0 mt-2 flex list-none flex-wrap gap-1 p-0" aria-label={t.highlightLines}>
+          <ul
+            className="m-0 mt-2 flex list-none flex-wrap gap-1 p-0"
+            aria-label={t.highlightLines}
+          >
             {highlightedLines.map((line) => (
               <li
                 key={line}
@@ -136,8 +178,9 @@ const LineNumbers = () => {
                 <button
                   type="button"
                   onClick={() => toggleLineHighlight(line)}
-                  className="text-destructive hover:text-destructive/80"
+                  className="text-destructive hover:text-destructive/80 disabled:opacity-50"
                   aria-label={`Remove line ${line}`}
+                  disabled={!isPro}
                 >
                   ×
                 </button>
@@ -152,6 +195,7 @@ const LineNumbers = () => {
             size="sm"
             onClick={() => setHighlightedLines([])}
             className="mt-1 text-xs"
+            disabled={!isPro}
           >
             {t.clearAll}
           </Button>

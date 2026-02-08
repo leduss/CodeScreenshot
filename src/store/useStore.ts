@@ -3,6 +3,10 @@ import { persist } from 'zustand/middleware';
 import { roundedOption, fontSizeOptions, fontStyleOptions } from '@/constants';
 import { Font, FontSize, FontStyle, Rounded } from '@/types';
 import { fonts, type Locale } from '@/data';
+import {
+  persistExportsUsed,
+  readStoredExportsUsed,
+} from '@/utils/export-limit-storage';
 
 export interface CustomTheme {
   id: string;
@@ -49,6 +53,8 @@ interface EditorState {
   exportWidth: number;
   exportHeight: number;
   exportLockRatio: boolean;
+  isPro: boolean;
+  exportsUsed: number;
 
   // Actions
   setSyntaxTheme: (theme: string) => void;
@@ -78,6 +84,11 @@ interface EditorState {
   setExportWidth: (value: number) => void;
   setExportHeight: (value: number) => void;
   setExportLockRatio: (value: boolean) => void;
+  setIsPro: (value: boolean) => void;
+  setExportsUsed: (value: number) => void;
+  syncExportsUsed: () => { prev: number; next: number };
+  incrementExportsUsed: () => void;
+  resetExportsUsed: () => void;
   toggleLineHighlight: (line: number) => void;
   setHighlightedLines: (lines: number[]) => void;
   setLocale: (locale: Locale) => void;
@@ -90,7 +101,7 @@ interface EditorState {
 }
 
 const initialState = {
-  syntaxTheme: 'dracula',
+  syntaxTheme: 'console-dark',
   padding: 0,
   rounded: roundedOption[0],
   indexRounded: 0,
@@ -98,7 +109,7 @@ const initialState = {
   indexFontSize: 2,
   fontStyle: fontStyleOptions[0],
   darkMode: false,
-  font: fonts[0],
+  font: fonts.find((f) => f.name === 'Input') ?? fonts[0],
   fontWeight: 400,
   isLoader: false,
   showLineNumbers: true,
@@ -108,7 +119,7 @@ const initialState = {
   showActiveLine: true,
   showSelectionMatches: true,
   showTrailingWhitespace: false,
-  showSearch: true,
+  showSearch: false,
   zenMode: false,
   lineHeight: 1.6,
   letterSpacing: 0,
@@ -126,11 +137,13 @@ const initialState = {
   customThemes: [],
   activeCustomTheme: null,
   language: 'typescript',
+  isPro: false,
+  exportsUsed: 0,
 };
 
 export const useStore = create<EditorState>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       ...initialState,
 
       setSyntaxTheme: (theme: string) => set({ syntaxTheme: theme }),
@@ -177,7 +190,8 @@ export const useStore = create<EditorState>()(
       setShowTrailingWhitespace: (show: boolean) =>
         set({ showTrailingWhitespace: show }),
 
-      setShowSearch: (show: boolean) => set({ showSearch: show }),
+      setShowSearch: (show: boolean) =>
+        set((state) => ({ showSearch: state.isPro ? show : false })),
 
       setZenMode: (enabled: boolean) => set({ zenMode: enabled }),
 
@@ -204,6 +218,35 @@ export const useStore = create<EditorState>()(
       setExportHeight: (value) => set({ exportHeight: value }),
 
       setExportLockRatio: (value) => set({ exportLockRatio: value }),
+
+      setIsPro: (value: boolean) =>
+        set((state) => ({
+          isPro: value,
+          showSearch: value ? state.showSearch : false,
+        })),
+      setExportsUsed: (value: number) => {
+        persistExportsUsed(value);
+        set({ exportsUsed: value });
+      },
+      incrementExportsUsed: () =>
+        set((state) => {
+          const next = state.exportsUsed + 1;
+          persistExportsUsed(next);
+          return { exportsUsed: next };
+        }),
+      resetExportsUsed: () => {
+        persistExportsUsed(0);
+        set({ exportsUsed: 0 });
+      },
+      syncExportsUsed: () => {
+        const persisted = readStoredExportsUsed();
+        let prev = 0;
+        set((state) => {
+          prev = state.exportsUsed;
+          return { exportsUsed: persisted };
+        });
+        return { prev, next: persisted };
+      },
 
       toggleLineHighlight: (line: number) =>
         set((state) => {
@@ -271,6 +314,8 @@ export const useStore = create<EditorState>()(
         exportHeight: state.exportHeight,
         exportLockRatio: state.exportLockRatio,
         locale: state.locale,
+        isPro: state.isPro,
+        exportsUsed: state.exportsUsed,
       }),
     }
   )

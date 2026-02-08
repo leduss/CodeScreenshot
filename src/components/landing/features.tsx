@@ -8,39 +8,39 @@ gsap.registerPlugin(ScrollTrigger);
 const features = [
   {
     icon: Image,
-    title: 'Export PNG & JPEG',
+    title: 'Export PNG & JPEG limitée',
     description:
-      'Exportez vos captures en haute résolution. Choisissez le format, la qualité et la taille qui vous convient.',
+      '5 exports PNG gratuits, puis Pro pour débloquer JPEG, qualité adaptative et tailles personalisées.',
   },
   {
     icon: Link2,
-    title: 'Partage par lien',
+    title: 'Partage instantané',
     description:
-      'Générez un lien unique pour chaque capture. Partagez instantanément avec votre équipe ou sur les réseaux.',
+      'Générez et copiez un lien sécurisé en un clic pour envoyer vos captures à l’équipe.',
   },
   {
     icon: Palette,
-    title: 'Thèmes personnalisés',
+    title: 'Thèmes & polices',
     description:
-      'Des dizaines de thèmes de syntaxe et de fonds. Créez votre propre style en quelques clics.',
+      'Console Dark, Console Light et Dracula gratuits, les autres thèmes et polices affichent une étiquette Pro avant déblocage.',
   },
   {
     icon: Zap,
-    title: 'Rapide & léger',
+    title: 'Fonctionnalités Pro',
     description:
-      'Aucune installation requise. Collez votre code, personnalisez et exportez en secondes.',
+      'Recherche, surlignage, Zen, watermark et métadonnées sont visibles en Free et activables via upgrade.',
   },
   {
     icon: Download,
-    title: 'Résolution 2x & 4x',
+    title: 'Résolution 2×/4×',
     description:
-      'Des images ultra nettes pour vos présentations, articles de blog et réseaux sociaux.',
+      'Des exports nets pour les présentations ou réseaux : tout est rendu côté client, sans installation.',
   },
   {
     icon: Shield,
     title: '100% privé',
     description:
-      "Votre code n'est jamais stocké sur nos serveurs. Tout le rendu se fait côté client.",
+      "Votre code ne quitte jamais votre navigateur : Export, preview et rendu restent locaux.",
   },
 ];
 

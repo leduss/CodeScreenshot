@@ -31,7 +31,7 @@ const EditorShell = ({
   className,
   roundedClass,
 }: EditorShellProps) => {
-  const { font, zenMode, watermarkText, watermarkPosition } = useStore();
+  const { font, zenMode, watermarkText, watermarkPosition, isPro } = useStore();
   const radiusClass = roundedClass ?? 'rounded-[22px]';
   const glowRadiusClass = roundedClass ?? 'rounded-[24px]';
   const [isEditing, setIsEditing] = useState(false);
@@ -136,6 +136,10 @@ const EditorShell = ({
     return title + extension;
   };
 
+  const isZen = isPro ? zenMode : false;
+  const forcedWatermark = 'SnapCode Free';
+  const effectiveWatermarkText = isPro ? watermarkText : forcedWatermark;
+
   return (
     <div className={`group relative h-full ${className ?? ''}`}>
       <div
@@ -148,7 +152,7 @@ const EditorShell = ({
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/5 via-transparent to-black/30" />
 
         <div className="relative flex h-full flex-col">
-          {!zenMode && (
+          {!isZen && (
             <header className="flex h-12 items-center justify-between border-b border-white/5 bg-[#17181b] px-5">
               <div className="flex items-center gap-2" aria-hidden="true">
                 <span className="size-3 rounded-full bg-[hsl(8_85%_55%)]" />
@@ -201,16 +205,16 @@ const EditorShell = ({
 
           <div className="relative flex-1 overflow-hidden">
             <div className="relative h-full overflow-hidden">{children}</div>
-            {watermarkText?.trim() && (
+            {effectiveWatermarkText?.trim() && (
               <div
                 className={`pointer-events-none absolute ${watermarkPositions[watermarkPosition] ?? watermarkPositions['bottom-right']} text-xs font-medium uppercase tracking-[0.2em] text-white/30`}
               >
-                {watermarkText}
+                {effectiveWatermarkText}
               </div>
             )}
           </div>
 
-          {!zenMode && (
+          {!isZen && (
             <footer className="flex h-11 items-center justify-between border-t border-white/5 bg-[#17181b] px-5 text-xs text-muted-foreground">
               <div className="flex items-center gap-3">
                 <span className="rounded bg-white/10 px-2 py-0.5 text-[11px] font-medium text-primary">

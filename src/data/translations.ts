@@ -17,6 +17,10 @@ export type TranslationKeys = {
   copyright: string;
   createdBy: string;
   version: string;
+  limitReachedTitle: string;
+  limitReachedDescription: string;
+  upgradeCta: string;
+  limitResetMessage: string;
   // Sidebar
   add: string;
   clearAll: string;
@@ -65,6 +69,8 @@ export type TranslationKeys = {
   fullscreen: string;
   customThemes: string;
   createTheme: string;
+  exportFeaturesTitle: string;
+  freeExportsRemaining: string;
 };
 
 export const translations: Record<Locale, TranslationKeys> = {
@@ -85,6 +91,11 @@ export const translations: Record<Locale, TranslationKeys> = {
     copyright: '©',
     createdBy: 'Créé par',
     version: 'v 1.0.0',
+    limitReachedTitle: 'Limite gratuite atteinte',
+    limitReachedDescription:
+      'Vous avez atteint la limite de 5 exports. Passez à la version Pro pour exporter sans limite.',
+    upgradeCta: 'Passer Pro',
+    limitResetMessage: 'Limite réinitialisée, tu peux repartir de zéro.',
     // Sidebar
     add: 'Ajouter',
     clearAll: 'Tout effacer',
@@ -120,6 +131,8 @@ export const translations: Record<Locale, TranslationKeys> = {
     exportWidth: 'Largeur',
     exportHeight: 'Hauteur',
     exportLockRatio: 'Ratio verrouillé',
+    exportFeaturesTitle: 'Fonctionnalités',
+    freeExportsRemaining: 'Exports gratuits restants : {count}/5',
     highlightLines: 'Surligner les lignes',
     linesHash: 'Lignes #',
     font: 'Police',
@@ -151,6 +164,11 @@ export const translations: Record<Locale, TranslationKeys> = {
     copyright: '©',
     createdBy: 'Created by',
     version: 'v 1.0.0',
+    limitReachedTitle: 'Free limit reached',
+    limitReachedDescription:
+      'You reached the 5 exports limit. Upgrade to Pro for unlimited exports.',
+    upgradeCta: 'Upgrade to Pro',
+    limitResetMessage: 'Free exports counter reset; the limit starts back at 0.',
     // Sidebar
     add: 'Add',
     clearAll: 'Clear All',
@@ -186,6 +204,8 @@ export const translations: Record<Locale, TranslationKeys> = {
     exportWidth: 'Width',
     exportHeight: 'Height',
     exportLockRatio: 'Lock ratio',
+    exportFeaturesTitle: 'Features',
+    freeExportsRemaining: 'Free exports remaining : {count}/5',
     highlightLines: 'Highlight lines',
     linesHash: 'Lines #',
     font: 'Font',
@@ -217,6 +237,11 @@ export const translations: Record<Locale, TranslationKeys> = {
     copyright: '©',
     createdBy: 'Creado por',
     version: 'v 1.0.0',
+    limitReachedTitle: 'Límite gratuita alcanzada',
+    limitReachedDescription:
+      'Has alcanzado el límite de 5 exportaciones. Actualiza a Pro para exportar sin límites.',
+    upgradeCta: 'Actualizar a Pro',
+    limitResetMessage: 'El contador se ha reiniciado; vuelve a empezar desde cero.',
     // Sidebar
     add: 'Añadir',
     clearAll: 'Borrar todo',
@@ -252,6 +277,8 @@ export const translations: Record<Locale, TranslationKeys> = {
     exportWidth: 'Ancho',
     exportHeight: 'Alto',
     exportLockRatio: 'Bloquear ratio',
+    exportFeaturesTitle: 'Características',
+    freeExportsRemaining: 'Exportaciones gratuitas restantes : {count}/5',
     highlightLines: 'Resaltar líneas',
     linesHash: 'Líneas #',
     font: 'Fuente',
@@ -283,6 +310,11 @@ export const translations: Record<Locale, TranslationKeys> = {
     copyright: '©',
     createdBy: 'Erstellt von',
     version: 'v 1.0.0',
+    limitReachedTitle: 'Kostenloses Limit erreicht',
+    limitReachedDescription:
+      'Du hast das Limit von 5 Exporten erreicht. Wechsle zu Pro für unbegrenzte Exporte.',
+    upgradeCta: 'Auf Pro upgraden',
+    limitResetMessage: 'Gratis-Exportzähler zurückgesetzt; du kannst wieder von vorn anfangen.',
     // Sidebar
     add: 'Hinzufügen',
     clearAll: 'Alles löschen',
@@ -318,6 +350,8 @@ export const translations: Record<Locale, TranslationKeys> = {
     exportWidth: 'Breite',
     exportHeight: 'Höhe',
     exportLockRatio: 'Seitenverhältnis',
+    exportFeaturesTitle: 'Funktionen',
+    freeExportsRemaining: 'Verbleibende Gratis-Exporte : {count}/5',
     highlightLines: 'Zeilen hervorheben',
     linesHash: 'Zeilen #',
     font: 'Schriftart',
@@ -349,6 +383,11 @@ export const translations: Record<Locale, TranslationKeys> = {
     copyright: '©',
     createdBy: 'Creato da',
     version: 'v 1.0.0',
+    limitReachedTitle: 'Limite gratuita raggiunta',
+    limitReachedDescription:
+      'Hai raggiunto il limite di 5 esportazioni. Passa a Pro per esportare senza limiti.',
+    upgradeCta: 'Passa a Pro',
+    limitResetMessage: 'Il contatore degli export gratuiti è stato azzerato; puoi ricominciare da capo.',
     // Sidebar
     add: 'Aggiungi',
     clearAll: 'Cancella tutto',
@@ -384,6 +423,8 @@ export const translations: Record<Locale, TranslationKeys> = {
     exportWidth: 'Larghezza',
     exportHeight: 'Altezza',
     exportLockRatio: 'Blocca ratio',
+    exportFeaturesTitle: 'Funzionalità',
+    freeExportsRemaining: 'Esportazioni gratuite rimanenti : {count}/5',
     highlightLines: 'Evidenzia righe',
     linesHash: 'Righe #',
     font: 'Font',
@@ -415,6 +456,11 @@ export const translations: Record<Locale, TranslationKeys> = {
     copyright: '©',
     createdBy: 'Criado por',
     version: 'v 1.0.0',
+    limitReachedTitle: 'Limite gratuita atingida',
+    limitReachedDescription:
+      'Atingiste o limite de 5 exportações. Faz upgrade para Pro para exportar sem limites.',
+    upgradeCta: 'Upgrade para Pro',
+    limitResetMessage: 'O contador de exports gratuitos foi reiniciado; podes começar de novo.',
     // Sidebar
     add: 'Adicionar',
     clearAll: 'Limpar tudo',
@@ -450,6 +496,8 @@ export const translations: Record<Locale, TranslationKeys> = {
     exportWidth: 'Largura',
     exportHeight: 'Altura',
     exportLockRatio: 'Bloquear proporção',
+    exportFeaturesTitle: 'Funcionalidades',
+    freeExportsRemaining: 'Exportações gratuitas restantes : {count}/5',
     highlightLines: 'Realçar linhas',
     linesHash: 'Linhas #',
     font: 'Tipo de letra',

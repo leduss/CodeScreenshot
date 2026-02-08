@@ -101,8 +101,9 @@ const Hero = () => {
           ref={subtitleRef}
           className="mx-auto mb-10 max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl"
         >
-          Transformez vos snippets en images élégantes. Export PNG, JPEG ou
-          partagez instantanément via un lien. Simple, rapide, magnifique.
+          Transformez vos snippets en images élégantes, avec 5 exports PNG
+          gratuits puis un passage Pro en un clic. Export, partage et rendu
+          haut de gamme sans installation.
         </p>
 
         <div
