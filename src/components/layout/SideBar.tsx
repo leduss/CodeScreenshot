@@ -79,6 +79,7 @@ const SideBar = ({ editorRef, editorTitle, onExportCaptureChange }: SideBarProps
     resetExportsUsed,
     layoutPreset,
     setLayoutPreset,
+    setIsPro,
     setShowSearch,
     setShowSelectionMatches,
     setShowFoldGutter,
