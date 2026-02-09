@@ -6,7 +6,7 @@ export const SiteConfig = {
   siteName: 'SnapCode',
   siteUrl:
     process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') ??
-    'https://code-screenshot-five.vercel.app',
+    'https://snapcode-one.vercel.app',
   keywords: [
     // Français
     'capture de code',
