@@ -1,7 +1,7 @@
 export const SiteConfig = {
   title: 'SnapCode',
   description:
-    "Créez de superbes captures d'écran de code avec SnapCode. Personnalisez les thèmes, polices, arrière-plans et plus encore. Exportez en PNG, SVG ou JPG. Gratuit et sans inscription.",
+    "Créez de superbes captures d'écran de code avec SnapCode. Personnalisez les thèmes, polices, arrière-plans et plus encore. Exportez en PNG ou JPG. Gratuit et sans inscription.",
   iconHeader: '/icon.png',
   siteName: 'SnapCode',
   siteUrl: 'https://code-screenshot-five.vercel.app',
@@ -30,7 +30,6 @@ export const SiteConfig = {
     'code snippet',
     // Features
     'export PNG',
-    'export SVG',
     'code themes',
     'dracula theme',
     'github theme',

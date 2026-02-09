@@ -2,50 +2,14 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Button } from '@/components/ui/button';
-import { Check } from 'lucide-react';
+import { Banknote, Check } from 'lucide-react';
+import { useLandingTranslation } from '@/hooks';
+import SectionBadge from './section-badge';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const plans = [
-  {
-    name: 'Gratuit',
-    price: '0€',
-    period: 'pour toujours',
-    description:
-      'Expérimentez SnapCode avec 5 exports PNG gratuits, puis débloquez la suite.',
-    features: [
-      '5 exports PNG gratuits',
-      '3 thèmes et 1 police',
-    ],
-    cta: 'Commencer gratuitement',
-    variant: 'hero-outline' as const,
-    highlighted: false,
-  },
-  {
-    name: 'Pro',
-    price: '4.99€',
-    period: 'paiement unique',
-    description:
-      'Accès illimité aux exports, aux thèmes et aux fonctionnalités avancées (recherche, watermark, métadonnées...).',
-    features: [
-      'Exports PNG/JPEG illimités + tailles personnalisées',
-      'Qualité réglable + presets ratio (1:1, 4:5, 16:9)',
-      'Crop intelligent pour ratios fixes',
-      'Export long (scroll complet) + pagination',
-      'Multi‑panes pour comparer deux versions',
-      'Tous les thèmes & polices premium',
-      'Recherche, surlignage, line numbers, pliage, ligne active, Zen',
-      'Watermark, metasnippet et signature discrète',
-      'Pas de filigrane',
-      'Rendu Pro fidèle aux réglages sidebar',
-    ],
-    cta: 'Débloquer Pro',
-    variant: 'hero' as const,
-    highlighted: true,
-  },
-];
-
 const Pricing = () => {
+  const t = useLandingTranslation();
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -81,21 +45,18 @@ const Pricing = () => {
     <section ref={sectionRef} id="pricing" className="relative px-6 py-32">
       <div className="container mx-auto max-w-6xl">
         <div className="pricing-heading mb-20 text-center">
-          <span className="mb-4 block text-sm font-medium uppercase tracking-wider text-primary">
-            Tarifs
-          </span>
+          <SectionBadge label={t.pricing.badge} icon={Banknote} />
           <h2 className="mb-6 text-4xl font-bold tracking-tight md:text-5xl">
-            Un plan pour chaque{' '}
-            <span className="text-gradient">développeur</span>
+            {t.pricing.titlePrefix}{' '}
+            <span className="text-gradient">{t.pricing.titleGradient}</span>
           </h2>
           <p className="mx-auto max-w-xl text-lg text-muted-foreground">
-            Commencez gratuitement, évoluez selon vos besoins. Sans engagement,
-            annulable à tout moment.
+            {t.pricing.subtitle}
           </p>
         </div>
 
         <div className="pricing-grid mx-auto grid max-w-3xl grid-cols-1 items-start gap-8 md:grid-cols-2">
-          {plans.map((plan) => (
+          {t.pricing.plans.map((plan) => (
             <div
               key={plan.name}
               className={` relative rounded-2xl p-8 transition-all duration-300 ${
@@ -107,7 +68,7 @@ const Pricing = () => {
               {plan.highlighted && (
                 <div className="absolute -top-4 left-1/2 flex -translate-x-1/2 items-center gap-2">
                   <span className="bg-gradient-primary whitespace-nowrap rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-wide text-primary-foreground">
-                    Coming soon
+                    {t.pricing.comingSoon}
                   </span>
                 </div>
               )}
@@ -133,12 +94,25 @@ const Pricing = () => {
                     <div className="flex size-5 shrink-0 items-center justify-center rounded-full bg-primary/10">
                       <Check className="size-3 text-primary" />
                     </div>
-                    <span className="text-muted-foreground">{feature}</span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-muted-foreground">
+                        {feature.replace(' [soon]', '')}
+                      </span>
+                      {feature.includes('[soon]') && (
+                        <span className="bg-gradient-primary whitespace-nowrap rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-primary-foreground">
+                          {t.pricing.comingSoon}
+                        </span>
+                      )}
+                    </div>
                   </li>
                 ))}
               </ul>
 
-              <Button variant={plan.variant} size="lg" className="w-full">
+              <Button
+                variant={plan.highlighted ? 'hero' : 'hero-outline'}
+                size="lg"
+                className="w-full"
+              >
                 {plan.cta}
               </Button>
             </div>

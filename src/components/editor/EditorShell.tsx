@@ -3,6 +3,7 @@ import { Copy, Download, Share2 } from 'lucide-react';
 import { getLanguageExtension, getLanguageIcon } from '@/utils/language-icons';
 import flourite from 'flourite';
 import { useStore } from '@/store/useStore';
+import { useTranslation } from '@/hooks/useTranslation';
 
 interface EditorShellProps {
   title: string;
@@ -49,6 +50,7 @@ const EditorShell = ({
     exportHeight,
     exportsUsed,
   } = useStore();
+  const { t: translations } = useTranslation();
   const radiusClass = roundedClass ?? 'rounded-[22px]';
   const glowRadiusClass = roundedClass ?? 'rounded-[24px]';
   const [isEditing, setIsEditing] = useState(false);
@@ -64,7 +66,12 @@ const EditorShell = ({
   const computedFooterRight =
     footerRight ??
     `${exportFormat.toUpperCase()} · ${exportWidth}×${exportHeight}${
-      !isPro ? ` · ${Math.max(0, 5 - exportsUsed)} gratuits` : ''
+      !isPro
+        ? ` · ${translations.freeExportsRemaining.replace(
+            '{count}',
+            Math.max(0, 5 - exportsUsed).toString()
+          )}`
+        : ''
     }`;
 
   useEffect(() => {
@@ -201,7 +208,7 @@ const EditorShell = ({
                   <input
                     className="placeholder:text-inherit/50 h-full w-[175px] border-none bg-transparent text-sm text-inherit outline-none"
                     style={{ color: titleTextColor }}
-                    placeholder="nom fichier"
+                    placeholder={translations.exportNamePlaceholder}
                     value={getFullFilename()}
                     onChange={(e) => onTitleChange?.(e.target.value)}
                     onFocus={() => setIsEditing(true)}
@@ -216,21 +223,21 @@ const EditorShell = ({
                     <button
                       className="rounded-md p-1.5 transition-colors hover:bg-white/5 hover:text-white"
                       type="button"
-                      aria-label="Copier"
+                      aria-label={translations.copyImage}
                     >
                       <Copy className="size-3.5" />
                     </button>
                     <button
                       className="rounded-md p-1.5 transition-colors hover:bg-white/5 hover:text-white"
                       type="button"
-                      aria-label="Télécharger"
+                      aria-label={translations.export}
                     >
                       <Download className="size-3.5" />
                     </button>
                     <button
                       className="rounded-md p-1.5 transition-colors hover:bg-white/5 hover:text-primary"
                       type="button"
-                      aria-label="Partager"
+                      aria-label={translations.exportShare}
                     >
                       <Share2 className="size-3.5" />
                     </button>

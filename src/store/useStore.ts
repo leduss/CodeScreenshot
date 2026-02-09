@@ -60,6 +60,7 @@ interface EditorState {
   exportLong: boolean;
   exportPaginate: boolean;
   exportPageHeight: number;
+  exportSocialPreset: 'none' | 'x' | 'linkedin';
   isPro: boolean;
   exportsUsed: number;
   layoutPreset: 'centered' | 'full' | 'ratio';
@@ -99,6 +100,7 @@ interface EditorState {
   setExportLong: (value: boolean) => void;
   setExportPaginate: (value: boolean) => void;
   setExportPageHeight: (value: number) => void;
+  setExportSocialPreset: (value: 'none' | 'x' | 'linkedin') => void;
   setIsPro: (value: boolean) => void;
   setExportsUsed: (value: number) => void;
   syncExportsUsed: () => { prev: number; next: number };
@@ -157,6 +159,7 @@ const initialState = {
   exportLong: true,
   exportPaginate: false,
   exportPageHeight: 1400,
+  exportSocialPreset: 'none' as const,
   locale: 'fr' as Locale,
   isFullscreen: false,
   customThemes: [],
@@ -276,6 +279,10 @@ export const useStore = create<EditorState>()(
       setExportPageHeight: (value) =>
         set((state) => ({
           exportPageHeight: state.isPro ? value : state.exportPageHeight,
+        })),
+      setExportSocialPreset: (value) =>
+        set((state) => ({
+          exportSocialPreset: state.isPro ? value : 'none',
         })),
 
       setIsPro: (value: boolean) =>
@@ -397,6 +404,7 @@ export const useStore = create<EditorState>()(
         exportLong: state.exportLong,
         exportPaginate: state.exportPaginate,
         exportPageHeight: state.exportPageHeight,
+        exportSocialPreset: state.exportSocialPreset,
         windowStyle: state.windowStyle,
         layoutPreset: state.layoutPreset,
         splitMode: state.splitMode,
@@ -417,6 +425,7 @@ export const useStore = create<EditorState>()(
             state.exportLong = true;
             state.splitMode = 'single';
             state.diffHighlightEnabled = false;
+            state.exportSocialPreset = 'none';
           }
         };
       },

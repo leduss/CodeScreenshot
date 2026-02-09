@@ -12,67 +12,25 @@ import {
   Zap,
   Shield,
 } from 'lucide-react';
+import { useLandingTranslation } from '@/hooks';
+import SectionBadge from './section-badge';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const features = [
-  {
-    icon: Image,
-    title: 'Export PNG & JPEG limitée',
-    description:
-      '5 exports PNG gratuits, puis Pro pour débloquer JPEG, qualité adaptative et tailles personalisées.',
-  },
-  {
-    icon: Link2,
-    title: 'Partage instantané',
-    description:
-      'Générez et copiez un lien sécurisé en un clic pour envoyer vos captures à l’équipe.',
-  },
-  {
-    icon: Palette,
-    title: 'Thèmes & polices',
-    description:
-      'Console Dark, Console Light et Dracula gratuits, les autres thèmes et polices affichent une étiquette Pro avant déblocage.',
-  },
-  {
-    icon: Zap,
-    title: 'Fonctionnalités Pro',
-    description:
-      'Recherche, surlignage, Zen, watermark et métadonnées sont visibles en Free et activables via upgrade.',
-  },
-  {
-    icon: Download,
-    title: 'Résolution 2×/4×',
-    description:
-      'Des exports nets pour les présentations ou réseaux : tout est rendu côté client, sans installation.',
-  },
-  {
-    icon: Shield,
-    title: '100% privé',
-    description:
-      "Votre code ne quitte jamais votre navigateur : Export, preview et rendu restent locaux.",
-  },
-  {
-    icon: Crop,
-    title: 'Presets ratio + crop intelligent',
-    description:
-      'Exports 1:1, 4:5, 16:9 avec cadrage propre pour éviter les étirements.',
-  },
-  {
-    icon: ScrollText,
-    title: 'Export long + pagination',
-    description:
-      'Capture du scroll complet avec découpage en pages pour les longs snippets.',
-  },
-  {
-    icon: Columns2,
-    title: 'Multi‑panes (split)',
-    description:
-      'Comparez deux versions côte à côte ou en lignes avec surlignage des différences.',
-  },
+const featureIcons = [
+  Image,
+  Link2,
+  Palette,
+  Zap,
+  Download,
+  Shield,
+  Crop,
+  ScrollText,
+  Columns2,
 ];
 
 const Features = () => {
+  const t = useLandingTranslation();
   const sectionRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement[]>([]);
 
@@ -116,20 +74,20 @@ const Features = () => {
     <section ref={sectionRef} id="features" className="relative px-6 py-32">
       <div className="container mx-auto max-w-6xl">
         <div className="features-heading mb-20 text-center">
-          <span className="mb-4 block text-sm font-medium uppercase tracking-wider text-primary">
-            Fonctionnalités
-          </span>
+          <SectionBadge label={t.features.badge} icon={Palette} />
           <h2 className="mb-6 text-4xl font-bold tracking-tight md:text-5xl">
-            Tout ce dont vous avez <span className="text-gradient">besoin</span>
+            {t.features.titlePrefix}{' '}
+            <span className="text-gradient">{t.features.titleGradient}</span>
           </h2>
           <p className="mx-auto max-w-xl text-lg text-muted-foreground">
-            Un outil complet pour créer des captures de code professionnelles en
-            quelques secondes.
+            {t.features.subtitle}
           </p>
         </div>
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {features.map((feature, i) => (
+          {t.features.items.map((feature, i) => {
+            const FeatureIcon = featureIcons[i] ?? Image;
+            return (
             <div
               key={feature.title}
               ref={(el) => {
@@ -138,14 +96,15 @@ const Features = () => {
               className="bg-gradient-card glow-border group relative rounded-2xl border border-border/50 p-8 transition-all duration-500 hover:border-primary/20"
             >
               <div className="mb-5 flex size-12 items-center justify-center rounded-xl bg-primary/10 transition-colors group-hover:bg-primary/15">
-                <feature.icon className="size-6 text-primary" />
+                <FeatureIcon className="size-6 text-primary" />
               </div>
               <h3 className="mb-3 text-xl font-semibold">{feature.title}</h3>
               <p className="leading-relaxed text-muted-foreground">
                 {feature.description}
               </p>
             </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

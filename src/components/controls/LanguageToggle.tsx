@@ -32,7 +32,7 @@ export function LanguageToggle() {
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
       <PopoverTrigger asChild>
-        <Button variant="default" size="sm" className="h-9 gap-2">
+        <Button variant="default" size="sm" className="h-8 gap-2">
           <span className="text-lg">{currentLanguage?.flag}</span>
           <span className="hidden sm:inline">
             {currentLanguage?.code.toUpperCase()}

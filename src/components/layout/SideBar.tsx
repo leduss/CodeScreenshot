@@ -87,6 +87,8 @@ const SideBar = ({
     setExportPaginate,
     exportPageHeight,
     setExportPageHeight,
+    exportSocialPreset,
+    setExportSocialPreset,
     isPro,
     exportsUsed,
     incrementExportsUsed,
@@ -155,6 +157,7 @@ const SideBar = ({
       label: translations.splitDiffTitle,
       locked: !isPro,
     },
+    { key: 'share', label: translations.exportShare, locked: !isPro },
     {
       key: 'exportSettings',
       label: translations.exportSettings,
@@ -168,6 +171,9 @@ const SideBar = ({
   );
   const handleWidthChange = (value: number) => {
     const next = Math.max(100, Math.round(value));
+    if (exportSocialPreset !== 'none') {
+      setExportSocialPreset('none');
+    }
     if (!exportLockRatio) {
       setExportWidth(next);
       return;
@@ -179,6 +185,9 @@ const SideBar = ({
 
   const handleHeightChange = (value: number) => {
     const next = Math.max(100, Math.round(value));
+    if (exportSocialPreset !== 'none') {
+      setExportSocialPreset('none');
+    }
     if (!exportLockRatio) {
       setExportHeight(next);
       return;
@@ -199,8 +208,27 @@ const SideBar = ({
     await new Promise<void>((resolve) =>
       requestAnimationFrame(() => resolve())
     );
+    let editorEl: HTMLDivElement | null = null;
+    let scrollerEl: HTMLElement | null = null;
+    let exportRoot: HTMLElement | null = null;
+    let prevRootBg: string | undefined;
+    let prevEditorStyle: {
+      width: string;
+      height: string;
+      maxHeight: string;
+      overflow: string;
+    } | null = null;
+    let prevScrollerStyle: {
+      height?: string;
+      overflow?: string;
+    } | null = null;
+    const prevEffectStyles: Array<{
+      el: HTMLElement;
+      filter: string;
+      backdropFilter: string;
+    }> = [];
     try {
-      const editorEl = editorRef.current;
+      editorEl = editorRef.current;
       const effectiveExportLong = isPro
         ? exportPaginate
           ? true
@@ -210,7 +238,7 @@ const SideBar = ({
       const rect = editorEl.getBoundingClientRect();
       const headerEl = editorEl.querySelector('header') as HTMLElement | null;
       const footerEl = editorEl.querySelector('footer') as HTMLElement | null;
-      const scrollerEl = editorEl.querySelector(
+      scrollerEl = editorEl.querySelector(
         '.cm-scroller'
       ) as HTMLElement | null;
       const headerHeight = headerEl?.offsetHeight ?? 0;
@@ -221,13 +249,13 @@ const SideBar = ({
         ? fullCodeHeight
         : visibleCodeHeight;
 
-      const prevEditorStyle = {
+      prevEditorStyle = {
         width: editorEl.style.width,
         height: editorEl.style.height,
         maxHeight: editorEl.style.maxHeight,
         overflow: editorEl.style.overflow,
       };
-      const prevScrollerStyle = {
+      prevScrollerStyle = {
         height: scrollerEl?.style.height,
         overflow: scrollerEl?.style.overflow,
       };
@@ -240,11 +268,6 @@ const SideBar = ({
         scrollerEl.style.overflow = effectiveExportLong ? 'visible' : 'hidden';
       }
 
-      const prevEffectStyles: Array<{
-        el: HTMLElement;
-        filter: string;
-        backdropFilter: string;
-      }> = [];
       editorEl.querySelectorAll<HTMLElement>('*').forEach((el) => {
         prevEffectStyles.push({
           el,
@@ -264,8 +287,11 @@ const SideBar = ({
       const contentHeight = headerHeight + footerHeight + codeHeight;
       const aspect = rect.width === 0 ? 1 : contentHeight / rect.width;
       const targetWidth = isPro ? exportWidth : 1200;
+      const useFixedSocialDimensions = isPro && exportSocialPreset !== 'none';
       const targetHeight = isPro
-        ? exportLockRatio
+        ? useFixedSocialDimensions
+          ? exportHeight
+          : exportLockRatio
           ? Math.round(targetWidth * aspect)
           : exportHeight
         : Math.round(targetWidth * aspect);
@@ -282,7 +308,7 @@ const SideBar = ({
             : ratioPreset === '16:9'
               ? 16 / 9
               : null;
-      const exportRoot = editorEl.querySelector(
+      exportRoot = editorEl.querySelector(
         '[data-export-root]'
       ) as HTMLElement | null;
       const resolvedBg = exportRoot
@@ -290,7 +316,7 @@ const SideBar = ({
         : 'rgba(0, 0, 0, 0)';
       const backgroundColor =
         resolvedBg === 'rgba(0, 0, 0, 0)' ? '#121316' : resolvedBg;
-      const prevRootBg = exportRoot?.style.backgroundColor;
+      prevRootBg = exportRoot?.style.backgroundColor;
       if (exportRoot) exportRoot.style.backgroundColor = backgroundColor;
       const options = {
         width: rect.width,
@@ -429,14 +455,19 @@ const SideBar = ({
         incrementExportsUsed();
       }
       setExportOpen(false);
+    } catch {
+      toast.error(translations.error);
+    } finally {
       if (exportRoot && prevRootBg !== undefined) {
         exportRoot.style.backgroundColor = prevRootBg;
       }
-      editorEl.style.width = prevEditorStyle.width;
-      editorEl.style.height = prevEditorStyle.height;
-      editorEl.style.maxHeight = prevEditorStyle.maxHeight;
-      editorEl.style.overflow = prevEditorStyle.overflow;
-      if (scrollerEl) {
+      if (editorEl && prevEditorStyle) {
+        editorEl.style.width = prevEditorStyle.width;
+        editorEl.style.height = prevEditorStyle.height;
+        editorEl.style.maxHeight = prevEditorStyle.maxHeight;
+        editorEl.style.overflow = prevEditorStyle.overflow;
+      }
+      if (scrollerEl && prevScrollerStyle) {
         scrollerEl.style.height = prevScrollerStyle.height ?? '';
         scrollerEl.style.overflow = prevScrollerStyle.overflow ?? '';
       }
@@ -444,12 +475,31 @@ const SideBar = ({
         el.style.filter = filter;
         el.style.backdropFilter = backdropFilter;
       });
-    } catch {
-      toast.error(translations.error);
-    } finally {
       setExporting(false);
       onExportCaptureChange?.(false);
     }
+  };
+  const handleSocialPreset = (preset: 'x' | 'linkedin') => {
+    if (!isPro) return;
+    const sizes = preset === 'x' ? { w: 1280, h: 720 } : { w: 1200, h: 627 };
+    setExportSocialPreset(preset);
+    setExportRatioPreset('auto');
+    setExportLockRatio(true);
+    setExportWidth(sizes.w);
+    setExportHeight(sizes.h);
+  };
+  const handleShare = (network: 'x' | 'linkedin') => {
+    if (!isPro) return;
+    const url = encodeURIComponent(location.href);
+    const baseName = exportFileName.trim() || 'snippet';
+    const text = encodeURIComponent(
+      translations.exportSharePostText.replace('{name}', baseName)
+    );
+    const shareUrl =
+      network === 'x'
+        ? `https://twitter.com/intent/tweet?text=${text}&url=${url}`
+        : `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+    window.open(shareUrl, '_blank', 'noopener,noreferrer');
   };
 
   return (
@@ -887,6 +937,58 @@ const SideBar = ({
                 </div>
 
                 <div className="flex flex-col gap-2">
+                  <label className="text-sm text-white/80">
+                    {translations.exportSocialPreset}
+                    {!isPro && (
+                      <span className="ml-2 rounded bg-primary/20 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary">
+                        Pro
+                      </span>
+                    )}
+                  </label>
+                  <div className="grid grid-cols-3 gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setExportSocialPreset('none')}
+                      className={`rounded border px-2 py-1 text-[11px] uppercase transition ${
+                        exportSocialPreset === 'none'
+                          ? 'border-primary text-primary'
+                          : 'border-white/20 text-white/60 hover:border-primary/50'
+                      }`}
+                      disabled={!isPro}
+                    >
+                      {translations.none}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleSocialPreset('x')}
+                      className={`rounded border px-2 py-1 text-[11px] uppercase transition ${
+                        exportSocialPreset === 'x'
+                          ? 'border-primary text-primary'
+                          : 'border-white/20 text-white/60 hover:border-primary/50'
+                      }`}
+                      disabled={!isPro}
+                    >
+                      X
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleSocialPreset('linkedin')}
+                      className={`rounded border px-2 py-1 text-[11px] uppercase transition ${
+                        exportSocialPreset === 'linkedin'
+                          ? 'border-primary text-primary'
+                          : 'border-white/20 text-white/60 hover:border-primary/50'
+                      }`}
+                      disabled={!isPro}
+                    >
+                      LinkedIn
+                    </button>
+                  </div>
+                  <p className="text-[11px] text-white/40">
+                    {translations.exportSocialHint}
+                  </p>
+                </div>
+
+                <div className="flex flex-col gap-2">
                   <div className="flex items-center justify-between text-sm">
                     <span>
                       {translations.exportQuality}
@@ -1073,6 +1175,38 @@ const SideBar = ({
                     disabled={!isPro || !exportPaginate}
                   />
                 </div>
+
+                <div className="flex flex-col gap-2">
+                  <label className="text-sm text-white/80">
+                    {translations.exportShare}
+                    {!isPro && (
+                      <span className="ml-2 rounded bg-primary/20 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary">
+                        Pro
+                      </span>
+                    )}
+                  </label>
+                  <div className="grid grid-cols-2 gap-2">
+                    <button
+                      type="button"
+                      onClick={() => handleShare('x')}
+                      className="inline-flex h-9 items-center justify-center rounded-md border border-white/10 bg-white/5 px-3 text-xs font-medium text-white/80 transition hover:bg-white/10 disabled:opacity-50"
+                      disabled={!isPro}
+                    >
+                      {translations.exportShareX}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleShare('linkedin')}
+                      className="inline-flex h-9 items-center justify-center rounded-md border border-white/10 bg-white/5 px-3 text-xs font-medium text-white/80 transition hover:bg-white/10 disabled:opacity-50"
+                      disabled={!isPro}
+                    >
+                      {translations.exportShareLinkedIn}
+                    </button>
+                  </div>
+                  <p className="text-[11px] text-white/40">
+                    {translations.exportShareHint}
+                  </p>
+                </div>
               </div>
 
               {!isPro && (
@@ -1186,12 +1320,12 @@ const SideBar = ({
           <LanguageToggle />
         </div>
         <div className="flex items-start gap-1 px-4 pb-1 text-[11px] text-white/60">
-          <span>5 exports PNG gratuits.</span>
+          <span>{remainingLabel}</span>
           <Link
             href="/pricing"
             className="text-primary underline-offset-2 hover:underline"
           >
-            Passez Pro
+            {translations.upgradeCta}
           </Link>
         </div>
       </div>

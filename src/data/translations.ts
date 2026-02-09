@@ -67,6 +67,13 @@ export type TranslationKeys = {
   exportLong: string;
   exportPagination: string;
   exportPageHeight: string;
+  exportSocialPreset: string;
+  exportSocialHint: string;
+  exportShare: string;
+  exportShareX: string;
+  exportShareLinkedIn: string;
+  exportShareHint: string;
+  exportSharePostText: string;
   highlightLines: string;
   linesHash: string;
   font: string;
@@ -176,6 +183,14 @@ export const translations: Record<Locale, TranslationKeys> = {
     exportLong: 'Export long',
     exportPagination: 'Pagination',
     exportPageHeight: 'Hauteur page',
+    exportSocialPreset: 'Preset réseau',
+    exportSocialHint: 'Applique automatiquement les tailles recommandées.',
+    exportShare: 'Partager',
+    exportShareX: 'Partager sur X',
+    exportShareLinkedIn: 'Partager sur LinkedIn',
+    exportShareHint:
+      "Ouvre l'éditeur de partage : ajoute l’image exportée au post.",
+    exportSharePostText: 'Capture {name} — créée avec SnapCode',
     exportFeaturesTitle: 'Fonctionnalités',
     freeExportsRemaining: 'Exports gratuits restants : {count}/5',
     exportGuideTitle: 'Besoin d’un peu plus ?',
@@ -286,6 +301,13 @@ export const translations: Record<Locale, TranslationKeys> = {
     exportLong: 'Long export',
     exportPagination: 'Pagination',
     exportPageHeight: 'Page height',
+    exportSocialPreset: 'Social preset',
+    exportSocialHint: 'Applies recommended sizes automatically.',
+    exportShare: 'Share',
+    exportShareX: 'Share on X',
+    exportShareLinkedIn: 'Share on LinkedIn',
+    exportShareHint: 'Opens the share composer; add the exported image.',
+    exportSharePostText: 'Snippet {name} — created with SnapCode',
     exportFeaturesTitle: 'Features',
     freeExportsRemaining: 'Free exports remaining : {count}/5',
     exportGuideTitle: 'Need more exports?',
@@ -396,6 +418,13 @@ export const translations: Record<Locale, TranslationKeys> = {
     exportLong: 'Export largo',
     exportPagination: 'Paginación',
     exportPageHeight: 'Altura de página',
+    exportSocialPreset: 'Preset social',
+    exportSocialHint: 'Aplica tamaños recomendados automáticamente.',
+    exportShare: 'Compartir',
+    exportShareX: 'Compartir en X',
+    exportShareLinkedIn: 'Compartir en LinkedIn',
+    exportShareHint: 'Abre el compositor; añade la imagen exportada.',
+    exportSharePostText: 'Captura {name} — creada con SnapCode',
     exportFeaturesTitle: 'Características',
     freeExportsRemaining: 'Exportaciones gratuitas restantes : {count}/5',
     exportGuideTitle: '¿Necesitas más exports?',
@@ -506,6 +535,13 @@ export const translations: Record<Locale, TranslationKeys> = {
     exportLong: 'Langer Export',
     exportPagination: 'Paginierung',
     exportPageHeight: 'Seitenhöhe',
+    exportSocialPreset: 'Social-Preset',
+    exportSocialHint: 'Wendet empfohlene Größen automatisch an.',
+    exportShare: 'Teilen',
+    exportShareX: 'Auf X teilen',
+    exportShareLinkedIn: 'Auf LinkedIn teilen',
+    exportShareHint: 'Öffnet den Composer; Bild hinzufügen.',
+    exportSharePostText: 'Snippet {name} — erstellt mit SnapCode',
     exportFeaturesTitle: 'Funktionen',
     freeExportsRemaining: 'Verbleibende Gratis-Exporte : {count}/5',
     exportGuideTitle: 'Braucht du mehr Exporte?',
@@ -616,6 +652,13 @@ export const translations: Record<Locale, TranslationKeys> = {
     exportLong: 'Export lungo',
     exportPagination: 'Paginazione',
     exportPageHeight: 'Altezza pagina',
+    exportSocialPreset: 'Preset social',
+    exportSocialHint: 'Applica automaticamente le dimensioni consigliate.',
+    exportShare: 'Condividi',
+    exportShareX: 'Condividi su X',
+    exportShareLinkedIn: 'Condividi su LinkedIn',
+    exportShareHint: 'Apre il composer; aggiungi l’immagine esportata.',
+    exportSharePostText: 'Snippet {name} — creato con SnapCode',
     exportFeaturesTitle: 'Funzionalità',
     freeExportsRemaining: 'Esportazioni gratuite rimanenti : {count}/5',
     exportGuideTitle: 'Hai bisogno di più esportazioni?',
@@ -726,6 +769,13 @@ export const translations: Record<Locale, TranslationKeys> = {
     exportLong: 'Export longo',
     exportPagination: 'Paginação',
     exportPageHeight: 'Altura da página',
+    exportSocialPreset: 'Preset social',
+    exportSocialHint: 'Aplica tamanhos recomendados automaticamente.',
+    exportShare: 'Partilhar',
+    exportShareX: 'Partilhar no X',
+    exportShareLinkedIn: 'Partilhar no LinkedIn',
+    exportShareHint: 'Abre o compositor; adiciona a imagem exportada.',
+    exportSharePostText: 'Snippet {name} — criado com SnapCode',
     exportFeaturesTitle: 'Funcionalidades',
     freeExportsRemaining: 'Exportações gratuitas restantes : {count}/5',
     exportGuideTitle: 'Precisas de mais exports?',

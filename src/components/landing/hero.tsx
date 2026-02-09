@@ -4,14 +4,17 @@ import { ArrowRight, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '../ui';
 import CodePreview from './code-preview';
+import { useLandingTranslation } from '@/hooks';
+import SectionBadge from './section-badge';
 
 const Hero = () => {
+  const t = useLandingTranslation();
   const heroRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
   const previewRef = useRef<HTMLDivElement>(null);
-  const badgeRef = useRef<HTMLDivElement>(null);
+  const badgeRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -79,32 +82,28 @@ const Hero = () => {
       </div>
 
       <div className="relative z-10 mx-auto max-w-4xl text-center">
-        <div
+        <SectionBadge
           ref={badgeRef}
-          className="mb-8 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5"
-        >
-          <Sparkles className="size-3.5 text-primary" />
-          <span className="text-xs font-medium text-primary">
-            Nouveau — Partage par lien instantané
-          </span>
-        </div>
+          label={t.hero.badge}
+          icon={Sparkles}
+          className="mb-8"
+        />
 
         <h1
           ref={titleRef}
           className="mb-6 text-5xl font-bold leading-[0.95] tracking-tight md:text-7xl lg:text-8xl"
         >
-          Capturez votre
+          {t.hero.titleLine1}
           <br />
-          <span className="text-gradient">code</span> en beauté
+          <span className="text-gradient">{t.hero.titleGradient}</span>{' '}
+          {t.hero.titleLine2}
         </h1>
 
         <p
           ref={subtitleRef}
           className="mx-auto mb-10 max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl"
         >
-          Transformez vos snippets en images élégantes, avec 5 exports PNG
-          gratuits puis un passage Pro en un clic. Export, partage et rendu
-          haut de gamme sans installation.
+          {t.hero.subtitle}
         </p>
 
           <div
@@ -113,7 +112,7 @@ const Hero = () => {
           >
             <Button variant="hero" size="xl" asChild>
               <Link href="/snapcode">
-                Commencer gratuitement
+                {t.hero.cta}
                 <ArrowRight className="size-5" />
               </Link>
             </Button>

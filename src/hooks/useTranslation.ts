@@ -14,7 +14,10 @@ export function useTranslation(): {
   useEffect(() => {
     if (!locale) {
       const savedLocale = localStorage.getItem('language') as Locale;
-      if (savedLocale && (savedLocale === 'fr' || savedLocale === 'en')) {
+      if (
+        savedLocale &&
+        ['fr', 'en', 'es', 'de', 'it', 'pt'].includes(savedLocale)
+      ) {
         setLocale(savedLocale);
       } else {
         setLocale('fr');

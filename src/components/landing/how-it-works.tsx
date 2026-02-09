@@ -2,34 +2,15 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ClipboardPaste, Paintbrush, Share } from 'lucide-react';
+import { useLandingTranslation } from '@/hooks';
+import SectionBadge from './section-badge';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const steps = [
-  {
-    number: '01',
-    icon: ClipboardPaste,
-    title: 'Collez votre code',
-    description:
-      'Collez votre snippet ou importez directement depuis GitHub, VS Code ou votre clipboard.',
-  },
-  {
-    number: '02',
-    icon: Paintbrush,
-    title: 'Personnalisez',
-    description:
-      'Choisissez le thème, la police, les couleurs de fond, les ombres et la taille de votre capture.',
-  },
-  {
-    number: '03',
-    icon: Share,
-    title: 'Exportez & partagez',
-    description:
-      'Téléchargez en PNG ou JPEG haute résolution, ou partagez instantanément via un lien unique.',
-  },
-];
+const stepIcons = [ClipboardPaste, Paintbrush, Share];
 
 const HowItWorks = () => {
+  const t = useLandingTranslation();
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -65,11 +46,10 @@ const HowItWorks = () => {
     <section ref={sectionRef} id="preview" className="relative px-6 py-32">
       <div className="container mx-auto max-w-5xl">
         <div className="how-heading mb-20 text-center">
-          <span className="mb-4 block text-sm font-medium uppercase tracking-wider text-primary">
-            Comment ça marche
-          </span>
+          <SectionBadge label={t.howItWorks.badge} icon={ClipboardPaste} />
           <h2 className="mb-6 text-4xl font-bold tracking-tight md:text-5xl">
-            Trois étapes, <span className="text-gradient">zéro friction</span>
+            {t.howItWorks.titlePrefix}{' '}
+            <span className="text-gradient">{t.howItWorks.titleGradient}</span>
           </h2>
         </div>
 
@@ -77,11 +57,13 @@ const HowItWorks = () => {
           {/* Connecting line */}
           <div className="absolute inset-x-[20%] top-24 hidden h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent md:block" />
 
-          {steps.map((step) => (
+          {t.howItWorks.steps.map((step, index) => {
+            const StepIcon = stepIcons[index] ?? ClipboardPaste;
+            return (
             <div key={step.number} className="step-card relative text-center">
               <div className="relative mb-8 inline-flex">
                 <div className="bg-gradient-card flex size-20 items-center justify-center rounded-2xl border border-border/50 shadow-card">
-                  <step.icon className="size-8 text-primary" />
+                  <StepIcon className="size-8 text-primary" />
                 </div>
                 <span className="bg-gradient-primary absolute -right-3 -top-3 flex size-8 items-center justify-center rounded-full text-xs font-bold text-primary-foreground">
                   {step.number}
@@ -92,7 +74,8 @@ const HowItWorks = () => {
                 {step.description}
               </p>
             </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

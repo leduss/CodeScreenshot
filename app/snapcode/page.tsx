@@ -49,7 +49,7 @@ export default function Capture() {
       }
     }
     return { left: leftDiff, right: rightDiff };
-  }, [code, codeSecond, splitMode]);
+  }, [code, codeSecond, splitMode, diffHighlightEnabled]);
 
   // Load fonts dynamically
   useFontLoader(fontStyle?.link);

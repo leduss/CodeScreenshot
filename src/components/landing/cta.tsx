@@ -4,10 +4,12 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
+import { useLandingTranslation } from '@/hooks';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const CTA = () => {
+  const t = useLandingTranslation();
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -41,27 +43,27 @@ const CTA = () => {
 
           <div className="relative z-10">
             <h2 className="mb-6 text-4xl font-bold tracking-tight md:text-5xl">
-              Prêt à capturer votre
+              {t.cta.titlePrefix}
               <br />
-              <span className="text-gradient">plus beau code</span> ?
+              <span className="text-gradient">{t.cta.titleGradient}</span>{' '}
+              {t.cta.titleSuffix}
             </h2>
             <p className="mx-auto mb-6 max-w-lg text-lg text-muted-foreground">
-              5 exports PNG gratuits pour commencer, puis passez Pro pour une
-              expérience illimitée et toutes les options avancées.
+              {t.cta.subtitle}
             </p>
             <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Button variant="hero" size="xl" asChild>
                 <Link href="/snapcode">
-                  Créer ma première capture
+                  {t.cta.primaryCta}
                   <ArrowRight className="size-5" />
                 </Link>
               </Button>
               <Button variant="hero-outline" size="xl">
-                Passer Pro
+                {t.cta.secondaryCta}
               </Button>
             </div>
             <p className="mt-6 text-sm text-muted-foreground">
-              Gratuit · Sans inscription · 5 exports PNG inclus
+              {t.cta.footnote}
             </p>
           </div>
         </div>
