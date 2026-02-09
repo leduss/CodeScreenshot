@@ -20,6 +20,7 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL(SiteConfig.siteUrl),
+  applicationName: SiteConfig.siteName,
   title: {
     default: SiteConfig.title,
     template: `%s | ${SiteConfig.title}`,
@@ -109,10 +110,10 @@ const jsonLd = {
   },
   featureList: [
     'Syntax highlighting',
-    'Multiple themes',
-    'Export to PNG/SVG/JPG',
-    'Custom fonts',
-    'Line numbers',
+    'Themes and fonts customization',
+    'PNG and JPEG export',
+    'Free and Pro plans',
+    'Code capture sharing',
   ],
 };
 

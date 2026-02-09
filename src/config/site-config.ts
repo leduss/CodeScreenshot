@@ -4,7 +4,9 @@ export const SiteConfig = {
     "Créez de superbes captures d'écran de code avec SnapCode. Personnalisez les thèmes, polices, arrière-plans et plus encore. Exportez en PNG ou JPG. Gratuit et sans inscription.",
   iconHeader: '/icon.png',
   siteName: 'SnapCode',
-  siteUrl: 'https://code-screenshot-five.vercel.app',
+  siteUrl:
+    process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') ??
+    'https://code-screenshot-five.vercel.app',
   keywords: [
     // Français
     'capture de code',
