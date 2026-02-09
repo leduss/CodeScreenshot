@@ -1,4 +1,5 @@
 import { Copy, Download, Share2 } from 'lucide-react';
+import { Button } from '../ui';
 
 const CodePreview = () => {
   return (
@@ -10,7 +11,7 @@ const CodePreview = () => {
         {/* Toolbar */}
         <div className="flex items-center justify-between border-b border-border/50 bg-card px-5 py-3">
           <div className="flex items-center gap-2">
-            <div className="size-3 rounded-full bg-destructive/70" />
+            <div className="size-3 rounded-full bg-red-500" />
             <div className="size-3 rounded-full bg-[hsl(45_90%_50%)]" />
             <div className="size-3 rounded-full bg-[hsl(140_60%_45%)]" />
           </div>
@@ -20,15 +21,15 @@ const CodePreview = () => {
           </div>
 
           <div className="flex items-center gap-2">
-            <button className="rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground">
+            <Button variant="hero-outline">
               <Copy className="size-3.5" />
-            </button>
-            <button className="rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground">
+            </Button>
+            <Button variant="hero-outline">
               <Download className="size-3.5" />
-            </button>
-            <button className="rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-primary">
+            </Button>
+            <Button variant="hero-outline">
               <Share2 className="size-3.5" />
-            </button>
+            </Button>
           </div>
         </div>
 

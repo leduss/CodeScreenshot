@@ -2,10 +2,8 @@
 
 import React from 'react';
 import { Button } from '../ui/button';
-import { Card, CardContent, CardHeader } from '../ui/card';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import { useStore } from '@/store/useStore';
-import { useTranslation } from '@/hooks/useTranslation';
 
 const languages = [
   { code: 'typescript', name: 'TypeScript' },
@@ -34,7 +32,6 @@ const languages = [
 
 const LanguageSelect = () => {
   const { language, setLanguage } = useStore();
-  const { t } = useTranslation();
 
   const currentLanguage =
     languages.find((lang) => lang.code === language) || languages[0];

@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { decompressFromEncodedURIComponent } from 'lz-string';
 import { useStore } from '@/store/useStore';
 import { SideBar } from '@/components/layout';
 import { codeString } from '@/data';
@@ -60,12 +61,69 @@ export default function Capture() {
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
+    const sharedPayload = queryParams.get('s');
+    if (sharedPayload) {
+      try {
+        const decoded = decompressFromEncodedURIComponent(sharedPayload);
+        if (!decoded) {
+          throw new Error('Compressed payload decode failed');
+        }
+        const payload = JSON.parse(decoded) as {
+          code?: string;
+          title?: string;
+          language?: string;
+        };
+        if (typeof payload.code === 'string' && payload.code.length > 0) {
+          const normalized = payload.code
+            .replace(/\r\n/g, '\n')
+            .replace(/\n+$/g, '');
+          setCode(normalized);
+        }
+        if (typeof payload.title === 'string' && payload.title.trim()) {
+          setTitle(payload.title.trim());
+        }
+        if (typeof payload.language === 'string' && payload.language.trim()) {
+          setLanguage(payload.language.trim());
+        }
+        return;
+      } catch {
+        // Fallback to legacy non-compressed ?s= format.
+        try {
+          const base64 = sharedPayload.replace(/-/g, '+').replace(/_/g, '/');
+          const padded = base64 + '='.repeat((4 - (base64.length % 4)) % 4);
+          const decoded = decodeURIComponent(escape(atob(padded)));
+          const payload = JSON.parse(decoded) as {
+            code?: string;
+            title?: string;
+            language?: string;
+          };
+          if (typeof payload.code === 'string' && payload.code.length > 0) {
+            const normalized = payload.code
+              .replace(/\r\n/g, '\n')
+              .replace(/\n+$/g, '');
+            setCode(normalized);
+          }
+          if (typeof payload.title === 'string' && payload.title.trim()) {
+            setTitle(payload.title.trim());
+          }
+          if (
+            typeof payload.language === 'string' &&
+            payload.language.trim()
+          ) {
+            setLanguage(payload.language.trim());
+          }
+          return;
+        } catch {
+          // Fallback to legacy ?code= format.
+        }
+      }
+    }
     const codeParam = queryParams.get('code');
     if (codeParam) {
       const normalized = codeParam.replace(/\r\n/g, '\n').replace(/\n+$/g, '');
       setCode(normalized);
     }
-  }, []);
+  }, [setLanguage]);
 
   useEffect(() => {
     const prevHtmlOverflow = document.documentElement.style.overflow;

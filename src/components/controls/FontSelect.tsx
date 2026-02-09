@@ -11,6 +11,7 @@ import { useStore } from '@/store/useStore';
 import { fonts } from '@/data/fonts';
 import { useTranslation } from '@/hooks/useTranslation';
 import { useEffect } from 'react';
+import { ProBadge } from './ProBadge';
 
 const FontSelect = () => {
   const { font, setFont, isPro } = useStore();
@@ -41,11 +42,7 @@ const FontSelect = () => {
             return (
               <SelectItem key={f.name} value={f.name} disabled={isLocked}>
                 <span className="capitalize">{f.name}</span>
-                {isLocked && (
-                  <span className="ml-2 rounded bg-primary/20 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary">
-                    Pro
-                  </span>
-                )}
+                {isLocked && <ProBadge />}
               </SelectItem>
             );
           })}

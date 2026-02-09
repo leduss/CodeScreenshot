@@ -32,6 +32,8 @@ export type TranslationKeys = {
   windows: string;
   mac: string;
   none: string;
+  close: string;
+  proLabel: string;
   lineNumbers: string;
   zebraStripes: string;
   foldGutter: string;
@@ -67,6 +69,9 @@ export type TranslationKeys = {
   exportLong: string;
   exportPagination: string;
   exportPageHeight: string;
+  exportEstimatedOutput: string;
+  exportEstimatedPages: string;
+  exportPreview: string;
   exportSocialPreset: string;
   exportSocialHint: string;
   exportShare: string;
@@ -112,6 +117,25 @@ export type TranslationKeys = {
   proPresetTitle: string;
   proPresetDescription: string;
   proPresetButton: string;
+  freeWatermark: string;
+  removeLineAria: string;
+  exportResetDev: string;
+  exportInfoSocialAria: string;
+  exportInfoQualityAria: string;
+  exportInfoQualityText: string;
+  exportInfoRatioAria: string;
+  exportInfoRatioText: string;
+  exportInfoLongAria: string;
+  exportInfoLongText: string;
+  exportInfoPaginationAria: string;
+  exportInfoPaginationText: string;
+  devMode: string;
+  devProEnabled: string;
+  devFreeEnabled: string;
+  devSwitchToFree: string;
+  devSwitchToPro: string;
+  termsUnderConstruction: string;
+  home: string;
 };
 
 export const translations: Record<Locale, TranslationKeys> = {
@@ -148,6 +172,8 @@ export const translations: Record<Locale, TranslationKeys> = {
     windows: 'Windows',
     mac: 'Mac',
     none: 'Aucun',
+    close: 'Fermer',
+    proLabel: 'Pro',
     lineNumbers: 'Numéros de ligne',
     zebraStripes: 'Zébrage',
     foldGutter: 'Pliage',
@@ -183,6 +209,9 @@ export const translations: Record<Locale, TranslationKeys> = {
     exportLong: 'Export long',
     exportPagination: 'Pagination',
     exportPageHeight: 'Hauteur page',
+    exportEstimatedOutput: 'Sortie estimée',
+    exportEstimatedPages: '{count} pages',
+    exportPreview: 'Aperçu',
     exportSocialPreset: 'Preset réseau',
     exportSocialHint: 'Applique automatiquement les tailles recommandées.',
     exportShare: 'Partager',
@@ -216,6 +245,29 @@ export const translations: Record<Locale, TranslationKeys> = {
     proPresetDescription:
       'Active instantanément zen, watermark et recherche pour comparer.',
     proPresetButton: 'Activer le preset Pro',
+    freeWatermark: 'SnapCode Free',
+    removeLineAria: 'Supprimer la ligne {line}',
+    exportResetDev: 'Réinitialiser mes exports',
+    exportInfoSocialAria: 'Info preset réseau',
+    exportInfoQualityAria: 'Info qualité export',
+    exportInfoQualityText:
+      "Définit la compression de l'image exportée. Une valeur plus haute donne un rendu plus net mais un fichier plus lourd.",
+    exportInfoRatioAria: 'Info preset ratio',
+    exportInfoRatioText:
+      "Ajuste le format final (1:1, 4:5, 16:9) sans étirer la capture.",
+    exportInfoLongAria: 'Info export long',
+    exportInfoLongText:
+      'Exporte tout le contenu du code, y compris les lignes hors écran visibles via scroll.',
+    exportInfoPaginationAria: 'Info pagination export',
+    exportInfoPaginationText:
+      "Découpe l'export long en plusieurs images selon la hauteur de page.",
+    devMode: 'DEV',
+    devProEnabled: 'Pro activé',
+    devFreeEnabled: 'Free activé',
+    devSwitchToFree: 'Basculer Free',
+    devSwitchToPro: 'Basculer Pro',
+    termsUnderConstruction: 'Page en construction',
+    home: 'Accueil',
     highlightLines: 'Surligner les lignes',
     linesHash: 'Lignes #',
     font: 'Police',
@@ -266,6 +318,8 @@ export const translations: Record<Locale, TranslationKeys> = {
     windows: 'System',
     mac: 'Mac',
     none: 'None',
+    close: 'Close',
+    proLabel: 'Pro',
     lineNumbers: 'Line numbers',
     zebraStripes: 'Zebra stripes',
     foldGutter: 'Folding',
@@ -301,6 +355,9 @@ export const translations: Record<Locale, TranslationKeys> = {
     exportLong: 'Long export',
     exportPagination: 'Pagination',
     exportPageHeight: 'Page height',
+    exportEstimatedOutput: 'Estimated output',
+    exportEstimatedPages: '{count} pages',
+    exportPreview: 'Preview',
     exportSocialPreset: 'Social preset',
     exportSocialHint: 'Applies recommended sizes automatically.',
     exportShare: 'Share',
@@ -333,6 +390,29 @@ export const translations: Record<Locale, TranslationKeys> = {
     proPresetDescription:
       'Enable zen, watermark and search to preview the Pro state.',
     proPresetButton: 'Activate Pro preset',
+    freeWatermark: 'SnapCode Free',
+    removeLineAria: 'Remove line {line}',
+    exportResetDev: 'Reset my exports',
+    exportInfoSocialAria: 'Social preset info',
+    exportInfoQualityAria: 'Export quality info',
+    exportInfoQualityText:
+      'Controls exported image compression. Higher values improve sharpness but increase file size.',
+    exportInfoRatioAria: 'Ratio preset info',
+    exportInfoRatioText:
+      'Sets final output ratio (1:1, 4:5, 16:9) without stretching the capture.',
+    exportInfoLongAria: 'Long export info',
+    exportInfoLongText:
+      'Exports full code content, including lines outside the visible editor area.',
+    exportInfoPaginationAria: 'Export pagination info',
+    exportInfoPaginationText:
+      'Splits a long export into multiple images based on page height.',
+    devMode: 'DEV',
+    devProEnabled: 'Pro enabled',
+    devFreeEnabled: 'Free enabled',
+    devSwitchToFree: 'Switch to Free',
+    devSwitchToPro: 'Switch to Pro',
+    termsUnderConstruction: 'Page is under construction',
+    home: 'Home',
     highlightLines: 'Highlight lines',
     linesHash: 'Lines #',
     font: 'Font',
@@ -383,6 +463,8 @@ export const translations: Record<Locale, TranslationKeys> = {
     windows: 'Sistema',
     mac: 'Mac',
     none: 'Ninguno',
+    close: 'Cerrar',
+    proLabel: 'Pro',
     lineNumbers: 'Números de línea',
     zebraStripes: 'Rayas cebra',
     foldGutter: 'Plegado',
@@ -418,6 +500,9 @@ export const translations: Record<Locale, TranslationKeys> = {
     exportLong: 'Export largo',
     exportPagination: 'Paginación',
     exportPageHeight: 'Altura de página',
+    exportEstimatedOutput: 'Salida estimada',
+    exportEstimatedPages: '{count} páginas',
+    exportPreview: 'Vista previa',
     exportSocialPreset: 'Preset social',
     exportSocialHint: 'Aplica tamaños recomendados automáticamente.',
     exportShare: 'Compartir',
@@ -450,6 +535,29 @@ export const translations: Record<Locale, TranslationKeys> = {
     proPresetDescription:
       'Activa zen, watermark y búsqueda para comparar con la versión Pro.',
     proPresetButton: 'Activar preset Pro',
+    freeWatermark: 'SnapCode Free',
+    removeLineAria: 'Eliminar línea {line}',
+    exportResetDev: 'Restablecer mis exportaciones',
+    exportInfoSocialAria: 'Info de preset social',
+    exportInfoQualityAria: 'Info de calidad de exportación',
+    exportInfoQualityText:
+      'Define la compresión de la imagen exportada. Un valor más alto mejora la nitidez pero aumenta el tamaño del archivo.',
+    exportInfoRatioAria: 'Info de preset de ratio',
+    exportInfoRatioText:
+      'Ajusta el formato final (1:1, 4:5, 16:9) sin estirar la captura.',
+    exportInfoLongAria: 'Info de exportación larga',
+    exportInfoLongText:
+      'Exporta todo el contenido del código, incluidas las líneas fuera del área visible.',
+    exportInfoPaginationAria: 'Info de paginación',
+    exportInfoPaginationText:
+      'Divide una exportación larga en varias imágenes según la altura de página.',
+    devMode: 'DEV',
+    devProEnabled: 'Pro activado',
+    devFreeEnabled: 'Free activado',
+    devSwitchToFree: 'Cambiar a Free',
+    devSwitchToPro: 'Cambiar a Pro',
+    termsUnderConstruction: 'Página en construcción',
+    home: 'Inicio',
     highlightLines: 'Resaltar líneas',
     linesHash: 'Líneas #',
     font: 'Fuente',
@@ -500,6 +608,8 @@ export const translations: Record<Locale, TranslationKeys> = {
     windows: 'System',
     mac: 'Mac',
     none: 'Keiner',
+    close: 'Schließen',
+    proLabel: 'Pro',
     lineNumbers: 'Zeilennummern',
     zebraStripes: 'Zebrastreifen',
     foldGutter: 'Falten',
@@ -535,6 +645,9 @@ export const translations: Record<Locale, TranslationKeys> = {
     exportLong: 'Langer Export',
     exportPagination: 'Paginierung',
     exportPageHeight: 'Seitenhöhe',
+    exportEstimatedOutput: 'Geschätzte Ausgabe',
+    exportEstimatedPages: '{count} Seiten',
+    exportPreview: 'Vorschau',
     exportSocialPreset: 'Social-Preset',
     exportSocialHint: 'Wendet empfohlene Größen automatisch an.',
     exportShare: 'Teilen',
@@ -567,6 +680,29 @@ export const translations: Record<Locale, TranslationKeys> = {
     proPresetDescription:
       'Aktiviere Zen, Wasserzeichen und Suche, um die Pro-Ansicht zu zeigen.',
     proPresetButton: 'Pro Preset aktivieren',
+    freeWatermark: 'SnapCode Free',
+    removeLineAria: 'Zeile {line} entfernen',
+    exportResetDev: 'Meine Exporte zurücksetzen',
+    exportInfoSocialAria: 'Info Social-Preset',
+    exportInfoQualityAria: 'Info Exportqualität',
+    exportInfoQualityText:
+      'Steuert die Komprimierung des exportierten Bildes. Höhere Werte liefern bessere Schärfe, erhöhen aber die Dateigröße.',
+    exportInfoRatioAria: 'Info Verhältnis-Preset',
+    exportInfoRatioText:
+      'Legt das Endformat (1:1, 4:5, 16:9) fest, ohne die Aufnahme zu verzerren.',
+    exportInfoLongAria: 'Info langer Export',
+    exportInfoLongText:
+      'Exportiert den gesamten Codeinhalt, auch Zeilen außerhalb des sichtbaren Bereichs.',
+    exportInfoPaginationAria: 'Info Paginierung',
+    exportInfoPaginationText:
+      'Teilt einen langen Export anhand der Seitenhöhe in mehrere Bilder auf.',
+    devMode: 'DEV',
+    devProEnabled: 'Pro aktiviert',
+    devFreeEnabled: 'Free aktiviert',
+    devSwitchToFree: 'Zu Free wechseln',
+    devSwitchToPro: 'Zu Pro wechseln',
+    termsUnderConstruction: 'Seite im Aufbau',
+    home: 'Startseite',
     highlightLines: 'Zeilen hervorheben',
     linesHash: 'Zeilen #',
     font: 'Schriftart',
@@ -617,6 +753,8 @@ export const translations: Record<Locale, TranslationKeys> = {
     windows: 'Sistema',
     mac: 'Mac',
     none: 'Nessuno',
+    close: 'Chiudi',
+    proLabel: 'Pro',
     lineNumbers: 'Numeri di riga',
     zebraStripes: 'Strisce zebrate',
     foldGutter: 'Piegatura',
@@ -652,6 +790,9 @@ export const translations: Record<Locale, TranslationKeys> = {
     exportLong: 'Export lungo',
     exportPagination: 'Paginazione',
     exportPageHeight: 'Altezza pagina',
+    exportEstimatedOutput: 'Output stimato',
+    exportEstimatedPages: '{count} pagine',
+    exportPreview: 'Anteprima',
     exportSocialPreset: 'Preset social',
     exportSocialHint: 'Applica automaticamente le dimensioni consigliate.',
     exportShare: 'Condividi',
@@ -684,6 +825,29 @@ export const translations: Record<Locale, TranslationKeys> = {
     proPresetDescription:
       'Attiva Zen, watermark e ricerca per vedere cosa offre la versione Pro.',
     proPresetButton: 'Attiva preset Pro',
+    freeWatermark: 'SnapCode Free',
+    removeLineAria: 'Rimuovi riga {line}',
+    exportResetDev: 'Reimposta le mie esportazioni',
+    exportInfoSocialAria: 'Info preset social',
+    exportInfoQualityAria: 'Info qualità export',
+    exportInfoQualityText:
+      "Controlla la compressione dell'immagine esportata. Valori più alti migliorano la nitidezza ma aumentano la dimensione del file.",
+    exportInfoRatioAria: 'Info preset ratio',
+    exportInfoRatioText:
+      'Imposta il formato finale (1:1, 4:5, 16:9) senza deformare la cattura.',
+    exportInfoLongAria: 'Info export lungo',
+    exportInfoLongText:
+      "Esporta tutto il contenuto del codice, incluse le righe fuori dall'area visibile.",
+    exportInfoPaginationAria: 'Info paginazione export',
+    exportInfoPaginationText:
+      "Suddivide un export lungo in più immagini in base all'altezza pagina.",
+    devMode: 'DEV',
+    devProEnabled: 'Pro attivo',
+    devFreeEnabled: 'Free attivo',
+    devSwitchToFree: 'Passa a Free',
+    devSwitchToPro: 'Passa a Pro',
+    termsUnderConstruction: 'Pagina in costruzione',
+    home: 'Home',
     highlightLines: 'Evidenzia righe',
     linesHash: 'Righe #',
     font: 'Font',
@@ -734,6 +898,8 @@ export const translations: Record<Locale, TranslationKeys> = {
     windows: 'Sistema',
     mac: 'Mac',
     none: 'Nenhum',
+    close: 'Fechar',
+    proLabel: 'Pro',
     lineNumbers: 'Números de linha',
     zebraStripes: 'Listras zebradas',
     foldGutter: 'Dobrar',
@@ -769,6 +935,9 @@ export const translations: Record<Locale, TranslationKeys> = {
     exportLong: 'Export longo',
     exportPagination: 'Paginação',
     exportPageHeight: 'Altura da página',
+    exportEstimatedOutput: 'Saída estimada',
+    exportEstimatedPages: '{count} páginas',
+    exportPreview: 'Pré-visualização',
     exportSocialPreset: 'Preset social',
     exportSocialHint: 'Aplica tamanhos recomendados automaticamente.',
     exportShare: 'Partilhar',
@@ -801,6 +970,29 @@ export const translations: Record<Locale, TranslationKeys> = {
     proPresetDescription:
       'Liga Zen, watermark e pesquisa para mostrar o estado Pro.',
     proPresetButton: 'Ativar preset Pro',
+    freeWatermark: 'SnapCode Free',
+    removeLineAria: 'Remover linha {line}',
+    exportResetDev: 'Repor as minhas exportações',
+    exportInfoSocialAria: 'Info preset social',
+    exportInfoQualityAria: 'Info qualidade de exportação',
+    exportInfoQualityText:
+      'Controla a compressão da imagem exportada. Valores mais altos melhoram a nitidez, mas aumentam o tamanho do ficheiro.',
+    exportInfoRatioAria: 'Info preset de proporção',
+    exportInfoRatioText:
+      'Define o formato final (1:1, 4:5, 16:9) sem esticar a captura.',
+    exportInfoLongAria: 'Info export longo',
+    exportInfoLongText:
+      'Exporta todo o conteúdo do código, incluindo linhas fora da área visível.',
+    exportInfoPaginationAria: 'Info paginação de exportação',
+    exportInfoPaginationText:
+      'Divide um export longo em várias imagens com base na altura da página.',
+    devMode: 'DEV',
+    devProEnabled: 'Pro ativo',
+    devFreeEnabled: 'Free ativo',
+    devSwitchToFree: 'Mudar para Free',
+    devSwitchToPro: 'Mudar para Pro',
+    termsUnderConstruction: 'Página em construção',
+    home: 'Início',
     highlightLines: 'Realçar linhas',
     linesHash: 'Linhas #',
     font: 'Tipo de letra',

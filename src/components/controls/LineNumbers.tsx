@@ -6,6 +6,7 @@ import { Button } from '../ui/button';
 import { Checkbox } from '../ui/checkbox';
 import { Separator } from '../ui/separator';
 import { useTranslation } from '@/hooks/useTranslation';
+import { ProBadge } from './ProBadge';
 
 const LineNumbers = () => {
   const {
@@ -51,11 +52,7 @@ const LineNumbers = () => {
       <label className="flex items-center justify-between text-sm">
         <span>
           {t.lineNumbers}
-          {!isPro && (
-            <span className="ml-2 rounded bg-primary/20 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary">
-              Pro
-            </span>
-          )}
+          {!isPro && <ProBadge />}
         </span>
         <Checkbox
           checked={showLineNumbers}
@@ -75,11 +72,7 @@ const LineNumbers = () => {
       <label className="flex items-center justify-between text-sm">
         <span>
           {t.foldGutter}
-          {!isPro && (
-            <span className="ml-2 rounded bg-primary/20 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary">
-              Pro
-            </span>
-          )}
+          {!isPro && <ProBadge />}
         </span>
         <Checkbox
           checked={showFoldGutter}
@@ -91,11 +84,7 @@ const LineNumbers = () => {
       <label className="flex items-center justify-between text-sm">
         <span>
           {t.activeLine}
-          {!isPro && (
-            <span className="ml-2 rounded bg-primary/20 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary">
-              Pro
-            </span>
-          )}
+          {!isPro && <ProBadge />}
         </span>
         <Checkbox
           checked={showActiveLine}
@@ -123,11 +112,7 @@ const LineNumbers = () => {
       <label className="flex items-center justify-between text-sm">
         <span>
           {t.search}
-          {!isPro && (
-            <span className="ml-2 rounded bg-primary/20 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary">
-              Pro
-            </span>
-          )}
+          {!isPro && <ProBadge />}
         </span>
         <Checkbox
           checked={showSearch}
@@ -141,11 +126,7 @@ const LineNumbers = () => {
       <fieldset className="m-0 flex flex-col gap-2 border-0 p-0">
         <label htmlFor={inputId} className="text-sm">
           {t.highlightLines}
-          {!isPro && (
-            <span className="ml-2 rounded bg-primary/20 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary">
-              Pro
-            </span>
-          )}
+          {!isPro && <ProBadge />}
         </label>
         <div className="flex gap-2">
           <input
@@ -175,15 +156,16 @@ const LineNumbers = () => {
                 className="flex items-center gap-1 rounded bg-primary/20 px-2 py-1 text-xs"
               >
                 <span>#{line}</span>
-                <button
-                  type="button"
+                <Button
+                  variant="destructive"
+                  size="icon"
+                  className='size-5 flex items-center justify-center'
                   onClick={() => toggleLineHighlight(line)}
-                  className="text-destructive hover:text-destructive/80 disabled:opacity-50"
-                  aria-label={`Remove line ${line}`}
+                  aria-label={t.removeLineAria.replace('{line}', line.toString())}
                   disabled={!isPro}
                 >
                   ×
-                </button>
+                </Button>
               </li>
             ))}
           </ul>

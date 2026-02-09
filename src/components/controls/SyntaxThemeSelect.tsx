@@ -11,6 +11,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { useTranslation } from '@/hooks/useTranslation';
 import { useEffect } from 'react';
+import { ProBadge } from './ProBadge';
 
 export default function SyntaxThemeSelect() {
   const { syntaxTheme, setSyntaxTheme, isPro } = useStore();
@@ -38,7 +39,7 @@ export default function SyntaxThemeSelect() {
       <p className="w-2/5 text-sm">{translations.syntaxTheme}</p>
       <Popover>
         <PopoverTrigger asChild>
-          <Button variant="hero"  className="m-0 h-7 w-3/5 p-1">
+          <Button variant="hero" className="m-0 h-7 w-3/5 p-1">
             <div
               className={cn(
                 'flex h-full w-full items-center justify-center rounded text-xs px-2',
@@ -56,34 +57,31 @@ export default function SyntaxThemeSelect() {
                 !isPro &&
                 !allowedThemes.some((allowed) => allowed.css === theme.css);
               return (
-              <button
-                key={theme.css}
-                className={cn(
-                  'flex items-center gap-2 px-2 py-1.5 cursor-pointer rounded text-sm transition-colors text-left',
-                  syntaxTheme === theme.css
-                    ? 'bg-primary text-primary-foreground'
-                    : 'hover:bg-muted',
-                  isLocked && 'opacity-50 cursor-not-allowed'
-                )}
-                onClick={() => {
-                  if (!isLocked) setSyntaxTheme(theme.css);
-                }}
-                disabled={isLocked}
-              >
-                <div
-                  className="size-4 shrink-0 rounded"
-                  style={{
-                    background: theme.dark ? '#1e1e1e' : '#f8f8f8',
-                    border: '1px solid #ccc',
+                <Button
+                  key={theme.css}
+                  className={cn(
+                    'flex items-center gap-2 px-2 py-1.5 cursor-pointer text-left',
+                    syntaxTheme === theme.css
+                      ? 'bg-primary text-primary-foreground'
+                      : 'hover:bg-muted',
+                    isLocked && 'opacity-50 cursor-not-allowed'
+                  )}
+                  onClick={() => {
+                    if (!isLocked) setSyntaxTheme(theme.css);
                   }}
-                />
-                <span className="flex-1">{theme.name}</span>
-                {isLocked && (
-                  <span className="rounded bg-primary/20 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary">
-                    Pro
-                  </span>
-                )}
-              </button>
+                  disabled={isLocked}
+                  variant={syntaxTheme === theme.css ? 'default' : 'ghost'}
+                >
+                  <div
+                    className="size-4 shrink-0 rounded"
+                    style={{
+                      background: theme.dark ? '#1e1e1e' : '#f8f8f8',
+                      border: '1px solid #ccc',
+                    }}
+                  />
+                  <span className="flex-1">{theme.name}</span>
+                  {isLocked && <ProBadge className="ml-0" />}
+                </Button>
               );
             })}
           </div>

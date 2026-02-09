@@ -1,9 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Copy, Download, Share2 } from 'lucide-react';
+import { compressToEncodedURIComponent } from 'lz-string';
 import { getLanguageExtension, getLanguageIcon } from '@/utils/language-icons';
 import flourite from 'flourite';
 import { useStore } from '@/store/useStore';
 import { useTranslation } from '@/hooks/useTranslation';
+import { toast } from 'sonner';
+import { toBlob, toJpeg, toPng } from 'html-to-image';
+import { Button } from '../ui';
+import { HoverCard, HoverCardContent, HoverCardTrigger } from '../ui/hover-card';
 
 interface EditorShellProps {
   title: string;
@@ -48,12 +53,15 @@ const EditorShell = ({
     exportFormat,
     exportWidth,
     exportHeight,
+    exportQuality,
     exportsUsed,
   } = useStore();
   const { t: translations } = useTranslation();
   const radiusClass = roundedClass ?? 'rounded-[22px]';
   const glowRadiusClass = roundedClass ?? 'rounded-[24px]';
   const [isEditing, setIsEditing] = useState(false);
+  const [isActionLoading, setIsActionLoading] = useState(false);
+  const exportRootRef = useRef<HTMLDivElement>(null);
   const [language, setLanguage] = useState<string>(initialLanguage);
   const watermarkPositions: Record<string, string> = {
     'top-left': 'top-4 left-4',
@@ -167,12 +175,121 @@ const EditorShell = ({
   };
 
   const isZen = isPro ? zenMode : false;
-  const forcedWatermark = 'SnapCode Free';
+  const forcedWatermark = translations.freeWatermark;
   const effectiveWatermarkText = isPro ? watermarkText : forcedWatermark;
   const effectiveSignatureText = isPro && showSignature ? signatureText : '';
   const footerContentClass = hideFooterContentDuringCapture
     ? 'opacity-0 pointer-events-none'
     : 'opacity-100';
+
+  const encodeSharePayload = (payload: {
+    code: string;
+    title: string;
+    language: string;
+  }) => {
+    try {
+      const json = JSON.stringify({
+        v: 1,
+        ...payload,
+      });
+      return compressToEncodedURIComponent(json);
+    } catch {
+      return null;
+    }
+  };
+
+  const handleShareLink = async () => {
+    try {
+      const shareTitle = getFullFilename();
+      const encoded = encodeSharePayload({
+        code,
+        title: title.trim(),
+        language,
+      });
+      const url = new URL(window.location.href);
+      if (encoded) {
+        url.searchParams.set('s', encoded);
+        url.searchParams.delete('code');
+      }
+      const shareUrl = url.toString();
+      const shareData = {
+        title: shareTitle,
+        text: translations.exportSharePostText.replace('{name}', shareTitle),
+        url: shareUrl,
+      };
+
+      if (navigator.share) {
+        await navigator.share(shareData);
+        return;
+      }
+
+      await navigator.clipboard.writeText(shareUrl);
+      toast.success(translations.linkCopied);
+    } catch (error) {
+      if (error instanceof DOMException && error.name === 'AbortError') {
+        return;
+      }
+      toast.error(translations.error);
+    }
+  };
+
+  const getExportFilenameBase = () => {
+    const trimmed = title.trim() || 'snapcode';
+    return trimmed.replace(/\.[^.]+$/, '');
+  };
+
+  const handleCopyImage = async () => {
+    if (!exportRootRef.current || isActionLoading) return;
+    setIsActionLoading(true);
+    try {
+      const blob = await toBlob(exportRootRef.current, {
+        pixelRatio: 2,
+        cacheBust: true,
+        backgroundColor: '#121316',
+      });
+      if (!blob) {
+        throw new Error('Unable to generate image blob');
+      }
+      const item = new ClipboardItem({ 'image/png': blob });
+      await navigator.clipboard.write([item]);
+      toast.success(translations.imageCopied);
+    } catch {
+      toast.error(translations.somethingWrong);
+    } finally {
+      setIsActionLoading(false);
+    }
+  };
+
+  const handleDownloadImage = async () => {
+    if (!exportRootRef.current || isActionLoading) return;
+    setIsActionLoading(true);
+    try {
+      const format = exportFormat === 'jpg' ? 'jpg' : 'png';
+      const filename = `${getExportFilenameBase()}.${format}`;
+      const dataUrl =
+        format === 'jpg'
+          ? await toJpeg(exportRootRef.current, {
+              pixelRatio: 2,
+              cacheBust: true,
+              backgroundColor: '#121316',
+              quality: Math.min(1, Math.max(0.1, exportQuality / 100)),
+            })
+          : await toPng(exportRootRef.current, {
+              pixelRatio: 2,
+              cacheBust: true,
+              backgroundColor: '#121316',
+            });
+      const link = document.createElement('a');
+      link.href = dataUrl;
+      link.download = filename;
+      link.click();
+      toast.success(translations.downloadSuccess);
+    } catch {
+      toast.error(translations.error);
+    } finally {
+      setIsActionLoading(false);
+    }
+  };
 
   return (
     <div className={`group relative h-full ${className ?? ''}`}>
@@ -180,6 +297,7 @@ const EditorShell = ({
         className={`absolute -inset-1 ${glowRadiusClass} bg-gradient-to-br from-[hsl(220_50%_35%/0.35)] via-transparent to-[hsl(260_45%_40%/0.35)] opacity-60 blur-xl`}
       />
       <div
+        ref={exportRootRef}
         data-export-root
         className={`relative h-full overflow-hidden border border-white/10 bg-[#121316] shadow-[0_20px_60px_rgba(0,0,0,0.55)] ${radiusClass}`}
       >
@@ -220,27 +338,50 @@ const EditorShell = ({
               <div className="flex items-center gap-2 text-muted-foreground">
                 {isPro && !hideHeaderActionsDuringCapture && (
                   <>
-                    <button
-                      className="rounded-md p-1.5 transition-colors hover:bg-white/5 hover:text-white"
-                      type="button"
-                      aria-label={translations.copyImage}
-                    >
-                      <Copy className="size-3.5" />
-                    </button>
-                    <button
-                      className="rounded-md p-1.5 transition-colors hover:bg-white/5 hover:text-white"
-                      type="button"
-                      aria-label={translations.export}
-                    >
-                      <Download className="size-3.5" />
-                    </button>
-                    <button
-                      className="rounded-md p-1.5 transition-colors hover:bg-white/5 hover:text-primary"
-                      type="button"
-                      aria-label={translations.exportShare}
-                    >
-                      <Share2 className="size-3.5" />
-                    </button>
+                    <HoverCard openDelay={120}>
+                      <HoverCardTrigger asChild>
+                        <Button
+                          variant="hero-outline"
+                          aria-label={translations.copyImage}
+                          onClick={handleCopyImage}
+                          disabled={isActionLoading}
+                        >
+                          <Copy className="size-3.5" />
+                        </Button>
+                      </HoverCardTrigger>
+                      <HoverCardContent className="w-auto px-3 py-2 text-xs">
+                        {translations.copyImage}
+                      </HoverCardContent>
+                    </HoverCard>
+                    <HoverCard openDelay={120}>
+                      <HoverCardTrigger asChild>
+                        <Button
+                          variant="hero-outline"
+                          aria-label={translations.export}
+                          onClick={handleDownloadImage}
+                          disabled={isActionLoading}
+                        >
+                          <Download className="size-3.5" />
+                        </Button>
+                      </HoverCardTrigger>
+                      <HoverCardContent className="w-auto px-3 py-2 text-xs">
+                        {translations.export}
+                      </HoverCardContent>
+                    </HoverCard>
+                    <HoverCard openDelay={120}>
+                      <HoverCardTrigger asChild>
+                        <Button
+                          variant="hero-outline"
+                          aria-label={translations.exportShare}
+                          onClick={handleShareLink}
+                        >
+                          <Share2 className="size-3.5" />
+                        </Button>
+                      </HoverCardTrigger>
+                      <HoverCardContent className="w-auto px-3 py-2 text-xs">
+                        {translations.exportShare}
+                      </HoverCardContent>
+                    </HoverCard>
                   </>
                 )}
                 {windowStyle === 'windows' && (
