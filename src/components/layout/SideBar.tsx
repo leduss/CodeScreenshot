@@ -6,6 +6,7 @@ import { SiteConfig } from '@/config/site-config';
 import { useTranslation } from '@/hooks/useTranslation';
 import { SidebarControlsPanel } from './sidebar/SidebarControlsPanel';
 import { SidebarFooterActions } from './sidebar/SidebarFooterActions';
+import Logo from '../logo';
 
 interface SideBarProps {
   editorRef?: React.RefObject<HTMLDivElement | null>;
@@ -37,7 +38,7 @@ const SideBar = ({
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/5 via-transparent to-black/30" />
 
         <header className="relative flex h-12 items-center justify-center border-b border-white/5 bg-[#17181b] px-4 font-mono text-lg font-bold text-primary">
-          {SiteConfig.title}
+          <Logo />
         </header>
 
         {isDev && (

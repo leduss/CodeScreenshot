@@ -12,10 +12,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
-      url: `${SiteConfig.siteUrl}/snapcode`,
+      url: `${SiteConfig.siteUrl}/snipforge`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.9,
+    },
+    {
+      url: `${SiteConfig.siteUrl}/snapcode`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.5,
     },
     {
       url: `${SiteConfig.siteUrl}/terms`,

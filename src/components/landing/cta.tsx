@@ -53,13 +53,13 @@ const CTA = () => {
             </p>
             <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Button variant="hero" size="xl" asChild>
-                <Link href="/snapcode">
+                <Link href="/snipforge">
                   {t.cta.primaryCta}
                   <ArrowRight className="size-5" />
                 </Link>
               </Button>
-              <Button variant="hero-outline" size="xl">
-                {t.cta.secondaryCta}
+              <Button variant="hero-outline" size="xl" asChild>
+                <a href="#pricing">{t.cta.secondaryCta}</a>
               </Button>
             </div>
             <p className="mt-6 text-sm text-muted-foreground">

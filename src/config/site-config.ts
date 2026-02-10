@@ -1,12 +1,12 @@
 export const SiteConfig = {
-  title: 'SnapCode',
+  title: 'Snipforge',
   description:
-    "Créez de superbes captures d'écran de code avec SnapCode. Personnalisez les thèmes, polices, arrière-plans et plus encore. Exportez en PNG ou JPG. Gratuit et sans inscription.",
+    "Créez de superbes captures d'écran de code avec Snipforge. Personnalisez les thèmes, polices, arrière-plans et plus encore. Exportez en PNG ou JPG. Gratuit et sans inscription.",
   iconHeader: '/icon.png',
-  siteName: 'SnapCode',
+  siteName: 'Snipforge',
   siteUrl:
     process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') ??
-    'https://snapcode-one.vercel.app',
+    'https://snipforge.app',
   keywords: [
     // Français
     'capture de code',

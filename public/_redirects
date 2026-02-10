@@ -1,3 +1,5 @@
 # Canonical URLs (without trailing slash)
-/snapcode/ /snapcode 301
+/snapcode /snipforge 301
+/snapcode/ /snipforge 301
+/snipforge/ /snipforge 301
 /terms/ /terms 301

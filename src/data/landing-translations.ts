@@ -135,7 +135,7 @@ const fr: LandingTranslation = {
       'Un outil complet pour créer des captures de code professionnelles en quelques secondes.',
     items: [
       {
-        title: 'Export PNG & JPEG limitée',
+        title: 'Export PNG & JPEG limité',
         description:
           '5 exports PNG gratuits, puis Pro pour débloquer JPEG, qualité adaptative et tailles personnalisées.',
       },
@@ -207,7 +207,7 @@ const fr: LandingTranslation = {
     ],
   },
   freeVsPro: {
-    badge: 'Gratis vs Pro',
+    badge: 'Free vs Pro',
     title: 'Ce dont la version Free te laisse voir vs ce que Pro débloque',
     subtitle:
       'Commence gratuitement, puis passe à Pro quand tu veux plus de contrôle et plus de liberté.',
@@ -233,7 +233,7 @@ const fr: LandingTranslation = {
     titlePrefix: 'Publiez vos captures',
     titleGradient: 'plus vite',
     subtitle:
-      'Préparez vos visuels et votre texte sans quitter SnapCode, puis publiez sur vos réseaux préférés.',
+      'Préparez vos visuels et votre texte sans quitter Snipforge, puis publiez sur vos réseaux préférés.',
     microLine: 'Sans IA pour le moment: 3 textes prêts à adapter.',
     workflowLabel: 'Workflow',
     highlights: [
@@ -254,15 +254,15 @@ const fr: LandingTranslation = {
     titlePrefix: 'Un plan pour chaque',
     titleGradient: 'développeur',
     subtitle:
-      'Commencez gratuitement, évoluez selon vos besoins. Sans engagement, annulable à tout moment.',
-    comingSoon: 'Coming soon',
+      'Commencez gratuitement, puis passez Pro selon vos besoins.',
+    comingSoon: 'Bientôt',
     plans: [
       {
         name: 'Gratuit',
         price: '0€',
         period: 'pour toujours',
         description:
-          'Expérimentez SnapCode avec 5 exports PNG gratuits, puis débloquez la suite.',
+          'Expérimentez Snipforge avec 5 exports PNG gratuits, puis débloquez la suite.',
         features: [
           '5 exports PNG gratuits',
           '3 thèmes inclus + 1 police',
@@ -275,7 +275,7 @@ const fr: LandingTranslation = {
       {
         name: 'Pro',
         price: '6.99€',
-        period: 'offre lancement 2 mois, puis 14.99€ a vie',
+        period: 'offre lancement 2 mois, puis 14.99€ à vie',
         description:
           'Accès illimité aux exports, aux thèmes et aux fonctionnalités avancées (recherche, watermark, métadonnées...).',
         features: [
@@ -287,10 +287,10 @@ const fr: LandingTranslation = {
           'Export long (scroll complet) + pagination',
           'Multi-panes pour comparer deux versions',
           'Tous les thèmes & polices premium',
-          'Recherche, surlignage, line numbers, pliage, ligne active, Zen',
-          'Watermark, metasnippet et signature discrète',
+          'Recherche, surlignage, numéros de ligne, pliage, ligne active, mode Zen',
+          'Filigrane, métasnippet et signature discrète',
           'Pas de filigrane',
-          'Rendu Pro fidèle aux réglages sidebar',
+          'Rendu Pro fidèle aux réglages du panneau',
         ],
         cta: 'Débloquer Pro',
         highlighted: true,
@@ -335,7 +335,7 @@ const fr: LandingTranslation = {
     footnote: 'Gratuit · Sans inscription · 5 exports PNG inclus',
   },
   footer: {
-    rights: '© {year} SnapCode. Tous droits réservés.',
+    rights: '© {year} Snipforge. Tous droits réservés.',
     madeIn: 'Fait en France',
     versionLabel: 'Version',
     productTitle: 'Produit',
@@ -348,7 +348,7 @@ const fr: LandingTranslation = {
     legalTitle: 'Légal',
     legalItems: ['CGU', 'Confidentialité', 'Mentions légales'],
     supportTitle: 'Support',
-    supportItems: ['FAQ', 'Contact: hello@snapcode.app', 'Signaler un bug'],
+    supportItems: ['FAQ', 'Contact: hello@snipforge.app', 'Signaler un bug'],
     trustTitle: 'Confiance',
     trustItems: [
       '100% côté client',
@@ -484,7 +484,7 @@ const en: LandingTranslation = {
     titlePrefix: 'Publish your captures',
     titleGradient: 'faster',
     subtitle:
-      'Prepare your visuals and caption inside SnapCode, then publish to your favorite platforms.',
+      'Prepare your visuals and caption inside Snipforge, then publish to your favorite platforms.',
     microLine: 'No AI for now: 3 ready-to-edit text suggestions.',
     workflowLabel: 'Workflow',
     highlights: [
@@ -513,7 +513,7 @@ const en: LandingTranslation = {
         price: '0€',
         period: 'forever',
         description:
-          'Try SnapCode with 5 free PNG exports, then unlock the rest.',
+          'Try Snipforge with 5 free PNG exports, then unlock the rest.',
         features: [
           '5 free PNG exports',
           '3 included themes + 1 font',
@@ -586,7 +586,7 @@ const en: LandingTranslation = {
     footnote: 'Free · No signup · 5 PNG exports included',
   },
   footer: {
-    rights: '© {year} SnapCode. All rights reserved.',
+    rights: '© {year} Snipforge. All rights reserved.',
     madeIn: 'Made in France',
     versionLabel: 'Version',
     productTitle: 'Product',
@@ -599,7 +599,7 @@ const en: LandingTranslation = {
     legalTitle: 'Legal',
     legalItems: ['Terms', 'Privacy', 'Legal notice'],
     supportTitle: 'Support',
-    supportItems: ['FAQ', 'Contact: hello@snapcode.app', 'Report a bug'],
+    supportItems: ['FAQ', 'Contact: hello@snipforge.app', 'Report a bug'],
     trustTitle: 'Trust',
     trustItems: [
       '100% client-side',
@@ -735,7 +735,7 @@ const es: LandingTranslation = {
     titlePrefix: 'Publica tus capturas',
     titleGradient: 'mas rapido',
     subtitle:
-      'Prepara imagen y texto en SnapCode y publica en tus plataformas favoritas.',
+      'Prepara imagen y texto en Snipforge y publica en tus plataformas favoritas.',
     microLine: 'Sin IA por ahora: 3 textos listos para adaptar.',
     workflowLabel: 'Flujo',
     highlights: [
@@ -764,7 +764,7 @@ const es: LandingTranslation = {
         price: '0€',
         period: 'para siempre',
         description:
-          'Prueba SnapCode con 5 exports PNG gratis y desbloquea el resto despues.',
+          'Prueba Snipforge con 5 exports PNG gratis y desbloquea el resto despues.',
         features: [
           '5 exports PNG gratis',
           '3 temas incluidos + 1 fuente',
@@ -810,7 +810,7 @@ const es: LandingTranslation = {
     footnote: 'Gratis · Sin registro · 5 exports PNG incluidos',
   },
   footer: {
-    rights: '© {year} SnapCode. Todos los derechos reservados.',
+    rights: '© {year} Snipforge. Todos los derechos reservados.',
     madeIn: 'Hecho en Francia',
     versionLabel: 'Version',
     productTitle: 'Producto',
@@ -823,7 +823,7 @@ const es: LandingTranslation = {
     legalTitle: 'Legal',
     legalItems: ['Terminos', 'Privacidad', 'Aviso legal'],
     supportTitle: 'Soporte',
-    supportItems: ['FAQ', 'Contacto: hello@snapcode.app', 'Reportar un bug'],
+    supportItems: ['FAQ', 'Contacto: hello@snipforge.app', 'Reportar un bug'],
     trustTitle: 'Confianza',
     trustItems: [
       '100% del lado del cliente',
@@ -959,7 +959,7 @@ const de: LandingTranslation = {
     titlePrefix: 'Veroffentliche deine Captures',
     titleGradient: 'schneller',
     subtitle:
-      'Bereite Bild und Text in SnapCode vor und veroffentliche auf deinen bevorzugten Netzwerken.',
+      'Bereite Bild und Text in Snipforge vor und veroffentliche auf deinen bevorzugten Netzwerken.',
     microLine: 'Ohne KI vorerst: 3 vorbereitete Textvorschlage.',
     workflowLabel: 'Ablauf',
     highlights: [
@@ -988,7 +988,7 @@ const de: LandingTranslation = {
         price: '0€',
         period: 'fur immer',
         description:
-          'Teste SnapCode mit 5 kostenlosen PNG-Exporten und schalte dann alles frei.',
+          'Teste Snipforge mit 5 kostenlosen PNG-Exporten und schalte dann alles frei.',
         features: [
           '5 kostenlose PNG-Exporte',
           '3 enthaltene Themes + 1 Schriftart',
@@ -1034,7 +1034,7 @@ const de: LandingTranslation = {
     footnote: 'Kostenlos · Ohne Registrierung · 5 PNG-Exporte inklusive',
   },
   footer: {
-    rights: '© {year} SnapCode. Alle Rechte vorbehalten.',
+    rights: '© {year} Snipforge. Alle Rechte vorbehalten.',
     madeIn: 'Hergestellt in Frankreich',
     versionLabel: 'Version',
     productTitle: 'Produkt',
@@ -1049,7 +1049,7 @@ const de: LandingTranslation = {
     supportTitle: 'Support',
     supportItems: [
       'FAQ',
-      'Kontakt: hello@snapcode.app',
+      'Kontakt: hello@snipforge.app',
       'Fehler melden',
     ],
     trustTitle: 'Vertrauen',
@@ -1187,7 +1187,7 @@ const it: LandingTranslation = {
     titlePrefix: 'Pubblica le tue catture',
     titleGradient: 'piu velocemente',
     subtitle:
-      'Prepara immagine e testo in SnapCode e pubblica sulle piattaforme che usi di piu.',
+      'Prepara immagine e testo in Snipforge e pubblica sulle piattaforme che usi di piu.',
     microLine: 'Niente IA per ora: 3 testi pronti da adattare.',
     workflowLabel: 'Workflow',
     highlights: [
@@ -1215,7 +1215,7 @@ const it: LandingTranslation = {
         price: '0€',
         period: 'per sempre',
         description:
-          'Prova SnapCode con 5 export PNG gratuiti e sblocca il resto quando vuoi.',
+          'Prova Snipforge con 5 export PNG gratuiti e sblocca il resto quando vuoi.',
         features: [
           '5 export PNG gratuiti',
           '3 temi inclusi + 1 font',
@@ -1261,7 +1261,7 @@ const it: LandingTranslation = {
     footnote: 'Gratis · Senza registrazione · 5 export PNG inclusi',
   },
   footer: {
-    rights: '© {year} SnapCode. Tutti i diritti riservati.',
+    rights: '© {year} Snipforge. Tutti i diritti riservati.',
     madeIn: 'Creato in Francia',
     versionLabel: 'Versione',
     productTitle: 'Prodotto',
@@ -1274,7 +1274,7 @@ const it: LandingTranslation = {
     legalTitle: 'Legale',
     legalItems: ['Termini', 'Privacy', 'Note legali'],
     supportTitle: 'Supporto',
-    supportItems: ['FAQ', 'Contatto: hello@snapcode.app', 'Segnala un bug'],
+    supportItems: ['FAQ', 'Contatto: hello@snipforge.app', 'Segnala un bug'],
     trustTitle: 'Affidabilita',
     trustItems: [
       '100% lato client',
@@ -1410,7 +1410,7 @@ const pt: LandingTranslation = {
     titlePrefix: 'Publique as suas capturas',
     titleGradient: 'mais rapido',
     subtitle:
-      'Prepare imagem e texto dentro do SnapCode e publique nas redes que mais usa.',
+      'Prepare imagem e texto dentro do Snipforge e publique nas redes que mais usa.',
     microLine: 'Sem IA por enquanto: 3 textos prontos para adaptar.',
     workflowLabel: 'Fluxo',
     highlights: [
@@ -1438,7 +1438,7 @@ const pt: LandingTranslation = {
         price: '0€',
         period: 'para sempre',
         description:
-          'Experimente o SnapCode com 5 exports PNG gratis e desbloqueie o resto depois.',
+          'Experimente o Snipforge com 5 exports PNG gratis e desbloqueie o resto depois.',
         features: [
           '5 exports PNG gratis',
           '3 temas incluidos + 1 fonte',
@@ -1484,7 +1484,7 @@ const pt: LandingTranslation = {
     footnote: 'Gratis · Sem registo · 5 exports PNG incluidos',
   },
   footer: {
-    rights: '© {year} SnapCode. Todos os direitos reservados.',
+    rights: '© {year} Snipforge. Todos os direitos reservados.',
     madeIn: 'Feito em Franca',
     versionLabel: 'Versao',
     productTitle: 'Produto',
@@ -1497,7 +1497,7 @@ const pt: LandingTranslation = {
     legalTitle: 'Legal',
     legalItems: ['Termos', 'Privacidade', 'Aviso legal'],
     supportTitle: 'Suporte',
-    supportItems: ['FAQ', 'Contacto: hello@snapcode.app', 'Reportar bug'],
+    supportItems: ['FAQ', 'Contacto: hello@snipforge.app', 'Reportar bug'],
     trustTitle: 'Confianca',
     trustItems: [
       '100% client-side',

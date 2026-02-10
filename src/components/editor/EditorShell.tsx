@@ -234,7 +234,7 @@ const EditorShell = ({
   };
 
   const getExportFilenameBase = () => {
-    const trimmed = title.trim() || 'snapcode';
+    const trimmed = title.trim() || 'snipforge';
     return trimmed.replace(/\.[^.]+$/, '');
   };
 

@@ -1,5 +1,5 @@
-import { Camera } from 'lucide-react';
 import { useLandingTranslation } from '@/hooks';
+import Logo from '@/components/logo';
 
 const Footer = () => {
   const t = useLandingTranslation();
@@ -14,14 +14,7 @@ const Footer = () => {
       <div className="container mx-auto max-w-6xl">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-[1.2fr_1fr_1fr_1fr_1fr]">
           <div className="flex-col items-start">
-            <div className=" mb-4 flex items-center gap-2 rounded-lg">
-              <div className="bg-gradient-primary flex size-8 items-center justify-center rounded-lg">
-                <Camera className="size-4 text-primary-foreground" />
-              </div>
-              <span className="font-bold tracking-tight">
-                Snap<span className="text-gradient">Code</span>
-              </span>
-            </div>
+            <Logo className="mb-4 gap-2 rounded-lg" textClassName="font-bold" />
             <div>
               <p className="text-sm text-muted-foreground">{rights}</p>
             </div>

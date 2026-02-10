@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Banknote, Check } from 'lucide-react';
 import { useLandingTranslation } from '@/hooks';
 import SectionBadge from './section-badge';
+import Link from 'next/link';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -65,14 +66,6 @@ const Pricing = () => {
                   : 'bg-gradient-card border border-border/50 shadow-card hover:border-border'
               }`}
             >
-              {plan.highlighted && (
-                <div className="absolute -top-4 left-1/2 flex -translate-x-1/2 items-center gap-2">
-                  <span className="bg-gradient-primary whitespace-nowrap rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-wide text-primary-foreground">
-                    {t.pricing.comingSoon}
-                  </span>
-                </div>
-              )}
-
               <div className="mb-8">
                 <h3 className="mb-2 text-xl font-semibold">{plan.name}</h3>
                 <p className="mb-6 text-sm text-muted-foreground">
@@ -112,8 +105,9 @@ const Pricing = () => {
                 variant={plan.highlighted ? 'hero' : 'hero-outline'}
                 size="lg"
                 className="w-full"
+                asChild
               >
-                {plan.cta}
+                <Link href="/snipforge">{plan.cta}</Link>
               </Button>
             </div>
           ))}

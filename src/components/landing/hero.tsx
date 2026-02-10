@@ -111,7 +111,7 @@ const Hero = () => {
             className="flex flex-col items-center justify-center gap-4 sm:flex-row"
           >
             <Button variant="hero" size="xl" asChild>
-              <Link href="/snapcode">
+              <Link href="/snipforge">
                 {t.hero.cta}
                 <ArrowRight className="size-5" />
               </Link>

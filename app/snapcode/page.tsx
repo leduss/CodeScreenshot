@@ -5,9 +5,9 @@ import { decompressFromEncodedURIComponent } from 'lz-string';
 import { useStore } from '@/store/useStore';
 import { SideBar } from '@/components/layout';
 import { codeString } from '@/data';
-import { Loading } from '@/components/ui';
 import { useFontLoader } from '@/hooks';
 import { EditorContent, EditorShell } from '@/components/editor';
+import Loading from '@/components/loader/loading1';
 
 export default function Capture() {
   const {
